@@ -1,0 +1,7 @@
+{
+  "name": "worklog-admin",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
