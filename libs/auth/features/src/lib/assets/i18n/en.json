@@ -1,0 +1,12 @@
+{
+    "auth": {
+        "email_placeholder": "Email",
+        "password_placeholder": "Contraseña",
+        "prueba": "prueba"
+    },
+    "sign_in": {
+        "sign_up_link": "Don't you have an account?",
+        "reset_pass_link": "Reset password",
+        "button_msg": "Sign in"
+    }
+}

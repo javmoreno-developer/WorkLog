@@ -1,0 +1,11 @@
+{
+    "auth": {
+        "email_placeholder": "Email",
+        "password_placeholder": "Contraseña"
+    },
+    "sign_in": {
+        "sign_up_link": "¿No tienes cuenta?",
+        "reset_pass_link": "Restablecer contraseña",
+        "button_msg": "Iniciar sesión"
+    }
+}
