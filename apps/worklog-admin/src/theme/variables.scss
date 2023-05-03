@@ -1,7 +1,20 @@
-// Ionic Variables and Theming. For more info, please see:
-// http://ionicframework.com/docs/theming/
+/** Fonts **/
+@font-face {
+  font-family: "Overpass-regular";
+  src: url('../../../../libs/core/src/lib/assets/fonts/overpass/Overpass-Regular.ttf');
+}
 
-/** Ionic CSS Variables **/
+@font-face {
+  font-family: "Overpass-medium";
+  src: url('../../../../libs/core/src/lib/assets/fonts/overpass/Overpass-Medium.ttf');
+}
+
+@font-face {
+  font-family: "Overpass-bold";
+  src: url('../../../../libs/core/src/lib/assets/fonts/overpass/Overpass-Bold.ttf');
+}
+
+
 :root {
   /** primary **/
   --ion-color-primary: #3880ff;
