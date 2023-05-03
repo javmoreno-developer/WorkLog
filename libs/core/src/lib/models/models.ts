@@ -15,3 +15,7 @@ export interface User {
     surname: string;
     twitter: string;
 }
+
+export interface sendedValue {
+    message: string
+}

@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from "@angular/core";
-import { ApiService, Authenticate, User } from "../../../../core/src";
+import { ApiService, Authenticate, User, sendedValue } from "../../../../core/src";
 import { HttpParams } from "@angular/common/http";
 import { first } from "rxjs";
 import { Router } from "@angular/router";
@@ -11,6 +11,8 @@ import { Router } from "@angular/router";
 })
 export class LoginPage implements OnInit {
   constructor(private router:Router,private apiService: ApiService,@Inject('apiUrlBase') public apiUrlBase: string, @Inject("apiHeaders") public apiHeaders?: any) {}
+
+  isReset: boolean = false;
 
   ngOnInit() {
     if(localStorage.getItem("sessionData") != null) {
@@ -27,7 +29,7 @@ export class LoginPage implements OnInit {
       "email": auth.username,
       "password": auth.password
     }
-    let user = this.apiService.post(url,body,this.apiHeaders).subscribe(result => {
+    this.apiService.post(url,body,this.apiHeaders).subscribe(result => {
       if(result && Object.keys(result).length != 0) {
         let param = result as User
         localStorage.setItem("sessionData",this.apiService.turnString(param))
@@ -35,13 +37,23 @@ export class LoginPage implements OnInit {
       }
     })
     
-
-    /*
-    let url = "http://localhost:8000/api/user/send-email/1"
+  }
+  
+  toReset() {
+    this.isReset = true;
+  }
+  resetPass(param: string) {
+    let url = "http://localhost:8000/api/user/send-email";
     let body = {
-      "email": "starfinn99@gmail.com"
+      "email": param
     }
-    this.apiSvc.post(url,body,url_headers)
-    */
+    this.apiService.post(url,body,this.apiHeaders).subscribe(result => {
+      let param = result as sendedValue
+      console.log(param.message);
+      if(param.message == "Email sended") {
+        this.isReset = false
+      }
+    });
+
   }
 }

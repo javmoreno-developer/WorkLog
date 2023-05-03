@@ -12,27 +12,29 @@ import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { CoreModule, createTranslateLoader } from "../../../../core/src";
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { ResetPassComponent } from "./reset-pass/reset-pass.component";
 
 @NgModule({
-  imports: [CommonModule,
-            FormsModule,
-            IonicModule,
-            LoginPageRoutingModule,
-            ReactiveFormsModule,
-            HttpClientModule,
-            CommonModule, 
-            FormsModule, 
-            IonicModule, 
-            CoreModule,
-            ReactiveFormsModule,
-            TranslateModule.forRoot({
-              loader: {
-                provide: TranslateLoader,
-                useFactory: (createTranslateLoader),
-                deps: [HttpClient]
-              }
-            }),
-          ],
-  declarations: [LoginPage, LoginFormComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    LoginPageRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    CoreModule,
+    ReactiveFormsModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [HttpClient],
+      },
+    }),
+  ],
+  declarations: [LoginPage, LoginFormComponent, ResetPassComponent],
 })
 export class LoginPageModule {}
