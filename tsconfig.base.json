@@ -1,12 +1,24 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es2016",
-    "module": "commonjs",
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
     "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
     "paths": {
+      "@worklog-fe/auth/features": ["libs/auth/features/src/index.ts"],
+      "@worklog-fe/auth/guards": ["libs/auth/guards/src/index.ts"],
       "@worklog-fe/core": ["libs/core/src/index.ts"]
     }
-  }
+  },
+  "exclude": ["node_modules", "tmp"]
 }
