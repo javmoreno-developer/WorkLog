@@ -12,7 +12,7 @@ import { Router } from "@angular/router";
 export class LoginPage implements OnInit {
   constructor(private router:Router,private apiService: ApiService,@Inject('apiUrlBase') public apiUrlBase: string, @Inject("apiHeaders") public apiHeaders?: any) {}
 
-  isReset: boolean = true;
+  isReset: boolean = false;
 
   ngOnInit() {
     if(localStorage.getItem("sessionData") != null) {
