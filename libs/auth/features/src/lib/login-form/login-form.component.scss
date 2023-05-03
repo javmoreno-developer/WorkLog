@@ -56,9 +56,7 @@
                 background: #FAFAFA;
                 --background: #FAFAFA;
                 --placeholder-font-weight: 500;
-
             }
-
         }
 
         h2 {
@@ -97,7 +95,6 @@
     .background-image-login {
         width: 50%;
         height: 50%;
-
         background-repeat: no-repeat;
         background-size: contain;
         background-image: url("../assets/images/login_bg.svg");
@@ -140,6 +137,5 @@
         .background-image-login {
             width: 50% !important;
         }
-
     }
 }
