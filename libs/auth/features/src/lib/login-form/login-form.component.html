@@ -6,18 +6,18 @@
         <h2>LOGO FPIFP MÁLAGA TECH PARK</h2>
         <div class="input-wrapper">
             <ion-item>
-                <ion-input label="Password input" type="username" value="email21938@gmail.com" formControlName="username" placeholder="Email"></ion-input>
+                <ion-input label="Password input" type="username" value="email21938@gmail.com" formControlName="username" placeholder="Email" (ionFocus)="onInputFocus($event)" (ionBlur)="onInputBlur($event,'username')"></ion-input>
             </ion-item>
     
             <ion-item>
-                <ion-input label="Password input" type="password" value="1234" formControlName="password" placeholder="Contraseña"></ion-input>
+                <ion-input label="Password input" type="password" value="1234" formControlName="password" placeholder="Contraseña" (ionFocus)="onInputFocus($event)" (ionBlur)="onInputBlur($event,'password')"></ion-input>
             </ion-item>
         </div>
         
 
         <div class="inline-flex-login">
-            <a href="">¿No tienes cuenta?</a>
-            <a href="">Restablecer contraseña</a>
+            <p>¿No tienes cuenta?</p>
+            <p (click)="toReset()">Restablecer contraseña</p>
         </div>
 
         <button type="submit">Iniciar sesion</button>

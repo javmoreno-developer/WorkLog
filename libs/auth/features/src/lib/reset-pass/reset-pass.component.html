@@ -1,0 +1,28 @@
+<ion-content>
+    <div class="reset-container">
+        <div class="reset-modal">
+            
+            <div class="reset-modal-content">
+                <div class="reset-modal-first-line">
+                    <div class="icon-container">
+                        <ion-icon name="arrow-back-outline" (click)="goBack()"></ion-icon>
+                    </div>
+                   <div class="title-container">
+                        <h1>¿Has olvidado tu contraseña?</h1>
+                   </div>
+                   
+                </div>
+                
+                <h4>Introduce tu dirección de correo educativo para restablecer tu contraseña</h4>
+                <form [formGroup]="myform" (ngSubmit)="submit(myform.value)">
+                    <ion-item>
+                        <ion-input placeholder="Email" formControlName="email" (ionFocus)="onInputFocus($event)" (ionBlur)="onInputBlur($event,'email')"></ion-input>
+                    </ion-item>
+                    <button type="submit">Enviar</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+</ion-content>

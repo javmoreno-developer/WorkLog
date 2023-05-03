@@ -5,5 +5,6 @@
 </ion-header>
 
 <ion-content>
-<worklog-fe-login-form (onSubmit)="login($event)"></worklog-fe-login-form>
+<worklog-fe-login-form (onSubmit)="login($event)" (onReset)="toReset()" *ngIf="isReset == false"></worklog-fe-login-form>
+<worklog-fe-reset-pass *ngIf="isReset == true" (onSubmit)="resetPass($event)" (onBack)="goToLogin()"></worklog-fe-reset-pass>
 </ion-content>
