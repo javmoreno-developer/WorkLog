@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-
 import { HTTP } from '@awesome-cordova-plugins/http/ngx';
 import { IonicModule, Platform } from '@ionic/angular';
 import { createTranslateLoader } from './utils';
 import { LocaleService } from './services/locale.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 export class LocaleId extends String {
   constructor(private localeService: LocaleService) {
@@ -24,10 +24,15 @@ export class LocaleId extends String {
  }
 
 @NgModule({
+  declarations: [
+
+  ],
   imports: [
     CommonModule,
+    IonicModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
-    TranslateModule,
     TranslateModule.forChild({
       loader: {
         provide: TranslateLoader,
@@ -36,13 +41,19 @@ export class LocaleId extends String {
       }
     })
   ],
+  exports:[
+    CommonModule,
+    IonicModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
+  ],
   providers: [
     {
       provide: LOCALE_ID,
       useClass: LocaleId,
-    deps: [LocaleService],
+      deps: [LocaleService],
     },
-  ],
-  exports:[HttpClientModule,TranslateModule]
+  ]
 })
 export class CoreModule {}
