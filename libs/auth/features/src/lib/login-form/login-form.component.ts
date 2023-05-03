@@ -27,4 +27,16 @@ export class LoginFormComponent {
   toReset() {
     this.onReset.emit()
   }
+
+  onInputFocus(event: any) {
+    const ionItem = event.target.closest('ion-item');
+    ionItem.classList.add('input-focus');
+  }
+
+  onInputBlur(event: any,field: string) {
+    if(this.myform.controls[field].valid) {
+      const ionItem = event.target.closest('ion-item');
+      ionItem.classList.remove('input-focus');
+    }
+  }
 }

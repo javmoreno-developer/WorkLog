@@ -15,8 +15,25 @@ export class ResetPassComponent {
   }
 
   @Output() onSubmit: EventEmitter<any> = new EventEmitter();
+  @Output() onBack: EventEmitter<any> = new EventEmitter();
 
   submit(param: any) {
     this.onSubmit.emit(param.email)
+  }
+
+  onInputFocus(event: any) {
+    const ionItem = event.target.closest('ion-item');
+    ionItem.classList.add('input-focus');
+  }
+
+  onInputBlur(event: any,field: string) {
+    if(this.myform.controls[field].valid) {
+      const ionItem = event.target.closest('ion-item');
+      ionItem.classList.remove('input-focus');
+    }
+  }
+
+  goBack() {
+    this.onBack.emit()
   }
 }

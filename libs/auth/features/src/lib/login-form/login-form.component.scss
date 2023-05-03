@@ -1,3 +1,7 @@
+.input-focus {
+    border: none !important;
+}
+
 .container-content {
     width: 100vw;
     height: 100vh;
@@ -19,7 +23,8 @@
 
         .item-interactive {
             --highlight-height: calc(100% - 2px);
-            --border-radius: 10px
+            --border-radius: 10px;
+
         }
 
         .input-wrapper {
@@ -47,8 +52,9 @@
             width: 80%;
             background: #FAFAFA;
             --background: #FAFAFA;
-            border: 1px solid;
+            border: 1px solid rgba($color: #000000, $alpha: 0.5);
             border-radius: 10px;
+
 
             ion-input {
                 width: 100%;
@@ -56,7 +62,8 @@
                 background: #FAFAFA;
                 --background: #FAFAFA;
                 --placeholder-font-weight: 500;
-
+                
+                
             }
 
         }
