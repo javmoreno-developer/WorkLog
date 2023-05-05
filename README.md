@@ -1,5 +1,5 @@
 # WorklogFe
-<a alt="Link to checkot video" href="https://www.youtube.com/watch?v=XkBzSqP6lUU" target="_blank" rel="noreferrer"></a>
+<a alt="Link to checkot video" href="https://www.youtube.com/watch?v=XkBzSqP6lUU" target="_blank" rel="noreferrer">Link al vídeo</a>
 
 <a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
 
