@@ -17,7 +17,7 @@ import { map, tap } from 'rxjs/operators';
 export class AuthGuard implements CanActivate {
   constructor(
     private api:ApiService,
-    private router:Router
+    private router:Router,
   ){
 
   }

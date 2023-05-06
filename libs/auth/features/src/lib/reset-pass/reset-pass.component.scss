@@ -27,8 +27,8 @@
             .reset-modal-first-line {
                 display: flex;
                 width: 90%;
-                justify-content: start;
-                align-items: start;
+                justify-content: flex-start;
+                align-items: flex-start;
                 gap: 5%;
                 text-align: center;
                 ion-icon {

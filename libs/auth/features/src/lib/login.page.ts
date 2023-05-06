@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from "@angular/core";
-import { ApiService, Authenticate, User, sendedValue } from "../../../../core/src";
+import { ApiService, Authenticate, NotificationService, User, sendedValue } from "../../../../core/src";
 import { HttpParams } from "@angular/common/http";
 import { first } from "rxjs";
 import { Router } from "@angular/router";
@@ -10,7 +10,7 @@ import { Router } from "@angular/router";
   styleUrls: ["./login.page.scss"],
 })
 export class LoginPage implements OnInit {
-  constructor(private router:Router,private apiService: ApiService,@Inject('apiUrlBase') public apiUrlBase: string, @Inject("apiHeaders") public apiHeaders?: any) {}
+  constructor(private notification: NotificationService,private router:Router,private apiService: ApiService,@Inject('apiUrlBase') public apiUrlBase: string, @Inject("apiHeaders") public apiHeaders?: any) {}
 
   isReset: boolean = false;
 
@@ -21,6 +21,7 @@ export class LoginPage implements OnInit {
   }
 
   login(auth:Authenticate){
+    
     //this.auth.login(auth);
     //let url = this.apiUrlBase + "user/login/?profileUser=3"
     let url = "http://localhost:8000/api/user/login/?profileUser=3"
@@ -34,6 +35,8 @@ export class LoginPage implements OnInit {
         let param = result as User
         localStorage.setItem("sessionData",this.apiService.turnString(param))
         this.router.navigate(["home"])
+      } else {
+        this.notification.showToast("El nombre de usuario o contraseña es incorrecto","error","medium");
       }
     })
     
@@ -49,10 +52,15 @@ export class LoginPage implements OnInit {
     }
     this.apiService.post(url,body,this.apiHeaders).subscribe(result => {
       let param = result as sendedValue
-      console.log(param.message);
-      if(param.message == "Email sended") {
-        this.isReset = false
-      }
+      
+      this.notification.showToast("Se ha enviado un mensaje a su cuenta de correo","info","long");
+
+      setTimeout(()=> {
+        if(param.message == "Email sended") {
+          this.isReset = false
+        }
+      },1500)
+     
     });
 
   }
