@@ -1,5 +1,6 @@
 ion-content {
   --width: 100vw;
   --height: 100vh;
-  --background: var(--ion-color-light-shade)
+  --background: var(--ion-color-light-shade);
+  --padding-top: 10px !important;
 }
