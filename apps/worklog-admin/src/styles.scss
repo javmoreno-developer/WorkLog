@@ -25,6 +25,8 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+
+
 body {
     --ion-font-family: Overpass-medium !important;
     width: 100vw; height: 100vh;
@@ -67,5 +69,75 @@ ion-toast::part(icon) {
     --background: var(--ion-color-primary);
     --color: #fff;
     
+  }
+
+  /*.datatable-pager {
+    display: flex;
+    justify-content: center;
+    ul {
+      width: 100%;
+      justify-content: center !important;
+      display: flex !important;
+      gap: 2% !important;
+      align-items: center;
+      text-decoration: none;
+      .active {
+        background-color: var(--ion-color-primary);
+        padding: 5px !important;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+        border-radius: 5px;
+        a {
+          color: var(--ion-color-light);
+        }
+      }
+      li {
+        a{
+          text-decoration: none;
+          color: var(--ion-color-dark);
+        }
+      }
+    }
+  }*/
+  .datatable-pager {
+    ul {
+      .active {
+        a {
+          background-color: var(--ion-color-primary) !important;
+          color: var(--ion-color-light) !important;
+        }
+      }
+    }
+  }
+
+  .datatable-body-row {
+    margin-bottom: 5px !important;
+    background-color: white;
+  }
+
+  /* Cambia el color del body de página de la tabla */
+  .datatable-body {
+    background: var(--ion-color-light-shade); 
+  }
+
+  .table-inform {
+    outline: none !important;
+    border:none !important;
+    box-shadow: none !important;
+   
+    & > div {
+      background: var(--ion-color-light-shade); 
+    }
+    .datatable-header {
+      margin-bottom: 20px !important;
+    }
+    .datatable-footer {
+      background-color: white !important;
+    }
+    .datatable-body-row {
+      margin-bottom: 20px !important;
+      background-color: white !important;
+      border-radius: 10px;
+    } 
   }
 

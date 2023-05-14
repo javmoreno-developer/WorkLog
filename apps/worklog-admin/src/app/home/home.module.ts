@@ -5,9 +5,10 @@ import { FormsModule } from "@angular/forms";
 import { HomePage } from "./home.page";
 
 import { HomePageRoutingModule } from "./home-routing.module";
+import { CoreModule } from "@worklog-fe/core";
 
 @NgModule({
-  imports: [CommonModule, FormsModule, IonicModule, HomePageRoutingModule],
+  imports: [CoreModule,CommonModule, FormsModule, IonicModule, HomePageRoutingModule],
   declarations: [HomePage],
 })
 export class HomePageModule {}

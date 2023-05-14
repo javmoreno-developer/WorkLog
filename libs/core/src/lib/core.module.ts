@@ -8,6 +8,9 @@ import { IonicModule, Platform } from "@ionic/angular";
 import { createTranslateLoader } from "./utils";
 import { LocaleService } from "./services/locale.service";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { TableComponent } from "./components/table/table.component";
+import { NgxDatatableModule } from "@swimlane/ngx-datatable";
+import { EmptyPopoverComponent } from "./components/empty-popover/empty-popover.component";
 
 export class LocaleId extends String {
   constructor(private localeService: LocaleService) {
@@ -24,13 +27,14 @@ export class LocaleId extends String {
 }
 
 @NgModule({
-  declarations: [],
+  declarations: [TableComponent, EmptyPopoverComponent],
   imports: [
     CommonModule,
     IonicModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgxDatatableModule,
     TranslateModule.forChild({
       loader: {
         provide: TranslateLoader,
@@ -45,6 +49,7 @@ export class LocaleId extends String {
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    TableComponent,
   ],
   providers: [
     {

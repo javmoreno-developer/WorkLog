@@ -1,0 +1,56 @@
+.edit_icon {
+    color: var(--ion-color-success-shade);
+    font-size: 20px;
+    cursor: pointer;
+    --background: none;
+    --box-shadow: none;
+}
+.delete_icon {
+    color: var(--ion-color-danger-shade);
+    font-size: 20px;
+    cursor: pointer;
+    --background: none;
+    --box-shadow: none;
+}
+.download_icon {
+    color: var(--ion-color-primary);
+    font-size: 20px;
+    cursor: pointer;
+    --background: none;
+    --box-shadow: none;
+}
+.popover_icon {
+    cursor: pointer;
+}
+.see_entries_btn {
+ --border-radius: 16px;  
+ ion-icon {
+    padding-left: 10px;
+ }
+}
+.action_container {
+    display: flex;
+    align-items: center;
+}
+datatable-pager {
+    background-color: red;
+}
+.table-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.table-general {
+    width: 80%;
+}
+.table-inform {
+    width: 80%;
+}
+
+.status_complete {
+    color: var(--ion-color-success-shade);
+}
+
+.status_uncomplete {
+    color: var(--ion-color-danger-shade);
+}
