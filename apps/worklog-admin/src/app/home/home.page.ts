@@ -1,12 +1,44 @@
 import { Component } from "@angular/core";
+import { MenuController } from "@ionic/angular";
 
 @Component({
   selector: "worklog-fe-home",
   templateUrl: "home.page.html",
   styleUrls: ["home.page.scss"],
 })
+
 export class HomePage {
-  constructor() { }
+  sidebar_rows: any
+
+  //ROLES = ["admin","student","teacher","labor"]
+  ROLES = ["admin","admin","teacher","labor"]
+
+  constructor(private menuCtrl: MenuController) {
+     // obtengo las filas necesarias para el sidebar
+     let user = JSON.parse(localStorage.getItem("sessionData") as string)
+     let role = this.ROLES[user.profile]
+
+     if(role == "teacher") {
+      this.sidebar_rows = [
+        {name: "Alumnos", url:"", active: false, icon: "person"},
+        {name: "Convenios", url:"", active: false, icon: "contact_page"},
+        {name: "Empresas", url:"", active: false, icon: "apartment"},
+        {name: "Laborales", url:"", active: false, icon: "location_home"},
+      ]
+     } else if(role == "admin") {
+      this.sidebar_rows = [
+        {name: "Dashboard", url:"", active: true, icon: "dashboard"},
+        {name: "Alumnos", url:"", active: false, icon: "person"},
+        {name: "Convenios", url:"", active: false, icon: "contact_page"},
+        {name: "Empresas", url:"", active: false, icon: "apartment"},
+        {name: "Laborales", url:"", active: false, icon: "location_home"},
+        {name: "Docentes", url:"", active: false, icon: "school"},
+        {name: "Ajustes", url:"", active: false, icon: "settings"},
+      ]
+     }
+   }
+
+  isMenuOpen = false;
 
   rows = [
     {name: "mercy", age: 10, town: "Nairobi", country: "kenya", cssClass: "status_complete"},
@@ -48,4 +80,10 @@ export class HomePage {
     //{icon: "information-circle", text: "", fun: "onClick", cssClass: "download_icon", popover: false},
     //{icon: "ellipsis-vertical", text: "", fun: "onClick", cssClass: "popover_icon", popover: true}
   ]
+
+  closeMenu(param: any) {
+    this.menuCtrl.close();
+  }
+ 
+
 }

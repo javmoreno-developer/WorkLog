@@ -1,0 +1,21 @@
+<ion-menu contentId="main-content">
+  <div class="ion-padding" class="side-content">
+    <ion-menu-toggle class="side-row-container">
+      <div *ngFor="let row of _rows" class="side-row" [class]="row.active ? 'active' : ''">
+        <span class="material-symbols-rounded">{{row.icon}}</span>
+        <a href="{{row.url}}" class="sidebar_link">{{row.name}}</a>
+      </div>
+    </ion-menu-toggle>
+    <div class="close-sidebar-icon-container">
+      <ion-icon name="caret-back-outline" (click)="closeMenu()"></ion-icon>
+    </div>
+  </div>
+</ion-menu>
+
+<div class="ion-page" id="main-content">
+  <div class="ion-padding side-front">
+    <ion-menu-toggle>
+      <ion-icon name="caret-forward-outline"></ion-icon>
+    </ion-menu-toggle>
+  </div>
+</div>
