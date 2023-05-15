@@ -1,4 +1,5 @@
-<worklog-fe-toolbar></worklog-fe-toolbar>
-<ion-content>
+<ion-content class="home_content">
+    <worklog-fe-toolbar></worklog-fe-toolbar>
+    <worklog-fe-sidebar [rows]="sidebar_rows" (onCloseMenu)="closeMenu($event)"></worklog-fe-sidebar>
     <worklog-fe-table [rows]="rows" [columns]="columns" [tableStyle]="tableStyle" [tableButtons]="tableButtons"></worklog-fe-table>
 </ion-content>

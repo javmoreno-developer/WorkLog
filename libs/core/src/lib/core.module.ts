@@ -12,6 +12,7 @@ import { TableComponent } from "./components/table/table.component";
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { EmptyPopoverComponent } from "./components/empty-popover/empty-popover.component";
 import { ToolbarComponent } from "./components/toolbar/toolbar.component";
+import { SidebarComponent } from "./components/sidebar/sidebar.component";
 
 export class LocaleId extends String {
   constructor(private localeService: LocaleService) {
@@ -28,7 +29,12 @@ export class LocaleId extends String {
 }
 
 @NgModule({
-  declarations: [TableComponent, EmptyPopoverComponent, ToolbarComponent],
+  declarations: [
+    TableComponent,
+    EmptyPopoverComponent,
+    ToolbarComponent,
+    SidebarComponent,
+  ],
   imports: [
     CommonModule,
     IonicModule.forRoot(),
@@ -51,7 +57,8 @@ export class LocaleId extends String {
     ReactiveFormsModule,
     HttpClientModule,
     TableComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    SidebarComponent
   ],
   providers: [
     {

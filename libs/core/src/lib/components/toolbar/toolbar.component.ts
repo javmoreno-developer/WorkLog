@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, EventEmitter, Output } from "@angular/core";
 import { PopoverController } from "@ionic/angular";
 import { EmptyPopoverComponent } from "../empty-popover/empty-popover.component";
 
@@ -9,6 +9,7 @@ import { EmptyPopoverComponent } from "../empty-popover/empty-popover.component"
 })
 export class ToolbarComponent {
   constructor(private popoverCtrl: PopoverController) {}
+
   async openPopover(ev: any) {
     const options = [
       { name: 'Opción 1', value: 'opcion1' },
