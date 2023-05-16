@@ -33,6 +33,8 @@ export class HomePage {
         {name: "Empresas", url:"", active: false, icon: "apartment"},
         {name: "Laborales", url:"", active: false, icon: "location_home"},
         {name: "Docentes", url:"", active: false, icon: "school"},
+        {name: "Unidades", url:"", active: false, icon: "calendar_view_month"},
+        {name: "Modulos", url:"", active: false, icon: "book"},
         {name: "Ajustes", url:"", active: false, icon: "settings"},
       ]
      }
