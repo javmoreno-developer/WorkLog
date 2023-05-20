@@ -1,5 +1,9 @@
 <ion-content class="home_content">
     <worklog-fe-toolbar></worklog-fe-toolbar>
     <worklog-fe-sidebar [rows]="sidebar_rows" (onCloseMenu)="closeMenu($event)"></worklog-fe-sidebar>
-    <worklog-fe-table [rows]="rows" [columns]="columns" [tableStyle]="tableStyle" [tableButtons]="tableButtons"></worklog-fe-table>
+    <!--<worklog-fe-table [rows]="rows" [columns]="columns" [tableStyle]="tableStyle" [tableButtons]="tableButtons"></worklog-fe-table>-->
+    <ion-accordion-group class="entry_container">
+        <worklog-fe-entry [orderValue]="'first'" [title]="'Lunes'"></worklog-fe-entry>
+        <worklog-fe-entry [orderValue]="'second'" [title]="'Martes'"></worklog-fe-entry>
+    </ion-accordion-group>
 </ion-content>
