@@ -13,6 +13,7 @@ import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { EmptyPopoverComponent } from "./components/empty-popover/empty-popover.component";
 import { ToolbarComponent } from "./components/toolbar/toolbar.component";
 import { SidebarComponent } from "./components/sidebar/sidebar.component";
+import { EntryComponent } from "./components/entry/entry.component";
 
 export class LocaleId extends String {
   constructor(private localeService: LocaleService) {
@@ -34,6 +35,7 @@ export class LocaleId extends String {
     EmptyPopoverComponent,
     ToolbarComponent,
     SidebarComponent,
+    EntryComponent,
   ],
   imports: [
     CommonModule,
@@ -58,7 +60,8 @@ export class LocaleId extends String {
     HttpClientModule,
     TableComponent,
     ToolbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    EntryComponent,
   ],
   providers: [
     {
