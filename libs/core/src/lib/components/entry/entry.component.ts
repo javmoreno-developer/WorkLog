@@ -17,7 +17,7 @@ export class EntryComponent {
   @Input("title") set _title(n: any) {
     this.title = n
   }
-  constructor(private modalCtr: ModalController) {}
+  constructor() {}
 
   changeTime(event:any) {
     let date = new Date(event.target.value)

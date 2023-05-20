@@ -1,0 +1,16 @@
+<div class="modal-content">
+    <div class="first-row">
+        <ion-icon name="close-outline" (click)="closeModal()"></ion-icon>
+    </div>
+    <div class="second-row">
+        <div *ngFor="let row of textSection; let i = index">
+            <h4 *ngIf="i == 0">{{row}}</h4>
+            <p *ngIf="i != 0">{{row}}</p>
+        </div>
+    </div>
+    <div class="action-row">
+        <ion-button *ngFor="let button of buttonSection" class="button-{{button.type}}" (click)="buttonClicked(button.fun)">
+            {{button.text}}
+        </ion-button>
+    </div>
+</div>

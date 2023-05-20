@@ -14,6 +14,7 @@ import { EmptyPopoverComponent } from "./components/empty-popover/empty-popover.
 import { ToolbarComponent } from "./components/toolbar/toolbar.component";
 import { SidebarComponent } from "./components/sidebar/sidebar.component";
 import { EntryComponent } from "./components/entry/entry.component";
+import { EmptyModalComponent } from "./components/empty-modal/empty-modal.component";
 
 export class LocaleId extends String {
   constructor(private localeService: LocaleService) {
@@ -36,6 +37,7 @@ export class LocaleId extends String {
     ToolbarComponent,
     SidebarComponent,
     EntryComponent,
+    EmptyModalComponent,
   ],
   imports: [
     CommonModule,
@@ -62,6 +64,7 @@ export class LocaleId extends String {
     ToolbarComponent,
     SidebarComponent,
     EntryComponent,
+    EmptyModalComponent,
   ],
   providers: [
     {

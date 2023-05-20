@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
-import { MenuController } from "@ionic/angular";
+import { MenuController, ModalController } from "@ionic/angular";
+import { EmptyModalComponent } from "libs/core/src/lib/components/empty-modal/empty-modal.component";
 
 @Component({
   selector: "worklog-fe-home",
@@ -13,7 +14,7 @@ export class HomePage {
   //ROLES = ["admin","student","teacher","labor"]
   ROLES = ["admin","admin","teacher","labor"]
 
-  constructor(private menuCtrl: MenuController) {
+  constructor(private menuCtrl: MenuController,private modalCtr: ModalController) {
      // obtengo las filas necesarias para el sidebar
      let user = JSON.parse(localStorage.getItem("sessionData") as string)
      let role = this.ROLES[user.profile]
@@ -87,5 +88,27 @@ export class HomePage {
     this.menuCtrl.close();
   }
  
+  async openModal() {
+    const modal = await this.modalCtr.create({
+      component: EmptyModalComponent,
+      componentProps: {
+        textSection: ["Informacion del convenio", "Alumno: javier moreno", "Empresa: aliqindoi"],
+        buttonSection: [{text: "Vaciar", type: "danger", fun: "onEmpty"}]
+      },
+      cssClass: 'general-modal'
+    });
+  
+    modal.present();
+  
+    modal.onDidDismiss().then(result => {
+      switch(result.data.type) {
+        case "cancell":
+          break;
+        case "submit":
+          break;
+      }
+    });
+  
+  }
 
 }
