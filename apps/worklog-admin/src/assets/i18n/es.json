@@ -1,0 +1,46 @@
+{
+    "settings": {
+        "title": "Elija la opción a configurar",
+        "deliberation": "ponderacion",
+        "holidays": "Vacaciones",
+        "duration": "Duracion curso",
+        "database": "Base de datos",
+        "backUpDownload": "La base de datos se ha descargado",
+        "backUpError": "Error en el servidor al importar la base de datos",
+        "holidaysUpdated":"Se ha actualizado el periodo vacacional",
+        "holidaysError": "Error en el servidor al actualizar las vacaciones",
+        "deliberationUpdated":"Se ha actualizado la ponderacion",
+        "deliberationError": "Error en el servidor al actualizar la ponderacion",
+        "deliberationLocalError":"La suma de aptitudes y asignaturas debe ser 100",
+        "durationUpdated": "La duracion ha sido actualizada",
+        "durationError": "Error en el servidor al actualizar la duracion",
+        "databaseDeleted":"Se ha borrado la base de datos",
+        "databaseError":"Error en el servidor al borrar la base de datos",
+        "subjectPlaceholder": "Porcentaje asignaturas (sin %)",
+        "skillPlaceholder":"Aptitudes (sin %)",
+        "deliberationTitle": "Cambio de porcentaje en la ponderación vigente",
+        "holidaySubtitle": "Definicion de periodos vacacionales",
+        "holidayThirdtitle": "Numero de dias: ",
+        "durationSubtitle": "Inicio / Fin curso",
+        "holidayModalTitle": "¿Son estos los días?",
+        "durationModalTitle": "¿Deseas actualizar la duracion del curso?",
+        "durationLocalError": "La fecha de inicio no puede ser mayor o menor que la de fin",
+        "databaseTitle": "Operaciones con la base de datos",
+        "databaseBackUp": "Ultima copia de seguridad:",
+        "databaseApi": "Version de la api:",
+        "databaseModalSubtitle": "¿Deseas vaciar la base de datos?"
+        
+    },
+    "general": {
+        "update": "Actualizar",
+        "reset": "Resetear",
+        "delete": "Borrar",
+        "accept": "Aceptar",
+        "yes": "Si",
+        "no": "No",
+        "cancel": "Cancelar",
+        "warning": "Atencion",
+        "download": "Descargar"
+    }
+    
+ }

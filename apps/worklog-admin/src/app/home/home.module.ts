@@ -5,10 +5,25 @@ import { FormsModule } from "@angular/forms";
 import { HomePage } from "./home.page";
 
 import { HomePageRoutingModule } from "./home-routing.module";
-import { CoreModule } from "@worklog-fe/core";
+import { CoreModule, createTranslateLoader } from "@worklog-fe/core";
+import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
+import { HttpClient } from "@angular/common/http";
 
 @NgModule({
-  imports: [CoreModule,CommonModule, FormsModule, IonicModule, HomePageRoutingModule],
+  imports: [
+    CoreModule,
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    HomePageRoutingModule,
+    TranslateModule.forChild({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      }
+    }),
+  ],
   declarations: [HomePage],
 })
 export class HomePageModule {}

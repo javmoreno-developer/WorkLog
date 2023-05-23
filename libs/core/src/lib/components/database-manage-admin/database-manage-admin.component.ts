@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Inject, Output } from "@angular/core";
 import { AlertController } from "@ionic/angular";
+import { TranslateService } from "@ngx-translate/core";
+import { lastValueFrom } from "rxjs";
 
 @Component({
   selector: "worklog-fe-database-manage-admin",
@@ -12,7 +14,7 @@ export class DatabaseManageAdminComponent {
   @Output() onDownload = new EventEmitter();
   @Output() onDelete = new EventEmitter();
 
-  constructor(private alertCtrl: AlertController,@Inject("apiUrlBase") public apiUrlBase?: any) {}
+  constructor(private translate: TranslateService,private alertCtrl: AlertController,@Inject("apiUrlBase") public apiUrlBase?: any) {}
 
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
@@ -20,18 +22,18 @@ export class DatabaseManageAdminComponent {
 
   async deleteDatabase() {
     const alert = await this.alertCtrl.create({
-      header: 'Atencion',
-      message: '¿Deseas vaciar la base de datos?',
+      header: await lastValueFrom(this.translate.get("general.warning")),
+      message: await lastValueFrom(this.translate.get("settings.databaseModalSubtitle")),
       buttons: [
         {
-          text: 'Cancelar',
+          text: await lastValueFrom(this.translate.get("general.cancel")),
           cssClass: "danger-option",
           handler: () => {
           }
           
         },
         {
-          text: 'Aceptar',
+          text: await lastValueFrom(this.translate.get("general.accept")),
           handler: () => {
             let url = this.apiUrlBase+"db/drop"
             let user = JSON.parse(localStorage.getItem("sessionData") as string)

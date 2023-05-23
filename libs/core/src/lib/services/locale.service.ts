@@ -41,7 +41,7 @@ export class LocaleService {
         break;
      
       default: {
-        this._locale = 'en-uk';
+        this._locale = 'es-es';
         break;
       }
     }

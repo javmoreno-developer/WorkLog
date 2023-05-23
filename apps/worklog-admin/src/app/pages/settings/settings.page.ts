@@ -1,7 +1,9 @@
 import { HttpHeaders, HttpParams } from "@angular/common/http";
 import { Component, Inject, OnInit } from "@angular/core";
 import { MenuController } from "@ionic/angular";
+import { TranslateService } from "@ngx-translate/core";
 import { ApiService, NotificationService } from "@worklog-fe/core";
+import { lastValueFrom } from "rxjs";
 
 @Component({
   selector: "worklog-fe-settings",
@@ -11,7 +13,7 @@ import { ApiService, NotificationService } from "@worklog-fe/core";
 export class SettingsPage implements OnInit {
   componentView: any = "assesment"
 
-  constructor(private notification: NotificationService,private menuCtrl: MenuController, private apiSvc: ApiService,@Inject("apiHeaders") public apiHeaders?: any) {}
+  constructor(private translate: TranslateService,private notification: NotificationService,private menuCtrl: MenuController, private apiSvc: ApiService,@Inject("apiHeaders") public apiHeaders?: any) {}
 
   ngOnInit() {}
 
@@ -23,19 +25,20 @@ export class SettingsPage implements OnInit {
     this.componentView = param
   }
 
-  dbBackUp(object: any) {
+  async dbBackUp(object: any) {
     this.apiSvc.get(object.url, object.param, this.apiHeaders).subscribe(
-      (response) => {
+      async (response) => {
         const blob = new Blob([response as any], { type: 'application/sql' });
         const blobUrl = URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = blobUrl;
         link.download = 'worklog.sql';
         link.click();
-        this.notification.showToast("Se ha descargado la copia de seguridad","success","medium")
+        let message = await lastValueFrom(this.translate.get("settings.backUpDownload"))
+        this.notification.showToast(message,"success","medium")
       },
-     (error) => {
-      this.notification.showToast(error.error.detail,"error","medium")
+     async (error) => {
+      this.notification.showToast(await lastValueFrom(this.translate.get("settings.backUpError")),"error","medium")
      }
     );
   }
@@ -50,11 +53,11 @@ export class SettingsPage implements OnInit {
     });
 
     this.apiSvc.put(object.url, params, object.body, headers).subscribe(
-      (resolve) => {
-        this.notification.showToast("Se ha actualizado el periodo vacacional","success","medium")
+      async (resolve) => {
+        this.notification.showToast(await lastValueFrom(this.translate.get("settings.holidaysUpdated")),"success","medium")
       },
-      (error) => {
-        this.notification.showToast(error.error.detail,"error","medium")
+      async (error) => {
+        this.notification.showToast(await lastValueFrom(this.translate.get("settings.holidaysError")),"error","medium")
       }
     )
   }
@@ -63,11 +66,11 @@ export class SettingsPage implements OnInit {
   assesmentUpdate(param: any) {
     const params = new HttpParams().set("id_check", param.id_check).set("aptitudes_ponderation", param.skill).set("subjects_ponderation",param.subject)
     this.apiSvc.put(param.url, params, null, this.apiHeaders).subscribe(
-      (resolve) => {
-        this.notification.showToast("Se ha actualizado la ponderacion","success","medium")
+      async (resolve) => {
+        this.notification.showToast(await lastValueFrom(this.translate.get("settings.deliberationUpdated")),"success","medium")
       },
-      (error) => {
-        this.notification.showToast(error.error.detail,"error","medium")
+      async (error) => {
+        this.notification.showToast(await lastValueFrom(this.translate.get("settings.deliberationError")),"error","medium")
       }
     )
   }
@@ -76,11 +79,11 @@ export class SettingsPage implements OnInit {
     const params = new HttpParams().set("id_check", event.id_check).set("start_date", event.begin).set("end_date",event.end)
 
     this.apiSvc.put(event.url, params, null, this.apiHeaders).subscribe(
-      (resolve) => {
-        this.notification.showToast("La duracion ha sido actualizada", "success", "medium")
+      async (resolve) => {
+        this.notification.showToast(await lastValueFrom(this.translate.get("settings.durationUpdated")), "success", "medium")
       },
-      (error) => {
-        this.notification.showToast(error.error.detail, "error", "medium")
+      async (error) => {
+        this.notification.showToast(await lastValueFrom(this.translate.get("settings.durationError")),"error","medium")
       }
     )
   }
@@ -88,11 +91,11 @@ export class SettingsPage implements OnInit {
   dbDelete(param: any) {
     const params = new HttpParams().set("id_check",param.id_check)
     this.apiSvc.delete(param.url,params,this.apiHeaders).subscribe(
-      (response)=> {
-        this.notification.showToast("Se ha borrado la base de datos","success","medium")
+      async (response)=> {
+        this.notification.showToast(await lastValueFrom(this.translate.get("settings.databaseDeleted")),"success","medium")
       },
-      (error) => {
-        this.notification.showToast(error.error.detail,"error","medium")
+      async (error) => {
+        this.notification.showToast(await lastValueFrom(this.translate.get("settings.databaseError")),"success","medium")
       } 
     );
   }

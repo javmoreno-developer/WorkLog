@@ -7,10 +7,25 @@ import { IonicModule } from "@ionic/angular";
 import { SettingsPageRoutingModule } from "./settings-routing.module";
 
 import { SettingsPage } from "./settings.page";
-import { CoreModule } from "@worklog-fe/core";
+import { CoreModule, createTranslateLoader } from "@worklog-fe/core";
+import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
+import { HttpClient } from "@angular/common/http";
 
 @NgModule({
-  imports: [CommonModule, FormsModule, IonicModule, SettingsPageRoutingModule, CoreModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    SettingsPageRoutingModule,
+    CoreModule,
+    TranslateModule.forChild({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      }
+    }),
+  ],
   declarations: [SettingsPage],
 })
 export class SettingsPageModule {}

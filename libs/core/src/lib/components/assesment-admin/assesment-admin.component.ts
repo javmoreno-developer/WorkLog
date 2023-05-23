@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Inject, Output } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { TranslateService } from "@ngx-translate/core";
+import { lastValueFrom } from "rxjs";
 
 @Component({
   selector: "worklog-fe-assesment-admin",
@@ -10,7 +12,7 @@ export class AssesmentAdminComponent {
   myform: FormGroup;
   errorMsg: string = "";
 
-  constructor(private fb: FormBuilder, @Inject("apiUrlBase") public apiUrlBase?: any ) {
+  constructor(private translate: TranslateService,private fb: FormBuilder, @Inject("apiUrlBase") public apiUrlBase?: any ) {
     this.myform = this.fb.group({
       subject: ['', [Validators.required, Validators.max(100), Validators.min(0)]],
       skill: ['', [Validators.required, Validators.max(100), Validators.min(0)]]
@@ -20,9 +22,9 @@ export class AssesmentAdminComponent {
   @Output() onSubmit = new EventEmitter();
   @Output() onErrorSubmit = new EventEmitter();
 
-  submit(param: any) {
+  async submit(param: any) {
     // Comprobamos si los porcentajes son correctos
-    if(this.checkPercent(param)) {
+    if(await this.checkPercent(param)) {
       // Se realiza la llamada al padre
       let url = this.apiUrlBase+"setting/ponderation"
       let user = JSON.parse(localStorage.getItem("sessionData") as string)
@@ -48,11 +50,11 @@ export class AssesmentAdminComponent {
     ionItem.classList.add('input-focus');
   }
 
-  checkPercent(param: any): boolean {
+  async checkPercent(param: any) {
     let status: boolean = true;
     if(((param.skill + param.subject) > 100) || ((param.skill + param.subject) < 100)) {
       status = false
-      this.errorMsg = "Aptitudes and Subjects must sum a total of 100"
+      this.errorMsg = await lastValueFrom(this.translate.get("settings.deliberationLocalError"))
     } 
     return status
   }

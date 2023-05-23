@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Inject, Output } from "@angular/core";
 import { IonDatetime, ModalController } from "@ionic/angular";
 import { EmptyModalComponent } from "../empty-modal/empty-modal.component";
+import { lastValueFrom } from "rxjs";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: "worklog-fe-holiday-admin",
@@ -13,7 +15,7 @@ export class HolidayAdminComponent {
   
   @Output() onUpdate = new EventEmitter();
 
-  constructor(private modalCtrl: ModalController,@Inject("apiUrlBase") public apiUrlBase?: any) {}
+  constructor(private translate: TranslateService,private modalCtrl: ModalController,@Inject("apiUrlBase") public apiUrlBase?: any) {}
 
   newDate(event: any,element: IonDatetime) {
     this.dateValues = event.detail.value;
@@ -35,13 +37,13 @@ export class HolidayAdminComponent {
   }
 
   async openModal() {
-    let msg = "¿Son estos los dias?"
+    let msg = await lastValueFrom(this.translate.get("settings.holidayModalTitle"))
     this.dateValues?.unshift(msg)
     const modal = await this.modalCtrl.create({
       component: EmptyModalComponent,
       componentProps: {
         textSection: this.dateValues,
-        buttonSection: [{text: "Aceptar", type: "success", fun: "onSubmit"}],
+        buttonSection: [{text: await lastValueFrom(this.translate.get("general.accept")), type: "success", fun: "onSubmit"}],
       },
       cssClass: 'general-modal'
     });
@@ -50,8 +52,11 @@ export class HolidayAdminComponent {
   
     modal.onDidDismiss().then(result => {
       switch(result.data.type) {
-        case "cancell":
-          this.dateValues?.shift()
+        case "cancel":
+          if(this.dateValues && this.dateValues?.length >0) {
+            this.dateValues?.shift()  
+          }
+          
           break;
         case "submit":
           let url = this.apiUrlBase+"setting/holidays"

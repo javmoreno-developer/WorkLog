@@ -77,7 +77,7 @@ export class HomePage {
   
     modal.onDidDismiss().then(result => {
       switch(result.data.type) {
-        case "cancell":
+        case "cancel":
           break;
         case "submit":
           break;

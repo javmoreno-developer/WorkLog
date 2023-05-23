@@ -22,7 +22,7 @@ export class EmptyModalComponent {
   }
 
   closeModal() {
-    this.modalCtr.dismiss()
+    this.modalCtr.dismiss({type: "cancel"})
   }
   onEmpty() {
     console.log("empty")

@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Inject, Output } from "@angular/core";
 import { AlertController, IonDatetime, ModalController } from "@ionic/angular";
 import { EmptyModalComponent } from "../empty-modal/empty-modal.component";
+import { TranslateService } from "@ngx-translate/core";
+import { lastValueFrom } from "rxjs";
 
 @Component({
   selector: "worklog-fe-duration-admin",
@@ -8,7 +10,7 @@ import { EmptyModalComponent } from "../empty-modal/empty-modal.component";
   styleUrls: ["./duration-admin.component.scss"],
 })
 export class DurationAdminComponent {
-  constructor(private alertCtrl: AlertController,@Inject("apiUrlBase") public apiUrlBase?: any) {}
+  constructor(private translate: TranslateService,private alertCtrl: AlertController,@Inject("apiUrlBase") public apiUrlBase?: any) {}
 
   @Output() onUpdate = new EventEmitter();
   @Output() onError = new EventEmitter();
@@ -18,11 +20,11 @@ export class DurationAdminComponent {
 
   public alertButtons = [
     {
-      text: 'No',
+      text: lastValueFrom(this.translate.get("general.no")),
       cssClass: 'alert-button-cancel',
     },
     {
-      text: 'Yes',
+      text: lastValueFrom(this.translate.get("general.yes")),
       cssClass: 'alert-button-confirm',
     },
   ];
@@ -59,25 +61,25 @@ export class DurationAdminComponent {
     let user = JSON.parse(localStorage.getItem("sessionData") as string)
 
     const alert = await this.alertCtrl.create({
-      header: 'Atencion',
-      message: '¿Deseas actualizar la duracion del curso?',
+      header: await lastValueFrom(this.translate.get("general.warning")),
+      message: await lastValueFrom(this.translate.get("settings.durationModalTitle")),
       buttons: [
         {
-          text: 'Cancelar',
+          text: await lastValueFrom(this.translate.get("general.cancel")),
           cssClass: "danger-option",
           handler: () => {
           }
           
         },
         {
-          text: 'Aceptar',
-          handler: () => {
+          text: await lastValueFrom(this.translate.get("general.accept")),
+          handler: async () => {
             if(this.checkOrder()) {
               let url = this.apiUrlBase + "setting/grade_duration"
               this.onUpdate.emit({begin: this.begin, end: this.end, url: url, id_check: user.profile})
               this.resetDate(element)
             } else {
-              this.onError.emit("La fecha de inicio no puede ser mayor o menor que la de fin")
+              this.onError.emit(await lastValueFrom(this.translate.get("settings.durationLocalError")))
               this.resetDate(element)
             }
             

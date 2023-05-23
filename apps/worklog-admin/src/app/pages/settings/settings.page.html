@@ -5,20 +5,20 @@
   <!-- Segment -->
   <div class="segment-container">
     <div class="segment-block">
-      <h4>Elige la opcion a configurar</h4>
+      <h4>{{'settings.title' | translate}}</h4>
 
       <ion-segment color="primary" value="first" disable-activated>
         <ion-segment-button value="first" (click)="changeView('assesment')">
-          <ion-label>Ponderacion</ion-label>
+          <ion-label>{{'settings.deliberation' | translate}}</ion-label>
         </ion-segment-button>
         <ion-segment-button value="second" (click)="changeView('holidays')">
-          <ion-label>Vacaciones</ion-label>
+          <ion-label>{{'settings.holidays' | translate}}</ion-label>
         </ion-segment-button>
         <ion-segment-button value="third" (click)="changeView('duration')">
-          <ion-label>Duracion curso</ion-label>
+          <ion-label>{{'settings.duration' | translate}}</ion-label>
         </ion-segment-button>
         <ion-segment-button value="fourth" (click)="changeView('database')">
-          <ion-label>Base de datos</ion-label>
+          <ion-label>{{'settings.database' | translate}}</ion-label>
         </ion-segment-button>
       </ion-segment>
 
