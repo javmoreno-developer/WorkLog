@@ -27,5 +27,8 @@
       <worklog-fe-duration-admin (onError)="onError($event)" (onUpdate)="updateDuration($event)" *ngIf="componentView == 'duration'" class="segment-component"></worklog-fe-duration-admin>
       <worklog-fe-database-manage-admin (onDelete)="dbDelete($event)" (onDownload)="dbBackUp($event)" *ngIf="componentView == 'database'" class="segment-component"></worklog-fe-database-manage-admin>
     </div>
+    
+   
   </div>
+  <worklog-fe-footer class="footer"></worklog-fe-footer>
 </ion-content>

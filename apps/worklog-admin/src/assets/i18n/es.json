@@ -31,6 +31,10 @@
         "databaseModalSubtitle": "¿Deseas vaciar la base de datos?"
         
     },
+    "footer": {
+        "author1": "SGG",
+        "author2": "JMA"
+    },
     "general": {
         "update": "Actualizar",
         "reset": "Resetear",

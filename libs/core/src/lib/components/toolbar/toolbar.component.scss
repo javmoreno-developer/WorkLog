@@ -1,12 +1,14 @@
 ion-toolbar {
     --background: rgba(var(--ion-rgb-red),var(--ion-rgb-green),var(--ion-rgb-blue),0.7);
     padding-right: 10px;
+    height: 6vh;
     
 }
 .toolbar-image {
     transform: scale(0.8);
     width: 80%;
     height: 5vh;
+ 
     cursor: pointer;
 }
 

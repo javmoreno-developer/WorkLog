@@ -1,0 +1,16 @@
+.footer-container {
+    display: flex;
+    height: 5vh;
+    width: 100%;
+    position: absolute;
+    align-items: center;
+    z-index: 102;
+    background-color: rgba(var(--ion-rgb-red), var(--ion-rgb-green), var(--ion-rgb-blue), 0.3);
+    a {
+        color: black;
+    }
+}
+#copy_icon {
+    margin-right: 10px;
+    margin-left: 10px;
+}

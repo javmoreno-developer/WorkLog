@@ -19,6 +19,7 @@ import { AssesmentAdminComponent } from "./components/assesment-admin/assesment-
 import { DurationAdminComponent } from "./components/duration-admin/duration-admin.component";
 import { DatabaseManageAdminComponent } from "./components/database-manage-admin/database-manage-admin.component";
 import { HolidayAdminComponent } from "./components/holiday-admin/holiday-admin.component";
+import { FooterComponent } from "./components/footer/footer.component";
 
 export class LocaleId extends String {
   constructor(private localeService: LocaleService) {
@@ -46,6 +47,7 @@ export class LocaleId extends String {
     DurationAdminComponent,
     DatabaseManageAdminComponent,
     HolidayAdminComponent,
+    FooterComponent
   ],
   imports: [
     CommonModule,
@@ -76,7 +78,8 @@ export class LocaleId extends String {
     AssesmentAdminComponent,
     DurationAdminComponent,
     DatabaseManageAdminComponent,
-    HolidayAdminComponent
+    HolidayAdminComponent,
+    FooterComponent
   ],
   providers: [
     {
