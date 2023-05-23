@@ -1,0 +1,31 @@
+<ion-content>
+  <worklog-fe-toolbar></worklog-fe-toolbar>
+  <worklog-fe-sidebar (onCloseMenu)="closeMenu($event)"></worklog-fe-sidebar>
+
+  <!-- Segment -->
+  <div class="segment-container">
+    <div class="segment-block">
+      <h4>Elige la opcion a configurar</h4>
+
+      <ion-segment color="primary" value="first" disable-activated>
+        <ion-segment-button value="first" (click)="changeView('assesment')">
+          <ion-label>Ponderacion</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="second" (click)="changeView('holidays')">
+          <ion-label>Vacaciones</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="third" (click)="changeView('duration')">
+          <ion-label>Duracion curso</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="fourth" (click)="changeView('database')">
+          <ion-label>Base de datos</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+
+      <worklog-fe-assesment-admin (onErrorSubmit)="onError($event)" (onSubmit)="assesmentUpdate($event)" *ngIf="componentView == 'assesment'" class="segment-component"></worklog-fe-assesment-admin>
+      <worklog-fe-holiday-admin (onUpdate)="updateHolidays($event)" *ngIf="componentView == 'holidays'" class="segment-component"></worklog-fe-holiday-admin>
+      <worklog-fe-duration-admin (onError)="onError($event)" (onUpdate)="updateDuration($event)" *ngIf="componentView == 'duration'" class="segment-component"></worklog-fe-duration-admin>
+      <worklog-fe-database-manage-admin (onDelete)="dbDelete($event)" (onDownload)="dbBackUp($event)" *ngIf="componentView == 'database'" class="segment-component"></worklog-fe-database-manage-admin>
+    </div>
+  </div>
+</ion-content>

@@ -9,36 +9,11 @@ import { EmptyModalComponent } from "libs/core/src/lib/components/empty-modal/em
 })
 
 export class HomePage {
-  sidebar_rows: any
 
-  //ROLES = ["admin","student","teacher","labor"]
-  ROLES = ["admin","admin","teacher","labor"]
+
 
   constructor(private menuCtrl: MenuController,private modalCtr: ModalController) {
-     // obtengo las filas necesarias para el sidebar
-     let user = JSON.parse(localStorage.getItem("sessionData") as string)
-     let role = this.ROLES[user.profile]
-
-     if(role == "teacher") {
-      this.sidebar_rows = [
-        {name: "Alumnos", url:"", active: false, icon: "person"},
-        {name: "Convenios", url:"", active: false, icon: "contact_page"},
-        {name: "Empresas", url:"", active: false, icon: "apartment"},
-        {name: "Laborales", url:"", active: false, icon: "location_home"},
-      ]
-     } else if(role == "admin") {
-      this.sidebar_rows = [
-        {name: "Dashboard", url:"", active: true, icon: "dashboard"},
-        {name: "Alumnos", url:"", active: false, icon: "person"},
-        {name: "Convenios", url:"", active: false, icon: "contact_page"},
-        {name: "Empresas", url:"", active: false, icon: "apartment"},
-        {name: "Laborales", url:"", active: false, icon: "location_home"},
-        {name: "Docentes", url:"", active: false, icon: "school"},
-        {name: "Unidades", url:"", active: false, icon: "calendar_view_month"},
-        {name: "Modulos", url:"", active: false, icon: "book"},
-        {name: "Ajustes", url:"", active: false, icon: "settings"},
-      ]
-     }
+    
    }
 
   isMenuOpen = false;

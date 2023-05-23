@@ -143,3 +143,6 @@ ion-toast::part(icon) {
   .general-modal {
     --border-radius: 20px;
   }
+  .danger-option {
+    color: var(--ion-color-danger) !important;
+}

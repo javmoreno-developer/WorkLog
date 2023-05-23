@@ -15,6 +15,11 @@ const routes: Routes = [
       import("@worklog-fe/auth/features").then((m) => m.LoginPageModule),
   },
   {
+    path: "settings",
+    loadChildren: () =>
+      import("./pages/settings/settings.module").then((m) => m.SettingsPageModule)
+  },
+  {
     path: "",
     redirectTo: "home",
     pathMatch: "full",

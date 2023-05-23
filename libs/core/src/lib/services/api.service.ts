@@ -22,10 +22,13 @@ export class ApiService {
   }
 
 
-  get(url:string,params: HttpParams,headers: any) {
-    this.http.get(url, { params,headers }).subscribe((data) => {
-      console.log(data);
-    });
+  get(url:string,params: HttpParams | null,headers: any) {
+    if(params) {
+      return this.http.get(url, { params,headers })
+    } else {
+      return this.http.get(url, { headers })
+    }
+   
 
   }
 
@@ -41,14 +44,21 @@ export class ApiService {
   }
 
   delete(url:string,params: HttpParams,headers: any) {
-    this.http.delete(url, {params, headers }).subscribe(response => {
-      console.log(response);
-    });
+    return this.http.delete(url, {params, headers })
   }
 
-  put(url:string,params: HttpParams,body: any,headers: any) {
+  /*put(url:string,params: HttpParams,body: any,headers: any) {
     this.http.put(url, body,{headers,params }).subscribe(response => {
       console.log(response);
     });
+  }*/
+
+  put(url:string,params: HttpParams | null,body: any,headers: any) {
+    if(params) {
+      return this.http.put(url, body,{params,headers })
+    } else {
+      return this.http.put(url, body,{headers })
+    }
+    
   }
 }

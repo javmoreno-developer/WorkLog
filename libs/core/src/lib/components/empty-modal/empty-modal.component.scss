@@ -18,6 +18,10 @@
         flex-direction: column;
         align-items: center;
     }
+    .second-row-block {
+        display: flex;
+        justify-content: center;
+    }
     .action-row {
         height: 20%;
         display: flex;
@@ -27,5 +31,9 @@
     .button-danger {
         --background: var(--ion-color-danger);
         --color: var(--ion-color-light);
+    }
+    .button-success {
+        --background: rgba(var(--ion-color-entry-rgb),0.5);
+        --color: black;
     }
 }

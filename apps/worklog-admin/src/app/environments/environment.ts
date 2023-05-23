@@ -9,7 +9,7 @@ export const environment = {
   production: false,
   headers: new HttpHeaders({
     "api-key": "4f54e235-a92e-4d93-a1a4-ffe842b8e949",
-    'Content-Type': 'application/json',
+    'Content-Type': 'text/plain',
     "server": "uvicorn",
   }),
   api_url: "http://localhost:8000/api/"

@@ -1,0 +1,33 @@
+.admin-container {
+    border: 1px solid;
+    width: 100%;
+    border-radius: 20px;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    
+}
+
+.database-button-container {
+    display: flex;
+    width: 50%;
+    height: 30%;
+    align-items: center;
+    justify-content: space-around;
+    .download-button {
+        --background: rgba(var(--ion-color-entry-rgb),0.5);
+        --color: black;
+        display: flex;
+        align-items: center;
+        
+    }
+    .delete-button {
+        --background: rgba(var(--ion-color-danger-rgb),0.5);
+        --color: black;
+        display: flex;
+        align-items: center;
+        
+    }
+}

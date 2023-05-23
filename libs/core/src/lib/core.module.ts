@@ -15,6 +15,10 @@ import { ToolbarComponent } from "./components/toolbar/toolbar.component";
 import { SidebarComponent } from "./components/sidebar/sidebar.component";
 import { EntryComponent } from "./components/entry/entry.component";
 import { EmptyModalComponent } from "./components/empty-modal/empty-modal.component";
+import { AssesmentAdminComponent } from "./components/assesment-admin/assesment-admin.component";
+import { DurationAdminComponent } from "./components/duration-admin/duration-admin.component";
+import { DatabaseManageAdminComponent } from "./components/database-manage-admin/database-manage-admin.component";
+import { HolidayAdminComponent } from "./components/holiday-admin/holiday-admin.component";
 
 export class LocaleId extends String {
   constructor(private localeService: LocaleService) {
@@ -38,6 +42,10 @@ export class LocaleId extends String {
     SidebarComponent,
     EntryComponent,
     EmptyModalComponent,
+    AssesmentAdminComponent,
+    DurationAdminComponent,
+    DatabaseManageAdminComponent,
+    HolidayAdminComponent,
   ],
   imports: [
     CommonModule,
@@ -65,6 +73,10 @@ export class LocaleId extends String {
     SidebarComponent,
     EntryComponent,
     EmptyModalComponent,
+    AssesmentAdminComponent,
+    DurationAdminComponent,
+    DatabaseManageAdminComponent,
+    HolidayAdminComponent
   ],
   providers: [
     {

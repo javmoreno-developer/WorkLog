@@ -30,4 +30,7 @@ export class EmptyModalComponent {
   buttonClicked(fun: any) {
     eval(`this.${fun}()`);
   }
+  onSubmit() {
+    this.modalCtr.dismiss({type: "submit"})
+  }
 }

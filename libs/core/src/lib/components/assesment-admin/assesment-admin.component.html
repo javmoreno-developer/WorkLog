@@ -1,0 +1,15 @@
+<div class="admin-container">
+    <h4>Cambio de porcentaje en la ponderación vigente</h4>
+    <form [formGroup]="myform" (ngSubmit)="submit(myform.value)">
+        <div class="input-wrapper">
+            <ion-item>
+                <ion-input label="Password input" type="number" formControlName="subject" placeholder="Porcentaje asignaturas (sin %)" (ionFocus)="onInputFocus($event)" (ionBlur)="onInputBlur($event,'subject')"></ion-input>
+            </ion-item>
+    
+            <ion-item>
+                <ion-input label="Password input" type="number" formControlName="skill" placeholder="Aptitudes (sin %)" (ionFocus)="onInputFocus($event)" (ionBlur)="onInputBlur($event,'skill')"></ion-input>
+            </ion-item>
+        </div>
+        <ion-button type="submit" [disabled]="!myform.valid">Actualizar</ion-button>
+    </form>
+</div>

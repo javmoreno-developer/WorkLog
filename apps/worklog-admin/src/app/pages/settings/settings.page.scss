@@ -1,0 +1,41 @@
+.segment-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .segment-block {
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100%;
+        margin-top: 5%;
+        width: 50%;
+        ion-segment {
+            background-color: rgba(var(--ion-rgb-red),var(--ion-rgb-green),var(--ion-rgb-blue),0.3);
+            border-radius: 20px;
+            border: 1px solid;
+            --ripple-color: transparent;
+            box-shadow: none !important;
+        }
+        .segment-button-checked {
+            background-color: var(--ion-color-light) !important;
+            border: 1px solid;
+            border-radius: 20px;
+            --indicator-height: 0px;
+            --ion-color-base: var(--ion-color-dark);
+        }
+
+        ion-segment-button {
+            --ripple-color: transparent;
+            box-shadow: none !important;
+        }
+    }
+    .segment-component {
+        width: 100%;
+        height: 50%;
+        margin-top: 20px;
+    }
+}
+
