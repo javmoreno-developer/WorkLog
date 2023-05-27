@@ -1,0 +1,14 @@
+<ion-content>
+  <worklog-fe-toolbar></worklog-fe-toolbar>
+  <worklog-fe-sidebar (onCloseMenu)="closeMenu($event)"></worklog-fe-sidebar>
+
+  <div class="body-content">
+    <div class="first-row">
+      <span class="material-symbols-rounded" id="copy_icon" (click)="addModal()">post_add</span>
+    </div>
+    <worklog-fe-table (editEvent)="promptEditModule($event)" (deleteEvent)="promptDeleteModule($event)" class="table-component" [rows]="rows" [columns]="columns" [tableStyle]="tableStyle" [tableButtons]="tableButtons"></worklog-fe-table>  
+
+    <worklog-fe-footer class="footer"></worklog-fe-footer>
+  </div>
+ 
+</ion-content>

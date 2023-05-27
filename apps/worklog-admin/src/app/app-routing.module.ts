@@ -20,6 +20,11 @@ const routes: Routes = [
       import("./pages/settings/settings.module").then((m) => m.SettingsPageModule)
   },
   {
+    path: "modules",
+    loadChildren: () =>
+      import("./pages/modules/modules.module").then((m) => m.ModulesPageModule)
+  },
+  {
     path: "",
     redirectTo: "home",
     pathMatch: "full",

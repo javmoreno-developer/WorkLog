@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from "@angular/core";
 import { ApiService, Authenticate, NotificationService, User, sendedValue } from "../../../../core/src";
-import { HttpParams } from "@angular/common/http";
+import { HttpHeaders, HttpParams } from "@angular/common/http";
 import { first } from "rxjs";
 import { Router } from "@angular/router";
 
@@ -23,14 +23,15 @@ export class LoginPage implements OnInit {
   login(auth:Authenticate){
     
     //this.auth.login(auth);
-    //let url = this.apiUrlBase + "user/login/?profileUser=3"
-    let url = "http://localhost:8000/api/user/login/?profileUser=3"
+    let url = this.apiUrlBase + "user/login"
+    //let url = "http://localhost:8000/api/user/login/?profileUser=3"
     //const params = new HttpParams().set("username", auth.username).set("password",auth.password);
     let body = {
       "email": auth.username,
       "password": auth.password
     }
-    this.apiService.post(url,body,this.apiHeaders).subscribe(result => {
+
+    this.apiService.post(url, null,body, this.apiHeaders).subscribe(result => {
       if(result && Object.keys(result).length != 0) {
         let param = result as User
         localStorage.setItem("sessionData",this.apiService.turnString(param))
@@ -50,7 +51,7 @@ export class LoginPage implements OnInit {
     let body = {
       "email": param
     }
-    this.apiService.post(url,body,this.apiHeaders).subscribe(result => {
+    this.apiService.post(url,null,body,this.apiHeaders).subscribe(result => {
       let param = result as sendedValue
       
       this.notification.showToast("Se ha enviado un mensaje a su cuenta de correo","info","long");

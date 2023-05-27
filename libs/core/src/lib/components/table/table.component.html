@@ -1,8 +1,9 @@
 <div class="table-container">
-    <ngx-datatable class="material" [rows]="rows" [columnMode]="'flex'" [headerHeight]="50" [footerHeight]="50"
-        rowHeight="auto" [limit]="5" [class]="style == 'general' ? 'table-general' : 'table-inform'">
+    <ngx-datatable columnMode="force" [scrollbarH]="true" class="material" [rows]="rows" [columnMode]="'flex'" [headerHeight]="50" [footerHeight]="50"
+    columnHeight="auto" rowHeight="auto" [limit]="7" [class]="style == 'general' ? 'table-general' : 'table-inform'">
 
-        <ngx-datatable-column *ngFor="let column of columns" name="{{column.name}}" [flexGrow]="2">
+
+        <ngx-datatable-column *ngFor="let column of columns" name="{{column.name}}" [flexGrow]="1">
             <ng-template let-row="row" ngx-datatable-cell-template>
 
                 <p *ngIf="!column.icon && !column.toggle" [class]="column.name=='age'? row.cssClass : ''">
@@ -12,12 +13,13 @@
                 <ion-toggle [checked]="column.checked" *ngIf="!column.icon && column.toggle"></ion-toggle>
             </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column name="" [flexGrow]="2">
+
+        <ngx-datatable-column name="action" [flexGrow]="1">
             <ng-template let-row="row" ngx-datatable-cell-template>
                 <div class="action_container">
                     <span *ngFor="let button of buttons">
                         <ion-button class="{{button.cssClass}}" *ngIf="!button.popover"
-                            (click)="buttonClicked(button)">{{button.text}} <ion-icon name="{{button.icon}}"
+                            (click)="buttonClicked(button,row)">{{button.text}} <ion-icon name="{{button.icon}}"
                                 *ngIf="button.icon"></ion-icon></ion-button>
                         <ion-icon *ngIf="button.popover" (click)="openPopover($event)" class="{{button.cssClass}}"
                             name="{{button.icon}}" id="open-popover"></ion-icon>

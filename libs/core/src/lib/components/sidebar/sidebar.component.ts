@@ -39,7 +39,7 @@ export class SidebarComponent {
         {name: "Laborales", url:"", active: false, icon: "location_home"},
         {name: "Docentes", url:"", active: false, icon: "school"},
         {name: "Unidades", url:"", active: false, icon: "calendar_view_month"},
-        {name: "Modulos", url:"", active: false, icon: "book"},
+        {name: "Modulos", url:"modules", active: false, icon: "book"},
         {name: "Ajustes", url:"settings", active: false, icon: "settings"},
       ]
      }

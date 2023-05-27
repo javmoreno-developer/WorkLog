@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Inject, Output } from "@angular/core";
 import { AlertController, IonDatetime, ModalController } from "@ionic/angular";
-import { EmptyModalComponent } from "../empty-modal/empty-modal.component";
 import { TranslateService } from "@ngx-translate/core";
 import { lastValueFrom } from "rxjs";
 
@@ -75,8 +74,10 @@ export class DurationAdminComponent {
           text: await lastValueFrom(this.translate.get("general.accept")),
           handler: async () => {
             if(this.checkOrder()) {
-              let url = this.apiUrlBase + "setting/grade_duration"
-              this.onUpdate.emit({begin: this.begin, end: this.end, url: url, id_check: user.profile})
+              // actualizo la duracion
+              let scholar_url = this.apiUrlBase+"scholar-year/get/current"
+              let url = this.apiUrlBase + "scholar-year/grade-duration"
+              this.onUpdate.emit({scholar_url:scholar_url,begin: this.begin, end: this.end, url: url, id_check: user.profile})
               this.resetDate(element)
             } else {
               this.onError.emit(await lastValueFrom(this.translate.get("settings.durationLocalError")))

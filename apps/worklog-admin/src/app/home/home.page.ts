@@ -68,7 +68,8 @@ export class HomePage {
       component: EmptyModalComponent,
       componentProps: {
         textSection: ["Informacion del convenio", "Alumno: javier moreno", "Empresa: aliqindoi"],
-        buttonSection: [{text: "Vaciar", type: "danger", fun: "onEmpty"}]
+        buttonSection: [{text: "Vaciar", type: "danger", fun: "onEmpty"}],
+        inputSection: []
       },
       cssClass: 'general-modal'
     });

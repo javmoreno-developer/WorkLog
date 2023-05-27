@@ -64,7 +64,7 @@ export class SettingsPage implements OnInit {
 
 
   assesmentUpdate(param: any) {
-    const params = new HttpParams().set("id_check", param.id_check).set("aptitudes_ponderation", param.skill).set("subjects_ponderation",param.subject)
+    const params = new HttpParams().set("id_check", param.id_check).set("aptitudes_percent", param.skill).set("subjects_percent",param.subject)
     this.apiSvc.put(param.url, params, null, this.apiHeaders).subscribe(
       async (resolve) => {
         this.notification.showToast(await lastValueFrom(this.translate.get("settings.deliberationUpdated")),"success","medium")
@@ -76,16 +76,27 @@ export class SettingsPage implements OnInit {
   }
 
   updateDuration(event: any) {
-    const params = new HttpParams().set("id_check", event.id_check).set("start_date", event.begin).set("end_date",event.end)
+    // obtengo el scholar year
+    const scholar_params = new HttpParams().set("id_check", event.id_check)
+    this.apiSvc.get(event.scholar_url,scholar_params,this.apiHeaders).subscribe(
+      async (resolve: any) => {
+        // realizo la llamada para actualizar
+        const params = new HttpParams().set("id_check", event.id_check).set("start_date", event.begin).set("end_date",event.end).set("id_scholar_year",resolve["idScholarYear"])
 
-    this.apiSvc.put(event.url, params, null, this.apiHeaders).subscribe(
-      async (resolve) => {
-        this.notification.showToast(await lastValueFrom(this.translate.get("settings.durationUpdated")), "success", "medium")
+        this.apiSvc.put(event.url, params, null, this.apiHeaders).subscribe(
+          async (resolve) => {
+            this.notification.showToast(await lastValueFrom(this.translate.get("settings.durationUpdated")), "success", "medium")
+          },
+          async (error) => {
+            this.notification.showToast(await lastValueFrom(this.translate.get("settings.durationError")),"error","medium")
+          }
+        )
       },
       async (error) => {
-        this.notification.showToast(await lastValueFrom(this.translate.get("settings.durationError")),"error","medium")
+        console.log(error)
       }
     )
+    
   }
 
   dbDelete(param: any) {

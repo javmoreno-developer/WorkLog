@@ -2,14 +2,38 @@
     <div class="first-row">
         <ion-icon name="close-outline" (click)="closeModal()"></ion-icon>
     </div>
-    <ion-content class="second-row">
+    <ion-content class="second-row" *ngIf="inputSection.length == 0">
         <div *ngFor="let row of textSection; let i = index" class="second-row-block">
             <h4 *ngIf="i == 0">{{row}}</h4>
             <p *ngIf="i != 0">{{row}}</p>
         </div>
     </ion-content>
+
+    <div class="second-row-short" *ngIf="inputSection.length > 0">
+        <div *ngFor="let row of textSection; let i = index" class="second-row-block">
+            <h4 *ngIf="i == 0">{{row}}</h4>
+            <p *ngIf="i != 0">{{row}}</p>
+        </div>
+    </div>
+
+    <ion-content class="second-row" *ngIf="inputSection.length > 0">
+        <form [formGroup]="myform" class="form-second-row">
+            <ion-item *ngFor="let input of inputSection" class="input-container">
+                <ion-input class="input-row" [placeholder]="input.formName" [formControlName]="input.formName" [type]="input.type"  (ionFocus)="onInputFocus($event)" (ionBlur)="onInputBlur($event,input.formName)"></ion-input>
+                
+            </ion-item>
+            <ion-item class="input-container" *ngFor="let select of selectSection">
+                <ion-select placeholder="Elige unidad" [formControlName]="select.formName" class="select-element">
+                    <ion-select-option *ngFor="let option of select.options" [value]="option.value">{{option.name}}</ion-select-option>
+                </ion-select>
+            </ion-item>
+            
+        </form>
+    </ion-content>
+
+
     <div class="action-row">
-        <ion-button *ngFor="let button of buttonSection" class="button-{{button.type}}" (click)="buttonClicked(button.fun)">
+        <ion-button  [disabled]="!myform.valid" *ngFor="let button of buttonSection" class="button-{{button.type}}" (click)="buttonClicked(button.fun)">
             {{button.text}}
         </ion-button>
     </div>

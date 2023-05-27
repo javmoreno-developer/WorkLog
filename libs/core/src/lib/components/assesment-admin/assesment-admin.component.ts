@@ -26,7 +26,7 @@ export class AssesmentAdminComponent {
     // Comprobamos si los porcentajes son correctos
     if(await this.checkPercent(param)) {
       // Se realiza la llamada al padre
-      let url = this.apiUrlBase+"setting/ponderation"
+      let url = this.apiUrlBase+"scholar-year/ponderation"
       let user = JSON.parse(localStorage.getItem("sessionData") as string)
 
       let uploadParam = {

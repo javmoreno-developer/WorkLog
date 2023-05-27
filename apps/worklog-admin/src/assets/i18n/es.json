@@ -44,7 +44,19 @@
         "no": "No",
         "cancel": "Cancelar",
         "warning": "Atencion",
-        "download": "Descargar"
+        "download": "Descargar",
+        "added": "Añadir",
+        "chargeErr": "Ha habido un error de carga en los datos"
+    },
+    "modules": {
+        "modalTitle": "Añadir un módulo",
+        "addModuleMsg": "Se ha añadido un modulo",
+        "addModuleErr": "Ha habido un error al añadir un modulo",
+        "deleteTitle": "¿Seguro que quieres borrar el modulo {{name}}?",
+        "deleteMsg": "Se ha eliminado un modulo",
+        "deleteErr": "Ha habido un error al eliminar un modulo",
+        "updMsg": "Se ha actualizado un modulo",
+        "updErr": "Ha habido un error al actualizar un modulo"
     }
     
  }

@@ -44,6 +44,9 @@ export class HolidayAdminComponent {
       componentProps: {
         textSection: this.dateValues,
         buttonSection: [{text: await lastValueFrom(this.translate.get("general.accept")), type: "success", fun: "onSubmit"}],
+        inputSection: [],
+        selectSection: [],
+        cellUpd: null
       },
       cssClass: 'general-modal'
     });
@@ -51,27 +54,30 @@ export class HolidayAdminComponent {
     modal.present();
   
     modal.onDidDismiss().then(result => {
-      switch(result.data.type) {
-        case "cancel":
-          if(this.dateValues && this.dateValues?.length >0) {
-            this.dateValues?.shift()  
-          }
-          
-          break;
-        case "submit":
-          let url = this.apiUrlBase+"setting/holidays"
-          let user = JSON.parse(localStorage.getItem("sessionData") as string)
-
-          this.dateValues?.shift()
-          const delimiter: string = ';';
-          const dateString: string | undefined = this.dateValues?.join(delimiter);
-          const dateObject = {
-            "holidays": dateString
-          }
-
-          this.onUpdate.emit({url: url, body: dateObject,id_check: user.profile })
-          break;
+      if(result.data) {
+        switch(result.data.type) {
+          case "cancel":
+            if(this.dateValues && this.dateValues?.length >0) {
+              this.dateValues?.shift()  
+            }
+            
+            break;
+          case "submit":
+            let url = this.apiUrlBase+"scholar-year/holidays"
+            let user = JSON.parse(localStorage.getItem("sessionData") as string)
+  
+            this.dateValues?.shift()
+            const delimiter: string = ';';
+            const dateString: string | undefined = this.dateValues?.join(delimiter);
+            const dateObject = {
+              "holidays": dateString
+            }
+  
+            this.onUpdate.emit({url: url, body: dateObject,id_check: user.profile })
+            break;
+        }
       }
+      
     });
   
   }

@@ -39,8 +39,13 @@ export class ApiService {
     });
   }*/
 
-  post(url: string,body: any,headers: any) {
-    return this.http.post(url, body,{headers})
+  post(url: string,params: HttpParams | null,body: any,headers: any) {
+    if(params) {
+      return this.http.post(url, body,{params,headers})
+    } else {
+      return this.http.post(url, body,{headers})
+    }
+    
   }
 
   delete(url:string,params: HttpParams,headers: any) {
