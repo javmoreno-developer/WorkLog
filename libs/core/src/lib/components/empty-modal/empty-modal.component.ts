@@ -14,6 +14,7 @@ export class EmptyModalComponent implements OnInit{
   inputSection: any;
   selectSection: any;
   cellUpd: any;
+  isFile: any = false;
   myform: FormGroup;
   formObject: any = {};
 
@@ -44,6 +45,10 @@ export class EmptyModalComponent implements OnInit{
     this.cellUpd = n
   }
 
+  @Input("isFile") set _isFile(n: any) {
+    this.isFile = n
+  }
+
   requiredValidator(control: AbstractControl): { [key: string]: any } | null {
     return control.value[0] !== '' ? null : { required: true };
   }
@@ -63,16 +68,22 @@ export class EmptyModalComponent implements OnInit{
     }
   }
 
-  getFormGroupConfig(act: boolean): { [key: string]: any } {
-    let inputs = this.getInputs()
-    let selects = this.getSelects()
-
-    
-    let formAssign = {...inputs,...selects}
-
+  getFormGroupConfig(act: boolean): { [key: string]: any} {
+    if(this.isFile == false) {
+      let inputs = this.getInputs()
+      let selects = this.getSelects()
+  
+      
+      let formAssign = {...inputs,...selects}
+  
+     
+  
+      return formAssign
+    } else {
+      let selects = this.getSelects()
+      return selects
+    }
    
-
-    return formAssign
   }
 
   getActForm() {
@@ -127,6 +138,9 @@ export class EmptyModalComponent implements OnInit{
   onEdit() {
     this.modalCtr.dismiss({data: this.myform.value, idAct: this.cellUpd.idModule},"edit")
   }
+  onReset() {
+    this.modalCtr.dismiss({data: this.myform.value},"reset")
+  }
   buttonClicked(fun: any) {
     eval(`this.${fun}()`);
   }
@@ -144,5 +158,51 @@ export class EmptyModalComponent implements OnInit{
       const ionItem = event.target.closest('ion-item');
       ionItem.classList.remove('input-focus');
     }
+  }
+
+  async openCsv(fileLoader: any) {
+    var that = this;
+    fileLoader.click();
+    fileLoader.onchange = function () {
+      var file = fileLoader.files[0];
+      var reader = new FileReader();
+      console.log("leer")
+      reader.onload = async function () {
+        
+       /* var rows:any[] = (reader.result as any).split('\n');
+        var header = rows[0];
+        rows = rows.slice(1);
+        var blocks = Math.floor(rows.length/30);*/
+
+        console.log(reader.result)
+        that.modalCtr.dismiss({data: reader.result, unit: that.myform.value}, "massive-upload");
+
+        
+        /*for(let index = 0; index<=blocks; index++){
+          var csv = rows.slice(index*100, Math.min(rows.length, index*100+100)).join('\r\n');
+          var BOM = new Uint8Array([0xEF,0xBB,0xBF]);
+          var blob = new Blob([BOM, header, '\r\n', csv], {type: 'text/csv' });
+          let formData:FormData = new FormData();
+          //formData.append('csv_file', blob, file.name+'-index-'+index);
+          formData.append('csv_file', blob, file.name);
+          console.log("Index: "+index);
+          console.log(blob)
+
+          try {
+            //await lastValueFrom(that.api.post("/api/staff/products/",formData,'application/json'));
+            this.
+          } catch (error) {
+            console.log(error);
+          }
+        }*/
+
+      }
+      reader.readAsText(file);
+    }
+  }
+  uploadStaff() {
+    /*this.api.post("/api/staff/products", ).subscribe({
+      (resolve) => x
+    });*/
   }
 }

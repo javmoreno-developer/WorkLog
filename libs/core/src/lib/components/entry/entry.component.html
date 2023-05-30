@@ -1,12 +1,12 @@
 <div class="entry-container">
-    <ion-icon name="checkmark-circle-outline" class="accordion-conf-icon"></ion-icon>
+    <ion-icon name="checkmark-circle-outline" class="accordion-conf-icon" *ngIf="end"></ion-icon>
     <ion-accordion value="{{orderValue}}" class="entry_row">
         <ion-item slot="header" color="entry">
             <ion-label>{{title}}</ion-label>
         </ion-item>
         <div class="ion-padding accordion-content" slot="content">
             <h4 class="text-no-padding">Trabajo realizado</h4>
-            <ion-textarea class="outline-textarea" label="Outline textarea" labelPlacement="floating" fill="outline" placeholder="Escribe aqui"></ion-textarea>
+            <ion-textarea class="outline-textarea" [readonly]="readonly" label="Outline textarea" labelPlacement="floating" fill="outline" placeholder="Escribe aqui" [(ngModel)]="text"></ion-textarea>
             <div class="accordion-last-row">
                 <div class="time-container">
                     <p>Tiempo realizado: </p>
@@ -17,11 +17,11 @@
                     </div>
                     <ion-popover trigger="click-trigger-{{orderValue}}" triggerAction="click">
                         <ng-template>
-                            <ion-datetime presentation="time" (ionBlur)="changeTime($event)"></ion-datetime>
+                            <ion-datetime [readonly]="readonly" presentation="time" (ionBlur)="changeTime($event)"></ion-datetime>
                         </ng-template>
                       </ion-popover>
                 </div>
-                <div class="button-container">
+                <div class="button-container" *ngIf="readonly == false">
                     <ion-button class="cancel-button">Cancelar</ion-button>
                     <ion-button class="confirm-button">Confirmar</ion-button>
                 </div>

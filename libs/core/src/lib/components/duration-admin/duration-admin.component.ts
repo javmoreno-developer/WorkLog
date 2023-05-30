@@ -11,6 +11,7 @@ import { lastValueFrom } from "rxjs";
 export class DurationAdminComponent {
   constructor(private translate: TranslateService,private alertCtrl: AlertController,@Inject("apiUrlBase") public apiUrlBase?: any) {}
 
+  maxYear: any = (new Date()).getFullYear() + 3;
   @Output() onUpdate = new EventEmitter();
   @Output() onError = new EventEmitter();
 

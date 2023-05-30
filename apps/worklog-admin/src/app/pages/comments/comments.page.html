@@ -1,0 +1,12 @@
+<ion-content>
+  <worklog-fe-toolbar [urlBack]="urlBack" [options]="toolbarOptions"></worklog-fe-toolbar>
+  <worklog-fe-sidebar (onCloseMenu)="closeMenu($event)"></worklog-fe-sidebar>
+
+  <div class="body-content">
+   <h4>{{"comments.title" | translate}} {{name}} ({{date}})</h4>
+
+   <ion-accordion-group class="entry_container">
+    <worklog-fe-entry *ngFor="let item of rows$ | async;let i = index" [orderValue]="orderValueList[i]" [title]="orderNameList[i]" [end]="false" [dataAct]="item"></worklog-fe-entry>
+    </ion-accordion-group>
+  </div>
+</ion-content>

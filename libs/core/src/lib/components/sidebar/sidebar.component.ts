@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { Router } from "@angular/router";
+import { MenuController } from "@ionic/angular";
 
 @Component({
   selector: "worklog-fe-sidebar",
@@ -12,7 +13,7 @@ export class SidebarComponent {
   ROLES = ["admin","admin","teacher","labor"]
   sidebar_rows: any
 
-  constructor(private router: Router) {
+  constructor(private menu:MenuController,private router: Router) {
      // obtengo las filas necesarias para el sidebar
      let user = JSON.parse(localStorage.getItem("sessionData") as string)
      let role = this.ROLES[user.profile]
@@ -33,7 +34,7 @@ export class SidebarComponent {
      } else if(role == "admin") {
       this.sidebar_rows = [
         {name: "Dashboard", url:"home", active: false, icon: "dashboard"},
-        {name: "Alumnos", url:"", active: false, icon: "person"},
+        {name: "Alumnos", url:"students", active: false, icon: "person"},
         {name: "Convenios", url:"", active: false, icon: "contact_page"},
         {name: "Empresas", url:"", active: false, icon: "apartment"},
         {name: "Laborales", url:"", active: false, icon: "location_home"},
@@ -46,7 +47,7 @@ export class SidebarComponent {
 
      // asigno active dependiendo de la url
      this.sidebar_rows.forEach((element : any) => {
-      if(element.url == currentUrl) {
+      if(element.url == currentUrl || element.url.includes(currentUrl)) {
         element.active = true;
       }
      });
@@ -57,5 +58,10 @@ export class SidebarComponent {
 
   closeMenu() {
     this.onCloseMenu.emit(true);
+  }
+
+  openMenu() {
+    console.log("Hey")
+    //this.menu.open()
   }
 }

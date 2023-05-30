@@ -10,7 +10,7 @@
                     {{row[column.name]}}</p>
 
                 <ion-icon *ngIf="column.icon && !column.toggle" name="person"></ion-icon>
-                <ion-toggle [checked]="column.checked" *ngIf="!column.icon && column.toggle"></ion-toggle>
+                <ion-toggle #toggle [checked]="row.active == 1" *ngIf="!column.icon && column.toggle" (click)="toggleActive(toggle.checked,row,toggle)"></ion-toggle>
             </ng-template>
         </ngx-datatable-column>
 
@@ -21,7 +21,7 @@
                         <ion-button class="{{button.cssClass}}" *ngIf="!button.popover"
                             (click)="buttonClicked(button,row)">{{button.text}} <ion-icon name="{{button.icon}}"
                                 *ngIf="button.icon"></ion-icon></ion-button>
-                        <ion-icon *ngIf="button.popover" (click)="openPopover($event)" class="{{button.cssClass}}"
+                        <ion-icon *ngIf="button.popover" (click)="openPopover($event,row)" class="{{button.cssClass}}"
                             name="{{button.icon}}" id="open-popover"></ion-icon>
 
                     </span>

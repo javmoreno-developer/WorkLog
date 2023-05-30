@@ -1,4 +1,4 @@
-export interface Authenticate{
+export interface Authenticate {
     username: string;
     password: string;
 }
@@ -18,4 +18,25 @@ export interface User {
 
 export interface sendedValue {
     message: string
+}
+
+export interface User {
+    email: string;
+    github: string;
+    idUser: number;
+    isActive: number;
+    linkedin: string;
+    name: string;
+    password: string;
+    picture: string;
+    profile: string;
+    surname: string;
+    twitter: string;
+};
+
+export interface column {
+    name: string;
+    prop: string;
+    toggle: boolean;
+    checked: boolean;
 }

@@ -25,6 +25,21 @@ const routes: Routes = [
       import("./pages/modules/modules.module").then((m) => m.ModulesPageModule)
   },
   {
+    path: "students",
+    loadChildren: () =>
+      import("./pages/students/students.module").then((m) => m.StudentsPageModule)
+  },
+  {
+    path: "student/entries",
+    loadChildren: () =>
+      import("./pages/entries/entries.module").then((m) => m.EntriesPageModule)
+  },
+  {
+    path: "student/entry/comment",
+    loadChildren: () =>
+      import("./pages/comments/comments.module").then((m) => m.CommentsPageModule)
+  },
+  {
     path: "",
     redirectTo: "home",
     pathMatch: "full",
@@ -37,4 +52,5 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
+
 export class AppRoutingModule {}

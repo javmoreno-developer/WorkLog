@@ -11,13 +11,18 @@ export class EmptyPopoverComponent {
 
   @Input("options") set options(n: any) {
     this._options = n
-    console.log(this._options)
   }
 
   constructor(private popoverController: PopoverController) {}
 
   selectOption(option: any) {
-    console.log(option);
-    this.popoverController.dismiss()
+    //console.log(option);
+    if(option.value == "out") {
+      console.log("enlace de out")
+    } else if(option.value == "profile") {
+      console.log("enlace de profile")
+    }
+    this.popoverController.dismiss({},option.value)
+    
   }
 }

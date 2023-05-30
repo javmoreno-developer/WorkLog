@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Output } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { PopoverController } from "@ionic/angular";
 import { EmptyPopoverComponent } from "../empty-popover/empty-popover.component";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "worklog-fe-toolbar",
@@ -8,24 +9,33 @@ import { EmptyPopoverComponent } from "../empty-popover/empty-popover.component"
   styleUrls: ["./toolbar.component.scss"],
 })
 export class ToolbarComponent {
-  constructor(private popoverCtrl: PopoverController) {}
+
+  constructor(private router:Router,private popoverCtrl: PopoverController) {}
+  options: any
+  urlBack: any = null
+
+  @Input("options") set _options(n: any) {
+    this.options = n
+  }
+
+  @Input("urlBack") set _urlBack(n: any) {
+    this.urlBack = n
+  }
 
   async openPopover(ev: any) {
-    const options = [
-      { name: 'Opción 1', value: 'opcion1' },
-      { name: 'Opción 2', value: 'opcion2' },
-      { name: 'Opción 3', value: 'opcion3' }
-    ];
-
     const popover = await this.popoverCtrl.create({
       component: EmptyPopoverComponent,
       componentProps: {
-        options: options
+        options: this.options
       },
       event: ev,
       translucent: true
     });
     return await popover.present();
 
+  }
+
+  goBack() {
+    this.router.navigate([this.urlBack]);
   }
 }

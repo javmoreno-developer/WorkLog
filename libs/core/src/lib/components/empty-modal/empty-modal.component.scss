@@ -16,6 +16,12 @@
             cursor: pointer;
         }
     }
+    .file-row {
+        display: flex;
+        height: 30%;
+        flex-direction: column;
+        align-items: center;   
+    }
     .second-row {
         display: flex;
         height: 70%;

@@ -1,6 +1,6 @@
 <div class="admin-container">
     
-    <ion-datetime displayFormat="MMM YYYY" pickerFormat="MMM YYYY" locale="es-ES" #datetime [multiple]="true" (ionChange)="newDate($event,datetime)" presentation="date"></ion-datetime>
+    <ion-datetime [max]="maxYear" displayFormat="MMM YYYY" pickerFormat="MMM YYYY" locale="es-ES" #datetime [multiple]="true" (ionChange)="newDate($event,datetime)" presentation="date"></ion-datetime>
     
     <ion-buttons slot="buttons" class="admin-duration-buttons">
         <ion-button class="danger-button" (click)="resetDate(datetime)">{{'general.reset' | translate}}</ion-button>

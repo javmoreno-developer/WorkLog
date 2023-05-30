@@ -1,4 +1,7 @@
 <ion-toolbar>
+    <ion-buttons slot="start" *ngIf="urlBack != null">
+        <ion-icon name="arrow-back-outline" class="arrow-back" (click)="goBack()"></ion-icon>
+    </ion-buttons>
     <ion-buttons slot="end">
         <div class="toolbar-image-container" (click)="openPopover($event)">
             <ion-avatar class="toolbar-image">

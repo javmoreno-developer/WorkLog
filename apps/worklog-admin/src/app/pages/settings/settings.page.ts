@@ -106,7 +106,7 @@ export class SettingsPage implements OnInit {
         this.notification.showToast(await lastValueFrom(this.translate.get("settings.databaseDeleted")),"success","medium")
       },
       async (error) => {
-        this.notification.showToast(await lastValueFrom(this.translate.get("settings.databaseError")),"success","medium")
+        this.notification.showToast(await lastValueFrom(this.translate.get("settings.databaseError")),"error","medium")
       } 
     );
   }

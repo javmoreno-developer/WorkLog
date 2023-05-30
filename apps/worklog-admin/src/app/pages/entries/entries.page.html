@@ -1,0 +1,10 @@
+<ion-content>
+  <worklog-fe-toolbar [urlBack]="urlBack" [options]="toolbarOptions"></worklog-fe-toolbar>
+  <worklog-fe-sidebar (onCloseMenu)="closeMenu($event)"></worklog-fe-sidebar>
+
+  <div class="body-content">
+    <h4>{{"entries.title" | translate}} {{name}}</h4>
+    <worklog-fe-table [rows]="rows" [columns]="columns" [tableStyle]="tableStyle" [tableButtons]="tableButtons"
+    (routeEvent)="seeInforms($event)"></worklog-fe-table>
+  </div>
+</ion-content>

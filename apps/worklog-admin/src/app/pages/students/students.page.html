@@ -1,0 +1,18 @@
+<ion-content>
+  <worklog-fe-toolbar></worklog-fe-toolbar>
+  <worklog-fe-sidebar (onCloseMenu)="closeMenu($event)"></worklog-fe-sidebar>
+
+  <div class="body-content">
+    <div class="first-row">
+      <div class="text-first-row">
+        <h4>{{"students.title" | translate}}</h4>
+      </div>
+      <div class="icons-first-row">
+        <span class="material-symbols-rounded" id="copy-icon" (click)="addModal()">person_add</span>
+        <span class="material-symbols-rounded" id="xml-icon" (click)="addMultiModal()">add_notes</span>
+      </div>
+    </div>
+    <worklog-fe-table class="table-component" [rows]="rows" [columns]="columns" [tableStyle]="tableStyle"
+      [tableButtons]="tableButtons" (routeEvent)="seeInforms($event)" (resetEvent)="resetModal($event)" (deleteEvent)="promptAction($event,'delete')" (activeEvent)="updateStatus($event)"></worklog-fe-table>
+  </div>
+</ion-content>
