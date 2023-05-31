@@ -57,7 +57,8 @@
         "deleteMsg": "Se ha eliminado un modulo",
         "deleteErr": "Ha habido un error al eliminar un modulo",
         "updMsg": "Se ha actualizado un modulo",
-        "updErr": "Ha habido un error al actualizar un modulo"
+        "updErr": "Ha habido un error al actualizar un modulo",
+        "unitForm": "Elige unidad"
     },
     "students": {
         "title": "Listado de alumnos",
@@ -87,6 +88,22 @@
     "comments": {
         "title": "Comentarios del ",
         "timeMsg": "{{hours}} horas {{min}} min"
+    },
+    "agreements": {
+        "title": "Listado de convenios",
+        "infoTitleModal": "Informacion del convenio",
+        "type": "Tipo de convenio: {{type}}",
+        "company": "Empresa: {{company}}",
+        "end": "Fin: {{end}}",
+        "start": "Inicio: {{start}}",
+        "labor": "Tutor laboral: {{labor}}",
+        "teacher": "Tutor docente: {{teacher}}",
+        "student": "Estudiante: {{student}}",
+        "addTitleModal": "Añadir un convenio",
+        "laborForm": "Elige tutor laboral",
+        "teacherForm": "Elige profesor docente",
+        "companyForm": "Elige empresa",
+        "typeForm": "Elige tipo"
     }
     
     

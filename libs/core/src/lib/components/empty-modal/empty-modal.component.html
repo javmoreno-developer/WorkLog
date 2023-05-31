@@ -16,14 +16,14 @@
         </div>
     </div>
 
-    <ion-content class="second-row">
+    <ion-content class="second-row" *ngIf="inputSection.length > 0">
         <form [formGroup]="myform" class="form-second-row">
             <ion-item *ngFor="let input of inputSection" class="input-container">
                 <ion-input class="input-row" [placeholder]="input.formName" [formControlName]="input.formName" [type]="input.type"  (ionFocus)="onInputFocus($event)" (ionBlur)="onInputBlur($event,input.formName)"></ion-input>
                 
             </ion-item>
             <ion-item class="input-container" *ngFor="let select of selectSection">
-                <ion-select placeholder="Elige unidad" [formControlName]="select.formName" class="select-element">
+                <ion-select placeholder="{{select.placeholder}}" [formControlName]="select.formName" class="select-element">
                     <ion-select-option *ngFor="let option of select.options" [value]="option.value">{{option.name}}</ion-select-option>
                 </ion-select>
             </ion-item>

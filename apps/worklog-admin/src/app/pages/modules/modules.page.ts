@@ -131,6 +131,9 @@ export class ModulesPage implements OnInit {
     if (cellUpd == null) {
       buttonSection = [{ text: await lastValueFrom(this.translate.get("general.added")), type: "info", fun: "onAdd" }]
     }
+
+    let unitPlaceholder = await lastValueFrom(this.translate.get("modules.unitForm"))
+
     // create modal
     const modal = await this.modalCtrl.create({
       component: EmptyModalComponent,
@@ -138,7 +141,7 @@ export class ModulesPage implements OnInit {
         textSection: [await lastValueFrom(this.translate.get("modules.modalTitle"))],
         buttonSection: buttonSection,
         inputSection: [{ formName: "name", type: "text", mandatory: true }, { formName: "initials", type: "text", mandatory: true }, { formName: "hours", type: "number", mandatory: true }, { formName: "description", type: "text", mandatory: false }],
-        selectSection: [{ formName: "idUnit", options: this.mappedList }],
+        selectSection: [{ formName: "idUnit", options: this.mappedList, placeholder: unitPlaceholder}],
         cellUpd: cellUpd
       },
       cssClass: 'general-modal'

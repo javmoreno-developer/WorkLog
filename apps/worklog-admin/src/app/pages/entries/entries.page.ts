@@ -35,10 +35,12 @@ export class EntriesPage implements OnInit {
     // params
     let params: any = JSON.parse(this.sharedSvc.getData() as string);
     let idUser = params.id;
+    
     this.name = params.name
     this.chargeData(idUser)
     
-
+    // datos auxiliares
+    this.sharedSvc.setAuxData(params.id)
    
   }
 
@@ -49,11 +51,12 @@ export class EntriesPage implements OnInit {
 
     this.apiSvc.get(url,params,this.apiHeaders).subscribe(
       (resolve: any) => {
+        console.log(resolve)
         // obtenemos los comments
         this.comments.next(resolve["comments"])
 
         //obtenemos las rows
-        const transformedData = resolve.map((item: { idEntry: number | string,startWeek: string | number | Date; endWeek: string | number | Date; idAgreement: any; }, index: number) => {
+        const transformedData = resolve.map((item: { comments: Object[],idEntry: number | string,startWeek: string | number | Date; endWeek: string | number | Date; idAgreement: any; }, index: number) => {
           
           const startDate = new Date(item.startWeek);
           const endDate = new Date(item.endWeek);
@@ -62,12 +65,15 @@ export class EntriesPage implements OnInit {
           //const dateRange = `${item.startWeek} - ${item.endWeek}`;
         
           return {
+            comments: item.comments,
             id: item.idEntry,
             date: dateRange,
             idAgreement: item.idAgreement,
             index: "Informe " + (index + 1)
           };
         });
+
+        console.log(transformedData)
 
         this.rows.next(transformedData)
 

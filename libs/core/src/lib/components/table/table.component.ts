@@ -24,6 +24,7 @@ export class TableComponent {
   @Output() activeEvent = new EventEmitter();
   @Output() resetEvent = new EventEmitter();
   @Output() routeEvent = new EventEmitter();
+  @Output() infoEvent = new EventEmitter();
 
 
   @Input("rows") set rows_data(n: BehaviorSubject<Object>) {
@@ -60,6 +61,13 @@ export class TableComponent {
 
   }
 
+  onInfo(data: any) {
+    //console.log(data)
+    this.infoEvent.emit(data)
+  }
+
+
+
   onRoute(data: any) {
     let r = this.buttons.filter((button: { fun: string; }) => button.fun == "onRoute")
 
@@ -69,7 +77,7 @@ export class TableComponent {
   onSubRoute(data: any) {
     console.log(data)
     let r = this.buttons.filter((button: { fun: string; }) => button.fun == "onSubRoute")
-    this.routeEvent.emit({id: data.id,date: data.date,name: data.index,url: r[0].route})
+    this.routeEvent.emit({comments: data.comments,id: data.id,date: data.date,name: data.index,url: r[0].route})
   }
 
   public buttonClicked(button: any,data: any): void {

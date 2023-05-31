@@ -129,8 +129,10 @@ export class StudentsPage implements OnInit {
     // cambio el boton de act o añadir
     let buttonSection = [{ text: await lastValueFrom(this.translate.get("general.update")), type: "info", fun: "onEdit" }]
 
+    let unitPlaceholder = await lastValueFrom(this.translate.get("modules.unitForm"))
+
     let inputSection = [{ formName: "name", type: "text", mandatory: true },{ formName: "surname", type: "text", mandatory: true },{ formName: "password", type: "text", mandatory: true },{ formName: "email", type: "email", mandatory: true }];
-    let selectSection = [{ formName: "idUnit", options: this.mappedList }];
+    let selectSection = [{ formName: "idUnit", options: this.mappedList, placeholder: unitPlaceholder }];
     let textSection = [await lastValueFrom(this.translate.get("students.addTitle"))]
 
     if (cellUpd == null) {
@@ -180,6 +182,7 @@ export class StudentsPage implements OnInit {
             break;
           case "reset":
             this.resetPass(result.data,extras)
+            break;
         }
       }
     });
@@ -320,6 +323,7 @@ export class StudentsPage implements OnInit {
     )
   }
   seeInforms(param: any) {
+    //console.log(param);
     this.sharedSvc.setData(param)
     this.route.navigate([param.url])
   }

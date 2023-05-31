@@ -16,6 +16,7 @@ export class CommentsPage implements OnInit {
   date: string = "";
   rows = new BehaviorSubject<Object>([]);
   rows$: Observable<any> = new Observable;
+  isFct: boolean = false;
   urlBack = "students"
 
   orderValueList = ["first", "second", "third", "fourth", "fifth"]
@@ -32,27 +33,61 @@ export class CommentsPage implements OnInit {
 
     // data
     let params: any = JSON.parse(this.sharedSvc.getData() as string);
+    console.log(params.comments)
+    
     this.name = params.name;
     this.date = params.date
 
-    this.chargeData(params.id)
+    this.isFct = this.checkAgreementStatus(params.comments);
+
+    console.log(this.isFct)
+    if(!this.isFct) {
+      let id = this.sharedSvc.getAuxData();
+      this.chargeData(id,params.comments);
+    } else {
+      this.rows.next(params.comments)
+      this.rows$ = this.rows.asObservable()
+    }
+    //this.chargeData(params.id)
   }
 
-  chargeData(id: any) {
-    let url = this.apiUrlBase + "comment/get/entry"
+  checkAgreementStatus(param: Object[]) {
+    let isFct = false
+    param.forEach((e: any)=> {
+      if(e.idModule == null) {
+        isFct = true;
+      }
+    });
+    return isFct
+  }
+
+  chargeData(id: any,comments: any) {
+    let url = this.apiUrlBase + "module/get/student-modules"
     let user = JSON.parse(localStorage.getItem("sessionData") as string)
-    let params = new HttpParams().set("id_check", user.profile).set("id_entry",id)
+    let params = new HttpParams().set("id_check", user.profile).set("id_student",id)
 
     this.apiSvc.get(url,params,this.apiHeaders).subscribe(
-      (resolve) => {
-        this.rows.next(resolve);
+      (resolve: any) => {
+        console.log(resolve)
+        
+        // trato el array
+        let result = comments.map((obj: any, index: string | number) => Object.assign({}, obj, { name: resolve[index].name }));
+
+        console.log(result);
+
+        this.rows.next(result)
         this.rows$ = this.rows.asObservable()
+        //this.titles.next(resolve);
+        //this.titles$ = this.rows.asObservable()
+
+
       },
       async (error) => {
         this.notification.showToast(await lastValueFrom(this.translate.get('general.chargeErr')), "error", "medium")
       }
     )
   }
+
 
   closeMenu(param: any) {
     this.menuCtrl.close();

@@ -12,7 +12,14 @@ export class SharedService {
     return localStorage.getItem("sharedData")
   }
   setData(n: any) {
-    console.log(n);
     localStorage.setItem("sharedData",JSON.stringify(n))
+  }
+
+  // datos enviados para mas de dos pantallas
+  getAuxData() {
+    return localStorage.getItem("sharedAuxData")
+  }
+  setAuxData(n: any) {
+    localStorage.setItem("sharedAuxData",JSON.stringify(n))
   }
 }

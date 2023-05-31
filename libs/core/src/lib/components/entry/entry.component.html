@@ -8,7 +8,7 @@
             <h4 class="text-no-padding">Trabajo realizado</h4>
             <ion-textarea class="outline-textarea" [readonly]="readonly" label="Outline textarea" labelPlacement="floating" fill="outline" placeholder="Escribe aqui" [(ngModel)]="text"></ion-textarea>
             <div class="accordion-last-row">
-                <div class="time-container">
+                <div class="time-container" *ngIf="fct">
                     <p>Tiempo realizado: </p>
                     <div class="time-button" id="click-trigger-{{orderValue}}">
                         <p>{{time}}</p> 

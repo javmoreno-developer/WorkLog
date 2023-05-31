@@ -16,20 +16,28 @@ export class EntryComponent {
   end: any
   dataAct: any
   readonly: boolean = false
+  fct: boolean = false
 
   @Input("orderValue") set _orderValue(n: any) {
     this.orderValue = n
   }
+
   @Input("title") set _title(n: any) {
     this.title = n
   }
+
   @Input("end") set _end(n: any) {
     this.end = n;
   }
+
   @Input("dataAct") set _dataAct(n: any) {
     this.dataAct = n;
     this.time = this.getTime(n.hours)
     this.text = n.text
+  }
+
+  @Input("fct") set _fct(n: any) {
+    this.fct = n
   }
 
   constructor(private translate: TranslateService) {}

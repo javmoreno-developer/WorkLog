@@ -35,7 +35,7 @@ export class SidebarComponent {
       this.sidebar_rows = [
         {name: "Dashboard", url:"home", active: false, icon: "dashboard"},
         {name: "Alumnos", url:"students", active: false, icon: "person"},
-        {name: "Convenios", url:"", active: false, icon: "contact_page"},
+        {name: "Convenios", url:"agreements", active: false, icon: "contact_page"},
         {name: "Empresas", url:"", active: false, icon: "apartment"},
         {name: "Laborales", url:"", active: false, icon: "location_home"},
         {name: "Docentes", url:"", active: false, icon: "school"},

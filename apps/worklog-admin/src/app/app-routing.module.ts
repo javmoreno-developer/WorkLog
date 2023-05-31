@@ -40,6 +40,11 @@ const routes: Routes = [
       import("./pages/comments/comments.module").then((m) => m.CommentsPageModule)
   },
   {
+    path: "agreements",
+    loadChildren: () =>
+      import("./pages/agreements/agreements.module").then((m) => m.AgreementsPageModule)
+  },
+  {
     path: "",
     redirectTo: "home",
     pathMatch: "full",
