@@ -1,0 +1,56 @@
+<!-- swiper modal -->
+<swiper #swiper [config]="options" class="no-padding-bottom">
+    <ng-template swiperSlide>
+        <div class="swiper-zoom-container">
+            <div class="first-row">
+                <ion-icon name="close-outline" (click)="closeModal()"></ion-icon>
+            </div>
+            <h1>Añadir convenios</h1>
+
+            <form [formGroup]="myform" class="form-second-row">
+                <ion-item class="input-container" *ngFor="let select of first_slide">
+                    <ion-select placeholder="{{select.placeholder}}" [formControlName]="select.formName" class="select-element" (ionChange)="selectInvokeFun(select)">
+                        <ion-select-option *ngFor="let option of select.options" [value]="option.value">{{option.name}}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+             </form>
+
+            <div class="action-row">
+                <ion-button class="button-info" (click)="buttonClicked('onNext',swiper)">
+                    Next
+                </ion-button>
+            </div>
+
+        </div>
+    </ng-template>
+
+    <ng-template swiperSlide>
+        <div class="swiper-zoom-container">
+            <form [formGroup]="myform" class="form-second-row">
+                <ion-item class="input-container" *ngFor="let input of second_slide_dual" [disabled]="isFct && !isMulti">
+                    <ion-input class="input-row" #input (ionInput)="onInputChange($event,input)" [placeholder]="input.placeholder" [formControlName]="input.formName" [type]="input.type"  (ionFocus)="onInputFocus($event)" (ionBlur)="onInputBlur($event,input.formName)"></ion-input>
+                </ion-item>
+                <ion-item class="input-container" *ngFor="let input of second_slide_fct" [disabled]="!isFct && !isMulti">
+                    <ion-input class="input-row" #input (ionInput)="onInputChange($event,input)" [placeholder]="input.placeholder" [formControlName]="input.formName" [type]="input.type"  (ionFocus)="onInputFocus($event)" (ionBlur)="onInputBlur($event,input.formName)"></ion-input>
+                </ion-item>
+            </form>
+
+            <div class="action-row">
+                <ion-button class="button-info" (click)="buttonClicked('onPrevious',swiper)">
+                    Previous
+                </ion-button>
+                <ion-button *ngIf="!cellUpd" [disabled]="!myform.valid" class="button-success" (click)="buttonClicked('onAdd',swiper)">
+                    Añadir
+                </ion-button>
+                <ion-button *ngIf="cellUpd" [disabled]="!myform.valid" class="button-success" (click)="buttonClicked('onEdit',swiper)">
+                    Actualizar
+                </ion-button>
+            </div>
+         </div>
+    </ng-template>
+
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+    
+  </swiper>

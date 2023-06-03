@@ -1,0 +1,105 @@
+swiper {
+    height: 100%;
+    width: 100%;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background-color: red;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.swiper-button-next {
+    right: 10px;
+}
+
+.swiper-button-prev {
+    left: 10px;
+}
+
+
+.input-focus {
+    border: none !important;
+}
+
+.swiper-zoom-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+
+    .first-row {
+        display: flex;
+        justify-content: flex-end;
+        width: 98%;
+        height: 10%;
+        ion-icon {
+            font-size: 40px;
+            cursor: pointer;
+        }
+    }
+
+    .form-second-row {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        height: 100%;
+        width: 100%;
+        align-items: center;
+
+        .item-interactive {
+            --highlight-height: calc(100% - 2px);
+            --border-radius: 10px;
+
+        }
+    }
+
+
+    .button-danger {
+        --background: var(--ion-color-danger);
+        --color: var(--ion-color-light);
+    }
+
+    .button-success {
+        --background: rgba(var(--ion-color-entry-rgb), 0.5);
+        --color: black;
+    }
+
+    .button-info {
+        --background: rgba(var(--ion-rgb-red), var(--ion-rgb-green), var(--ion-rgb-blue), 0.7);
+        --color: var(--ion-color-light);
+    }
+}
+
+.input-container {
+    width: 80%;
+    background: #FAFAFA;
+    --background: #FAFAFA;
+    border: 1px solid rgba($color: #000000, $alpha: 0.5);
+    border-radius: 10px;
+
+
+    .input-row {
+        width: 100%;
+        height: 100%;
+        background: #FAFAFA;
+        --background: #FAFAFA;
+        --placeholder-font-weight: 500;
+
+
+    }
+}
+
+.select-element {
+    width: 100%;
+}

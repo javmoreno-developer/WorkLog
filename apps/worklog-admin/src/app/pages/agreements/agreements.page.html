@@ -12,6 +12,6 @@
       </div>
     </div>
     <worklog-fe-table class="table-component" [rows]="rows" [columns]="columns" [tableStyle]="tableStyle"
-    [tableButtons]="tableButtons" (infoEvent)="presentModal(null,$event,'info')"></worklog-fe-table>
+    [tableButtons]="tableButtons" (editEvent)="promptUpdate($event)" (infoEvent)="presentModal(null,$event,'info')" (deleteEvent)="promptDelete($event)"></worklog-fe-table>
   </div>
   </ion-content>

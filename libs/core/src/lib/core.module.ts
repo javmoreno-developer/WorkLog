@@ -20,6 +20,8 @@ import { DurationAdminComponent } from "./components/duration-admin/duration-adm
 import { DatabaseManageAdminComponent } from "./components/database-manage-admin/database-manage-admin.component";
 import { HolidayAdminComponent } from "./components/holiday-admin/holiday-admin.component";
 import { FooterComponent } from "./components/footer/footer.component";
+import { SwiperModule } from "swiper/angular";
+import { EmptySwiperComponent } from "./components/empty-swiper/empty-swiper.component";
 
 export class LocaleId extends String {
   constructor(private localeService: LocaleService) {
@@ -47,7 +49,8 @@ export class LocaleId extends String {
     DurationAdminComponent,
     DatabaseManageAdminComponent,
     HolidayAdminComponent,
-    FooterComponent
+    FooterComponent,
+    EmptySwiperComponent,
   ],
   imports: [
     CommonModule,
@@ -56,6 +59,7 @@ export class LocaleId extends String {
     ReactiveFormsModule,
     HttpClientModule,
     NgxDatatableModule,
+    SwiperModule,
     TranslateModule.forChild({
       loader: {
         provide: TranslateLoader,
@@ -79,7 +83,7 @@ export class LocaleId extends String {
     DurationAdminComponent,
     DatabaseManageAdminComponent,
     HolidayAdminComponent,
-    FooterComponent
+    FooterComponent,
   ],
   providers: [
     {

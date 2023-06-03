@@ -152,6 +152,8 @@ export class StudentsPage implements OnInit {
       textSection = ["subir archivo"]
     }
 
+    console.log(inputSection)
+
     const modal = await this.modalCtrl.create({
       component: EmptyModalComponent,
       componentProps: {

@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    <ion-content class="second-row" *ngIf="inputSection.length > 0">
+      <ion-content class="second-row" *ngIf="inputSection.length > 0">
         <form [formGroup]="myform" class="form-second-row">
             <ion-item *ngFor="let input of inputSection" class="input-container">
                 <ion-input class="input-row" [placeholder]="input.formName" [formControlName]="input.formName" [type]="input.type"  (ionFocus)="onInputFocus($event)" (ionBlur)="onInputBlur($event,input.formName)"></ion-input>
@@ -30,6 +30,7 @@
             
         </form>
     </ion-content>
+   
 
     <div class="file-row" *ngIf="isFile == true">
         <ion-button (click)="openCsv(fileLoader)">sUBIR MOVIDAS</ion-button>

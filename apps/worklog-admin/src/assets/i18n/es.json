@@ -42,6 +42,8 @@
         "accept": "Aceptar",
         "yes": "Si",
         "no": "No",
+        "next": "Siguiente",
+        "previous": "Anterior",
         "cancel": "Cancelar",
         "warning": "Atencion",
         "download": "Descargar",
@@ -94,8 +96,10 @@
         "infoTitleModal": "Informacion del convenio",
         "type": "Tipo de convenio: {{type}}",
         "company": "Empresa: {{company}}",
-        "end": "Fin: {{end}}",
-        "start": "Inicio: {{start}}",
+        "fctEnd": "Fin de fct: {{fctEnd}}",
+        "fctStart": "Inicio de fct: {{fctStart}}",
+        "dualEnd": "Fin de dual: {{dualEnd}}",
+        "dualStart": "Inicio de dual: {{dualStart}}",
         "labor": "Tutor laboral: {{labor}}",
         "teacher": "Tutor docente: {{teacher}}",
         "student": "Estudiante: {{student}}",
@@ -103,7 +107,17 @@
         "laborForm": "Elige tutor laboral",
         "teacherForm": "Elige profesor docente",
         "companyForm": "Elige empresa",
-        "typeForm": "Elige tipo"
+        "typeForm": "Elige tipo",
+        "studentForm": "Elige estudiante",
+        "fctStartForm": "Escribe el inicio de la fct (dd-mm-aaaa)",
+        "fctEndForm": "Escribe el fin de la fct (dd-mm-aaaa)",
+        "dualEndForm": "Escribe el fin de la dual (dd-mm-aaaa)",
+        "dualStartForm": "Escribe el inicio de la dual (dd-mm-aaaa)",
+        "deleteTitle": "¿Seguro que quieres borrar el convenio?",
+        "deleteMsg": "Se ha borrado el convenio",
+        "deleteErr": "Ha habido un error al borrar el convenio",
+        "addMsg": "Se ha añadido el convenio",
+        "addErr": "Ha habido un error al insertar el convenio"
     }
     
     

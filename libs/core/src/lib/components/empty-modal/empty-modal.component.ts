@@ -1,6 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from "@angular/forms";
-import { ModalController } from "@ionic/angular";
+import { IonSlides, ModalController } from "@ionic/angular";
+import Swiper, { SwiperOptions, Zoom } from 'swiper';
+import { SwiperComponent } from 'swiper/angular';
 
 @Component({
   selector: "worklog-fe-empty-modal",
