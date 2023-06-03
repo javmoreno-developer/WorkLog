@@ -138,6 +138,27 @@
         "delCompanyErr": "Ha habido un error al borrar la empresa",
         "readCompanyErr": "Ha habido un error al leer las empresas"
 
+    },
+
+    "units": {
+        "title": "Listado de cursos",
+        "infoModalTitle": "Informacion sobre el curso",
+        "addModalTitle": "Añadir curso",
+        "nameText": "Nombre: {{name}}",
+        "initialsText": "Iniciales: {{initials}}",
+        "unitTypeText": "Turno: {{unitType}}",
+        "charUnitText": "CharUnit: {{charUnit}}",
+        "levelText": "Curso: {{level}}",
+        "deleteTitle": "¿Seguro que quieres borrar el curso {{name}}?",
+        "addCompanyMsg": "Has añadido un curso",
+        "addCompanyErr": "Ha habido un error al insertar el curso",
+        "updCompanyMsg": "Has actualizado un curso",
+        "updCompanyErr": "Ha habido un error al actualizar el curso",
+        "delCompanyMsg": "Has borrado un curso",
+        "delCompanyErr": "Ha habido un error al borrar el curso",
+        "readCompanyErr": "Ha habido un error al leer los cursos",
+        "unitPlaceholder": "Elige turno"
+        
     }
     
     

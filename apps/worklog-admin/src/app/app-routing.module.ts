@@ -50,6 +50,11 @@ const routes: Routes = [
       import("./pages/companies/companies.module").then((m) => m.CompaniesPageModule)
   },
   {
+    path: "units",
+    loadChildren: () =>
+      import("./pages/units/units.module").then((m) => m.UnitsPageModule)
+  },
+  {
     path: "",
     redirectTo: "home",
     pathMatch: "full",
