@@ -5,14 +5,14 @@
     <ion-content class="second-row" *ngIf="inputSection.length == 0">
         <div *ngFor="let row of textSection; let i = index" class="second-row-block">
             <h4 *ngIf="i == 0">{{row}}</h4>
-            <p *ngIf="i != 0">{{row}}</p>
+            <p *ngIf="i != 0" class="modal-text">{{row}}</p>
         </div>
     </ion-content>
 
     <div class="second-row-short" *ngIf="inputSection.length > 0">
         <div *ngFor="let row of textSection; let i = index" class="second-row-block">
             <h4 *ngIf="i == 0">{{row}}</h4>
-            <p *ngIf="i != 0">{{row}}</p>
+            <p *ngIf="i != 0" class="modal-text">{{row}}</p>
         </div>
     </div>
 

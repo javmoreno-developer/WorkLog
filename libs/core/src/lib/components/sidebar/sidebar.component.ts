@@ -36,7 +36,7 @@ export class SidebarComponent {
         {name: "Dashboard", url:"home", active: false, icon: "dashboard"},
         {name: "Alumnos", url:"students", active: false, icon: "person"},
         {name: "Convenios", url:"agreements", active: false, icon: "contact_page"},
-        {name: "Empresas", url:"", active: false, icon: "apartment"},
+        {name: "Empresas", url:"companies", active: false, icon: "apartment"},
         {name: "Laborales", url:"", active: false, icon: "location_home"},
         {name: "Docentes", url:"", active: false, icon: "school"},
         {name: "Unidades", url:"", active: false, icon: "calendar_view_month"},

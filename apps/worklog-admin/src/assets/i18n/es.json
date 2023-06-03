@@ -118,6 +118,26 @@
         "deleteErr": "Ha habido un error al borrar el convenio",
         "addMsg": "Se ha añadido el convenio",
         "addErr": "Ha habido un error al insertar el convenio"
+    },
+
+    "companies": {
+        "title": "Listado de empresas",
+        "infoModalTitle": "Informacion sobre la empresa",
+        "addModalTitle": "Añadir empresa",
+        "nameText": "Nombre: {{name}}",
+        "addressText": "Direccion: {{address}}",
+        "latitudeText": "Latitud: {{latitude}}",
+        "longitudeText": "Longitud: {{longitude}}",
+        "phoneText": "Teléfono: {{phone}}",
+        "deleteTitle": "¿Seguro que quieres borrar la empresa {{name}}?",
+        "addCompanyMsg": "Has añadido una empresa",
+        "addCompanyErr": "Ha habido un error al insertar la empresa",
+        "updCompanyMsg": "Has actualizado una empresa",
+        "updCompanyErr": "Ha habido un error al actualizar la empresa",
+        "delCompanyMsg": "Has borrado una empresa",
+        "delCompanyErr": "Ha habido un error al borrar la empresa",
+        "readCompanyErr": "Ha habido un error al leer las empresas"
+
     }
     
     

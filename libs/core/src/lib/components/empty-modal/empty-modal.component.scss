@@ -1,7 +1,13 @@
 .input-focus {
     border: none !important;
 }
-
+.modal-text {
+    width: 50%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+}
 .modal-content {
     display: flex;
     flex-direction: column;
