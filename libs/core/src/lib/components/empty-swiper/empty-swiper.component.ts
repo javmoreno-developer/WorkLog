@@ -18,6 +18,7 @@ export class EmptySwiperComponent {
   second_slide_dual: any;
   isMulti = false;
   cellUpd: any;
+  oldStudentId: any;
 
   options = {
     slidesPerView: 1,
@@ -62,18 +63,18 @@ export class EmptySwiperComponent {
   onAdd() {
     let dates = this.turnDates();
 
-    if(this.checkDates()) {
+    if (this.checkDates()) {
       this.modalCtr.dismiss(this.myform.value, "submit")
     } else {
       console.log("bad form bro")
     }
-    
+
   }
 
   onEdit() {
     let dates = this.turnDates()
-    if(this.checkDates()) {
-      this.modalCtr.dismiss({data: this.myform.value, id: this.cellUpd.id}, "edit")
+    if (this.checkDates()) {
+      this.modalCtr.dismiss({ data: this.myform.value, oldStudentId: this.oldStudentId, idAgreement: this.cellUpd.id }, "edit")
     } else {
       console.log("bad form bro")
     }
@@ -85,15 +86,15 @@ export class EmptySwiperComponent {
     }
   }
 
-  checkDates() : boolean {
-    if(this.isMulti) {
+  checkDates(): boolean {
+    if (this.isMulti) {
       let fctStartDate = new Date(this.myform.get("fctStartAt")?.value)
       let fctEndDate = new Date(this.myform.get("fctEndAt")?.value)
       let dualStartDate = new Date(this.myform.get("dualStartAt")?.value)
       let dualEndDate = new Date(this.myform.get("dualEndAt")?.value)
 
       return ((fctStartDate < fctEndDate) && (dualStartDate < dualEndDate) && (dualEndDate < fctStartDate))
-    } else if(this.isFct) {
+    } else if (this.isFct) {
       let fctStartDate = new Date(this.myform.get("fctStartAt")?.value)
       let fctEndDate = new Date(this.myform.get("fctEndAt")?.value)
 
@@ -101,6 +102,7 @@ export class EmptySwiperComponent {
     } else {
       let dualStartDate = new Date(this.myform.get("dualStartAt")?.value)
       let dualEndDate = new Date(this.myform.get("dualEndAt")?.value)
+
 
       return (dualStartDate < dualEndDate)
     }
@@ -121,6 +123,22 @@ export class EmptySwiperComponent {
     this.myform.get("dualEndAt")?.setValue(dualEndTurned)
   }
 
+  assignType(type: any) {
+    if (type == "dual") {
+      this.isFct = false;
+      this.isMulti = false;
+      this.myform = this.myformCopy; 
+    } else if (type == "fct") {
+      this.isFct = true;
+      this.isMulti = false;
+
+      this.myform = this.myformCopy;
+    } else {
+      this.isMulti = true;
+      this.myform = this.myformCopy;
+
+    }
+  }
 
   changeType(type: any) {
     if (type == "dual") {
@@ -160,35 +178,39 @@ export class EmptySwiperComponent {
     this.myform = this.fb.group(this.createFormGroupConfig());
     this.myformCopy = this.myform;
     console.log(this.cellUpd)
-    if(this.cellUpd) {
+    if (this.cellUpd) {
       this.getActForm()
     }
 
-   
+
   }
 
   getActForm() {
     console.log(this.myform.controls)
-    console.log(this.first_slide[0].options[0].value)
 
-    const { labor,teacher,company,student, ...copy } = this.cellUpd;
+    const { labor, teacher, company, student, ...copy } = this.cellUpd;
 
     console.log(copy)
-    for (let [key, value] of Object.entries(copy)) {
-     
-    console.log(key)
+    this.oldStudentId = copy.idStudent
 
-      const control = this.myform.get(key);
-      if (control instanceof FormControl) {
-        console.log(value)
-        control.setValue(value)
+   for (let [key, value] of Object.entries(copy)) {
+
+     
+      if (copy[key] != null) {
+        console.log(copy[key])
+        const control = this.myform.get(key);
+        if (control instanceof FormControl) {
+
+          control.setValue(value)
+        }
       }
+
     }
     console.log(copy.agreementType)
-    this.changeType(copy.agreementType)
+    this.assignType(copy.agreementType)
     this.turnDates()
-    
-   
+
+
   }
 
   createFormGroupConfig() {

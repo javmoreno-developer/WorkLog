@@ -60,17 +60,21 @@ export class EmptyModalComponent implements OnInit{
   }
   ngOnInit(): void {
     let act = false;
+    console.log(act)
     if(this.cellUpd != null) {
       act = true;
     }
 
-    this.myform = this.fb.group(this.getFormGroupConfig(act));
+    
+    this.myform = this.fb.group(this.getFormGroupConfig());
+
     if(act) {
+      console.log("here")
       this.getActForm()
     }
   }
 
-  getFormGroupConfig(act: boolean): { [key: string]: any} {
+  getFormGroupConfig(): { [key: string]: any} {
     if(this.isFile == false) {
       let inputs = this.getInputs()
       let selects = this.getSelects()
@@ -90,6 +94,8 @@ export class EmptyModalComponent implements OnInit{
 
   getActForm() {
     const { idModule, ...copy } = this.cellUpd;
+
+    console.log(copy)
 
     for (let [key, value] of Object.entries(copy)) {
       this.myform.get(key)?.setValue(value)

@@ -64,7 +64,7 @@ export class AgreementsPage implements OnInit {
             if(element.fctStartAt != null) {
               preparedRows.push({id: element.idAgreement,dualStartAt: element.dualStartAt,dualEndAt: element.dualEndAt,fctEndAt: element.fctEndAt, fctStartAt: element.fctStartAt,agreementType: element.agreementType,idLabor: element.idLabor,idCompany:element.idCompany,idTeacher: element.idTeacher,labor: element.data[1],teacher: element.data[2],company: element.data[0],idStudent: element.data[3][0], student: element.data[3][1]})
             } else {
-              preparedRows.push({id: element.idAgreement,end: element.dualEndAt, start: element.dualStartAt,agreementType: element.agreementType,idLabor: element.idLabor,idCompany:element.idCompany,idTeacher: element.idTeacher,labor: element.data[1],teacher: element.data[2],company: element.data[0],idStudent: element.data[3][0], student: element.data[3][1]})
+              preparedRows.push({id: element.idAgreement,dualEndAt: element.dualEndAt, dualStartAt: element.dualStartAt,agreementType: element.agreementType,fctEndAt: element.fctEndAt, fctStartAt: element.fctStartAt,idLabor: element.idLabor,idCompany:element.idCompany,idTeacher: element.idTeacher,labor: element.data[1],teacher: element.data[2],company: element.data[0],idStudent: element.data[3][0], student: element.data[3][1]})
             }
         });
         // obtenemos las filas
@@ -101,10 +101,10 @@ export class AgreementsPage implements OnInit {
       let agreementType = await lastValueFrom(this.translate.get("agreements.type", {type: event.agreementType}))
       let company = await lastValueFrom(this.translate.get("agreements.company", {company: event.company}))
 
-      let fctEnd = await lastValueFrom(this.translate.get("agreements.fctEnd", {fctEnd: event.fctEnd}))
-      let fctStart = await lastValueFrom(this.translate.get("agreements.fctStart", {fctStart: event.fctStart}))
-      let dualEnd = await lastValueFrom(this.translate.get("agreements.dualEnd", {dualEnd: event.dualEnd}))
-      let dualStart = await lastValueFrom(this.translate.get("agreements.dualStart", {dualStart: event.dualStart}))
+      let fctEnd = await lastValueFrom(this.translate.get("agreements.fctEnd", {fctEnd: event.fctEndAt}))
+      let fctStart = await lastValueFrom(this.translate.get("agreements.fctStart", {fctStart: event.fctStartAt}))
+      let dualEnd = await lastValueFrom(this.translate.get("agreements.dualEnd", {dualEnd: event.dualEndAt}))
+      let dualStart = await lastValueFrom(this.translate.get("agreements.dualStart", {dualStart: event.dualStartAt}))
 
       let labor = await lastValueFrom(this.translate.get("agreements.labor", {labor: event.labor}))
       let teacher = await lastValueFrom(this.translate.get("agreements.teacher", {teacher: event.teacher}))
@@ -258,6 +258,7 @@ export class AgreementsPage implements OnInit {
           name: obj.surname + " " +obj.name,
           value: obj.idUser,
         }));
+        //console.log(result)
         this.studentsList = result;
         this.presentSwiper(actParam)
       },
@@ -283,7 +284,7 @@ export class AgreementsPage implements OnInit {
     let mappedList = [{name: "fct",value: "fct"},{name: "dual",value: "dual"},{name: "fct+dual",value: "fct+dual"}]
 
     // select and input
-    console.log(this.laborList)
+    //console.log(this.laborList)
     let alumnSelect: any = {formName: "idStudent", placeholder: studentPlaceholder, options: this.studentsList}
     let agreementSelect: any = {formName: "agreementType", placeholder: typePlaceholder, options: mappedList, changeFun: "changeType"}
     let laborSelect: any = {formName: "idLabor", placeholder: laborPlaceholder, options: this.laborList}
@@ -310,7 +311,7 @@ export class AgreementsPage implements OnInit {
     modal.present();
 
     modal.onDidDismiss().then(result => {
-      console.log(result)
+      //console.log(result)
       if (result.data) {
         switch (result.role) {
           case "cancel":
@@ -327,11 +328,23 @@ export class AgreementsPage implements OnInit {
   }
 
   editAgreement(param: any) {
-    console.log(param)
+   
     let user = JSON.parse(localStorage.getItem("sessionData") as string)
     let url = this.apiUrlBase + "agreement/update"
-    let params = new HttpParams().set("id_check", user.profile).set("id_agreement",param.id)
+    let params = new HttpParams().set("id_check", user.profile).set("id_agreement",param.idAgreement).set("id_student",param.data.idStudent)
 
+    delete param.data.idStudent
+
+   
+    if(param.data.agreementType == "fct") {
+      param.data.dualEndAt = null;
+      param.data.dualStartAt = null;
+    } else if(param.data.agreementType == "dual") {
+      param.data.fctEndAt = null;
+      param.data.fctStartAt = null;
+    }
+
+    console.log(param)
     this.apiSvc.put(url,params,param.data,this.apiHeaders).subscribe(
       (resolve) => {
         console.log("done bro")
