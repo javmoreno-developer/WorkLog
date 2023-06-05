@@ -55,6 +55,16 @@ const routes: Routes = [
       import("./pages/units/units.module").then((m) => m.UnitsPageModule)
   },
   {
+    path: "teachers",
+    loadChildren: () =>
+      import("./pages/teachers/teachers.module").then((m) => m.TeachersPageModule)
+  },
+  {
+    path: "profile",
+    loadChildren: () =>
+      import("./pages/profiles/profiles.module").then((m) => m.ProfilesPageModule)
+  },
+  {
     path: "",
     redirectTo: "home",
     pathMatch: "full",

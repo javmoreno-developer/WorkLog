@@ -150,15 +150,27 @@
         "charUnitText": "CharUnit: {{charUnit}}",
         "levelText": "Curso: {{level}}",
         "deleteTitle": "¿Seguro que quieres borrar el curso {{name}}?",
-        "addCompanyMsg": "Has añadido un curso",
-        "addCompanyErr": "Ha habido un error al insertar el curso",
-        "updCompanyMsg": "Has actualizado un curso",
-        "updCompanyErr": "Ha habido un error al actualizar el curso",
-        "delCompanyMsg": "Has borrado un curso",
-        "delCompanyErr": "Ha habido un error al borrar el curso",
-        "readCompanyErr": "Ha habido un error al leer los cursos",
+        "addMsg": "Has añadido un curso",
+        "addErr": "Ha habido un error al insertar el curso",
+        "updMsg": "Has actualizado un curso",
+        "updErr": "Ha habido un error al actualizar el curso",
+        "delMsg": "Has borrado un curso",
+        "delErr": "Ha habido un error al borrar el curso",
+        "readErr": "Ha habido un error al leer los cursos",
         "unitPlaceholder": "Elige turno"
         
+    },
+    "teachers": {
+        "title": "Listado de docentes",
+        "addModalTitle": "Añadir docente",
+        "updMsg": "Se han actualizado los datos de un profesor",
+        "updErr": "Ha habido un error al actualizar un profesor",
+        "deleteTitle": "¿Seguro que quieres borrar al profesor {{name}}?",
+        "addMsg": "Has añadido un profesor",
+        "addErr": "Ha habido un error al insertar el profesor",
+        "delMsg": "Has borrado un profesor",
+        "delErr": "Ha habido un error al borrar el profesor",
+        "readErr": "Ha habido un error al leer los profesores"
     }
     
     

@@ -5,6 +5,13 @@
     --background: none;
     --box-shadow: none;
 }
+.profile_icon {
+    color: var(--ion-color-secondary-shade);
+    font-size: 20px;
+    cursor: pointer;
+    --background: none;
+    --box-shadow: none;
+}
 .delete_icon {
     color: var(--ion-color-danger-shade);
     font-size: 20px;

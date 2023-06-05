@@ -60,11 +60,11 @@ export class EmptyModalComponent implements OnInit{
   }
   ngOnInit(): void {
     let act = false;
-    console.log(act)
+    
     if(this.cellUpd != null) {
       act = true;
     }
-
+    console.log(act)
     
     this.myform = this.fb.group(this.getFormGroupConfig());
 
@@ -151,6 +151,9 @@ export class EmptyModalComponent implements OnInit{
   }
   onEditUnit() {
     this.modalCtr.dismiss({data: this.myform.value, idAct: this.cellUpd.idUnit},"edit")
+  }
+  onEditTeacher() {
+    this.modalCtr.dismiss({data: this.myform.value, idAct: this.cellUpd.idUser},"edit")
   }
   onReset() {
     this.modalCtr.dismiss({data: this.myform.value},"reset")

@@ -47,7 +47,7 @@ export class UnitsPage implements OnInit {
         ])
       },
       async (error) => {
-        this.notification.showToast(await lastValueFrom(this.translate.get('units.readCompanyErr')), "error", "medium")
+        this.notification.showToast(await lastValueFrom(this.translate.get('units.readErr')), "error", "medium")
       }
     )
   }
@@ -135,11 +135,11 @@ export class UnitsPage implements OnInit {
 
     this.apiSvc.post(url,params,param,this.apiUrlHeaders).subscribe(
       async (resolve) => {
-        this.notification.showToast(await lastValueFrom(this.translate.get('units.addCompanyMsg')), "success", "medium")
+        this.notification.showToast(await lastValueFrom(this.translate.get('units.addMsg')), "success", "medium")
         this.chargeData()
       },
       async (error) => {
-        this.notification.showToast(await lastValueFrom(this.translate.get('units.addCompanyErr')), "error", "medium")
+        this.notification.showToast(await lastValueFrom(this.translate.get('units.addErr')), "error", "medium")
       }
     )
   }
@@ -153,12 +153,12 @@ export class UnitsPage implements OnInit {
 
     this.apiSvc.put(url,params,param.data,this.apiUrlHeaders).subscribe(
       async (resolve) => {
-        this.notification.showToast(await lastValueFrom(this.translate.get('units.updCompanyMsg')), "success", "medium")
+        this.notification.showToast(await lastValueFrom(this.translate.get('units.updMsg')), "success", "medium")
         this.chargeData()
       },
       async (error) => {
         console.log(error)
-        this.notification.showToast(await lastValueFrom(this.translate.get('units.updCompanyErr')), "error", "medium")
+        this.notification.showToast(await lastValueFrom(this.translate.get('units.updErr')), "error", "medium")
       }
     )
   }
@@ -187,12 +187,12 @@ export class UnitsPage implements OnInit {
             const params = new HttpParams().set("id_check", user.profile).set("id_unit", param.data.idUnit)
             this.apiSvc.delete(url, params, this.apiUrlHeaders).subscribe(
               async (resolve) => {
-                this.notification.showToast(await lastValueFrom(this.translate.get('units.delCompanyMsg')), "success", "medium")
+                this.notification.showToast(await lastValueFrom(this.translate.get('units.delMsg')), "success", "medium")
                 this.chargeData();
               },
               async (error) => {
                 console.log(error)
-                this.notification.showToast(await lastValueFrom(this.translate.get('units.delCompanyErr')), "error", "medium")
+                this.notification.showToast(await lastValueFrom(this.translate.get('units.delErr')), "error", "medium")
               }
             )
 

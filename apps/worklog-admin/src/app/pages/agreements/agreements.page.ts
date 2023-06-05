@@ -90,6 +90,7 @@ export class AgreementsPage implements OnInit {
 
   async presentModal(cellUpd: Object | null,event: any | null,type: string) {
     console.log(event)
+    
     // cambio el boton de act o añadir
     let buttonSection: any = []
 
@@ -270,6 +271,7 @@ export class AgreementsPage implements OnInit {
 
   async presentSwiper(cellUpd: any | null) {
     let act = false
+    
     // placeholder msg
     let typePlaceholder = await lastValueFrom(this.translate.get("agreements.typeForm"))
     let laborPlaceholder = await lastValueFrom(this.translate.get("agreements.laborForm"))

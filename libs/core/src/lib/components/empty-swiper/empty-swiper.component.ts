@@ -81,6 +81,7 @@ export class EmptySwiperComponent {
   }
 
   onPrevious(swiper: SwiperComponent) {
+    console.log(this.myform.controls)
     if (swiper) {
       swiper.swiperRef.slidePrev()
     }
@@ -141,6 +142,7 @@ export class EmptySwiperComponent {
   }
 
   changeType(type: any) {
+    console.log(this.myform.controls)
     if (type == "dual") {
       this.isFct = false;
       this.isMulti = false;
@@ -157,8 +159,11 @@ export class EmptySwiperComponent {
       this.myform = this.myformCopy;
 
       // elimino los campos de dual del form actual
-      this.myform.removeControl("dualStartAt")
-      this.myform.removeControl("dualEndAt")
+      if(this.myform.get("dualStartAt")) {
+        this.myform.removeControl("dualStartAt")
+        this.myform.removeControl("dualEndAt")
+      }
+      
 
     } else {
       this.isMulti = true;
@@ -169,7 +174,6 @@ export class EmptySwiperComponent {
 
   selectInvokeFun(param: any) {
     if (param.changeFun != undefined) {
-      console.log(this.myform.value)
       eval(`this.${param.changeFun}(this.myform.value.agreementType)`);
     }
   }
@@ -177,27 +181,28 @@ export class EmptySwiperComponent {
   ngOnInit() {
     this.myform = this.fb.group(this.createFormGroupConfig());
     this.myformCopy = this.myform;
-    console.log(this.cellUpd)
+    console.log(this.myform)
     if (this.cellUpd) {
       this.getActForm()
+      //this.changeType(this.myform.get("agreementType")?.value);
     }
 
+   console.log(this.myform)
 
   }
 
   getActForm() {
-    console.log(this.myform.controls)
+
 
     const { labor, teacher, company, student, ...copy } = this.cellUpd;
 
-    console.log(copy)
+ 
     this.oldStudentId = copy.idStudent
 
    for (let [key, value] of Object.entries(copy)) {
 
      
       if (copy[key] != null) {
-        console.log(copy[key])
         const control = this.myform.get(key);
         if (control instanceof FormControl) {
 

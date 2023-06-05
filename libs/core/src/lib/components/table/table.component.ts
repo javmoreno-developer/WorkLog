@@ -25,7 +25,7 @@ export class TableComponent {
   @Output() resetEvent = new EventEmitter();
   @Output() routeEvent = new EventEmitter();
   @Output() infoEvent = new EventEmitter();
-
+  @Output() profileEvent = new EventEmitter();
 
   @Input("rows") set rows_data(n: BehaviorSubject<Object>) {
 
@@ -128,6 +128,9 @@ export class TableComponent {
   }
   onEdit(data: any) {
     this.editEvent.emit({data: data})
+  }
+  onProfile(data: any) {
+    this.profileEvent.emit({data: data})
   }
 
   async toggleActive(checked: any, row: any,toggle: IonToggle) {
