@@ -6,7 +6,7 @@ const routes: Routes = [
   {
     path: "home",
     loadChildren: () =>
-      import("./home/home.module").then((m) => m.HomePageModule),
+      import("./pages/dashboard/dashboard.module").then((m) => m.DashboardPageModule),
       canActivate: [AuthGuard]
   },
   {

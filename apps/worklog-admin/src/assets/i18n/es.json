@@ -183,6 +183,9 @@
         "delMsg": "Has borrado un tutor laboral",
         "delErr": "Ha habido un error al borrar el tutor laboral",
         "readErr": "Ha habido un error al leer los tutores laborales"
+    },
+    "dashboard": {
+        "readErr": "Ha habido un error al leer las graficas"
     }
     
     
