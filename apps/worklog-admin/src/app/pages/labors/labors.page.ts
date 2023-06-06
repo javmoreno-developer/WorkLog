@@ -8,11 +8,11 @@ import { EmptyModalComponent } from "libs/core/src/lib/components/empty-modal/em
 import { BehaviorSubject, lastValueFrom } from "rxjs";
 
 @Component({
-  selector: "worklog-fe-teachers",
-  templateUrl: "./teachers.page.html",
-  styleUrls: ["./teachers.page.scss"],
+  selector: "worklog-fe-labors",
+  templateUrl: "./labors.page.html",
+  styleUrls: ["./labors.page.scss"],
 })
-export class TeachersPage implements OnInit {
+export class LaborsPage implements OnInit {
   rows = new BehaviorSubject<Object>([]);
   columns = new BehaviorSubject<Object>([]);
 
@@ -38,7 +38,7 @@ export class TeachersPage implements OnInit {
   }
 
   chargeData() {
-    let url = this.apiUrlBase + "user/get/teachers"
+    let url = this.apiUrlBase + "user/get/laborals"
     let user = JSON.parse(localStorage.getItem("sessionData") as string)
     let param = new HttpParams().set("id_check", user.profile)
 
@@ -111,17 +111,15 @@ export class TeachersPage implements OnInit {
     let unitPlaceholder = await lastValueFrom(this.translate.get("modules.unitForm"))
 
 
-     textSection = [await lastValueFrom(this.translate.get("teachers.addModalTitle"))]
+     textSection = [await lastValueFrom(this.translate.get("labors.addModalTitle"))]
      buttonSection = [{ text: await lastValueFrom(this.translate.get("general.added")), type: "info", fun: "onAdd" }]
      inputSection = [{ formName: "name", type: "text", mandatory: true },{ formName: "surname", type: "text", mandatory: true },{ formName: "email", type: "email", mandatory: true }];
      selectSection = [];
     
 
     if(type == "edit") {
-      buttonSection = [{ text: await lastValueFrom(this.translate.get("general.update")), type: "info", fun: "onEditTeacher" }]
+      buttonSection = [{ text: await lastValueFrom(this.translate.get("general.update")), type: "info", fun: "onEditLabor" }]
     }
-   
-    console.log()
 
 
     const modal = await this.modalCtrl.create({
@@ -145,10 +143,10 @@ export class TeachersPage implements OnInit {
             break;
           case "submit":
             console.log(result.data)
-            this.addTeacher(result.data)
+            this.addLabor(result.data)
             break;
           case "edit":
-            this.updateTeacher(result.data)
+            this.updateLabor(result.data)
             break;
           
         }
@@ -156,8 +154,8 @@ export class TeachersPage implements OnInit {
     });
   }
 
-  addTeacher(param: any) {
-    let url = this.apiUrlBase + "user/add-teacher"
+  addLabor(param: any) {
+    let url = this.apiUrlBase + "user/add-labor"
     let user = JSON.parse(localStorage.getItem("sessionData") as string)
     const {idUnit, ...body} = param
 
@@ -165,11 +163,9 @@ export class TeachersPage implements OnInit {
     body["linkedin"] = ""
     body["github"] = ""
     body["twitter"] = ""
-    body["profile"] = "3"
+    body["profile"] = "4"
     body["password"] = this.getNewPassword()
-
     console.log(body)
-    console.log(idUnit)
     
     const params = new HttpParams().set("id_check", user.profile).set("id_unit",idUnit)
 
@@ -178,16 +174,16 @@ export class TeachersPage implements OnInit {
 
     this.apiSvc.post(url,params,body,this.apiHeaders).subscribe(
       async (resolve) => {
-        this.notification.showToast(await lastValueFrom(this.translate.get('teachers.addMsg')), "success", "medium")
+        this.notification.showToast(await lastValueFrom(this.translate.get('labors.addMsg')), "success", "medium")
         this.chargeData()
       },
       async (error) => {
-        this.notification.showToast(await lastValueFrom(this.translate.get('teachers.addErr')), "error", "medium")
+        this.notification.showToast(await lastValueFrom(this.translate.get('labors.addErr')), "error", "medium")
       }
     )
   }
 
-  updateTeacher(param: any) {
+  updateLabor(param: any) {
     console.log(param)
     let url = this.apiUrlBase + "user/update"
     let user = JSON.parse(localStorage.getItem("sessionData") as string)
@@ -196,12 +192,12 @@ export class TeachersPage implements OnInit {
 
     this.apiSvc.put(url,params,param.data,this.apiHeaders).subscribe(
       async (resolve) => {
-        this.notification.showToast(await lastValueFrom(this.translate.get('teachers.updMsg')), "success", "medium")
+        this.notification.showToast(await lastValueFrom(this.translate.get('labors.updMsg')), "success", "medium")
         this.chargeData()
       },
       async (error) => {
         console.log(error)
-        this.notification.showToast(await lastValueFrom(this.translate.get('teachers.updErr')), "error", "medium")
+        this.notification.showToast(await lastValueFrom(this.translate.get('labors.updErr')), "error", "medium")
       }
     )
   }
@@ -218,10 +214,10 @@ export class TeachersPage implements OnInit {
     const params = new HttpParams().set("id_check", user.profile).set("id_user",param.row.idUser).set("new_status",checked)
     this.apiSvc.put(url,params,null,this.apiHeaders).subscribe(
       async (resolve) => {
-        this.notification.showToast(await lastValueFrom(this.translate.get('teachers.updMsg')), "success", "medium")
+        this.notification.showToast(await lastValueFrom(this.translate.get('labors.updMsg')), "success", "medium")
       },
       async (error) => {
-        this.notification.showToast(await lastValueFrom(this.translate.get('teachers.updErr')), "error", "medium")
+        this.notification.showToast(await lastValueFrom(this.translate.get('labors.updErr')), "error", "medium")
       }
     )
   }
@@ -232,7 +228,7 @@ export class TeachersPage implements OnInit {
 
     const alert = await this.alert.create({
       header: await lastValueFrom(this.translate.get("general.warning")),
-      message: await lastValueFrom(this.translate.get("teachers.deleteTitle", { name: param.data.name })),
+      message: await lastValueFrom(this.translate.get("labors.deleteTitle", { name: param.data.name })),
       buttons: [
         {
           text: await lastValueFrom(this.translate.get("general.cancel")),
@@ -244,18 +240,18 @@ export class TeachersPage implements OnInit {
         {
           text: await lastValueFrom(this.translate.get("general.accept")),
           handler: async () => {
-            // Se borra el teacher
+            // Se borra el labor
             let url = this.apiUrlBase + "user/delete"
             let user = JSON.parse(localStorage.getItem("sessionData") as string)
             const params = new HttpParams().set("id_check", user.profile).set("id_user", param.data.idUser)
             this.apiSvc.delete(url, params, this.apiHeaders).subscribe(
               async (resolve) => {
-                this.notification.showToast(await lastValueFrom(this.translate.get('teachers.delMsg')), "success", "medium")
+                this.notification.showToast(await lastValueFrom(this.translate.get('labors.delMsg')), "success", "medium")
                 this.chargeData();
               },
               async (error) => {
                 console.log(error)
-                this.notification.showToast(await lastValueFrom(this.translate.get('teachers.delErr')), "error", "medium")
+                this.notification.showToast(await lastValueFrom(this.translate.get('labors.delErr')), "error", "medium")
               }
             )
 

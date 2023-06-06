@@ -171,6 +171,18 @@
         "delMsg": "Has borrado un profesor",
         "delErr": "Ha habido un error al borrar el profesor",
         "readErr": "Ha habido un error al leer los profesores"
+    },
+    "labors": {
+        "title": "Listado de tutores laborales",
+        "addModalTitle": "Añadir tutor laboral",
+        "updMsg": "Se han actualizado los datos de un tutor laboral",
+        "updErr": "Ha habido un error al actualizar un tutor laboral",
+        "deleteTitle": "¿Seguro que quieres borrar al tutor laboral {{name}}?",
+        "addMsg": "Has añadido un tutor laboral",
+        "addErr": "Ha habido un error al insertar el tutor laboral",
+        "delMsg": "Has borrado un tutor laboral",
+        "delErr": "Ha habido un error al borrar el tutor laboral",
+        "readErr": "Ha habido un error al leer los tutores laborales"
     }
     
     

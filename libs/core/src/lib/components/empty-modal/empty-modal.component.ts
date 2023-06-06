@@ -155,6 +155,9 @@ export class EmptyModalComponent implements OnInit{
   onEditTeacher() {
     this.modalCtr.dismiss({data: this.myform.value, idAct: this.cellUpd.idUser},"edit")
   }
+  onEditLabor() {
+    this.modalCtr.dismiss({data: this.myform.value, idAct: this.cellUpd.idUser},"edit")
+  }
   onReset() {
     this.modalCtr.dismiss({data: this.myform.value},"reset")
   }

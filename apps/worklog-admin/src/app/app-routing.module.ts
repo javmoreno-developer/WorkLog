@@ -65,6 +65,11 @@ const routes: Routes = [
       import("./pages/profiles/profiles.module").then((m) => m.ProfilesPageModule)
   },
   {
+    path: "labors",
+    loadChildren: () =>
+      import("./pages/labors/labors.module").then((m) => m.LaborsPageModule)
+  },
+  {
     path: "",
     redirectTo: "home",
     pathMatch: "full",
