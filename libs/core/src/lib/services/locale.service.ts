@@ -14,7 +14,6 @@ export class LocaleService {
     this._locale = value;
   }
   get locale(): string {
-   
     return this._locale || 'es-es';
   }
   

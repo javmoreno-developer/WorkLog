@@ -5,6 +5,7 @@ import { AlertController, MenuController, ModalController } from "@ionic/angular
 import { TranslateService } from "@ngx-translate/core";
 import { ApiService, NotificationService, SharedService } from "@worklog-fe/core";
 import { EmptyModalComponent } from "libs/core/src/lib/components/empty-modal/empty-modal.component";
+import { LocaleService } from "libs/core/src/lib/services/locale.service";
 import { BehaviorSubject, lastValueFrom } from "rxjs";
 
 @Component({
@@ -13,6 +14,8 @@ import { BehaviorSubject, lastValueFrom } from "rxjs";
   styleUrls: ["./labors.page.scss"],
 })
 export class LaborsPage implements OnInit {
+
+  // Variables
   rows = new BehaviorSubject<Object>([]);
   columns = new BehaviorSubject<Object>([]);
 
@@ -27,16 +30,35 @@ export class LaborsPage implements OnInit {
   mappedList: any = []
   units = {}
 
-  constructor(private route:Router,private sharedSvc: SharedService,private modalCtrl: ModalController,private translate: TranslateService,private notification:NotificationService,private alert: AlertController,private apiSvc: ApiService, private menuCtrl: MenuController, @Inject("apiUrlBase") public apiUrlBase?: any, @Inject("apiHeaders") public apiHeaders?: any) {
+  defaultLang: any = "";
+  languages: any;
+  toolbarOptions: any;
+
+  constructor(private locale: LocaleService,private route:Router,private sharedSvc: SharedService,private modalCtrl: ModalController,private translate: TranslateService,private notification:NotificationService,private alert: AlertController,private apiSvc: ApiService, private menuCtrl: MenuController, @Inject("apiUrlBase") public apiUrlBase?: any, @Inject("apiHeaders") public apiHeaders?: any) {
     this.chargeData();
   }
 
-  ngOnInit() {}
+  async ngOnInit() {
+    this.defaultLang = this.locale.locale
 
+    // Set all toolbar options
+    this.toolbarOptions = [
+      { name: await lastValueFrom(this.translate.get("toolbar.profile")), value: 'profile' },
+      { name: await lastValueFrom(this.translate.get("toolbar.signOut")), value: 'out' }
+    ]
+    // Set all idioms
+    this.languages = [
+      { name: await lastValueFrom(this.translate.get("languages.english")), value: "en-en" },
+      { name: await lastValueFrom(this.translate.get("languages.spanish")), value: "es-es" }
+    ]
+  }
+
+  // Close sidebar menu
   closeMenu(param: any) {
     this.menuCtrl.close();
   }
 
+  // Charge initial data
   chargeData() {
     let url = this.apiUrlBase + "user/get/laborals"
     let user = JSON.parse(localStorage.getItem("sessionData") as string)
@@ -57,8 +79,8 @@ export class LaborsPage implements OnInit {
         ]
         this.columns.next(groupColumns)
       },
-      (error) => {
-        console.log(error)
+      async (error) => {
+        this.notification.showToast(await lastValueFrom(this.translate.get('labors.readErr')), "error", "medium")
       }
     )
   }
@@ -67,6 +89,7 @@ export class LaborsPage implements OnInit {
     this.getAllUnits(null)
   }
 
+  // Get all the units from db
   async getAllUnits(cellUpd: Object | null) {
     let url = this.apiUrlBase + "unit/get/all"
     let user = JSON.parse(localStorage.getItem("sessionData") as string)
@@ -101,6 +124,7 @@ export class LaborsPage implements OnInit {
 
   }
 
+  // Show general modal
   async presentModal(cellUpd: Object | null, event: any, type: string) {
     let buttonSection: any = []
     let textSection: any = []
@@ -142,7 +166,6 @@ export class LaborsPage implements OnInit {
           case "cancel":
             break;
           case "submit":
-            console.log(result.data)
             this.addLabor(result.data)
             break;
           case "edit":
@@ -154,6 +177,7 @@ export class LaborsPage implements OnInit {
     });
   }
 
+  // Add labor operation
   addLabor(param: any) {
     let url = this.apiUrlBase + "user/add-labor"
     let user = JSON.parse(localStorage.getItem("sessionData") as string)
@@ -165,7 +189,6 @@ export class LaborsPage implements OnInit {
     body["twitter"] = ""
     body["profile"] = "4"
     body["password"] = this.getNewPassword()
-    console.log(body)
     
     const params = new HttpParams().set("id_check", user.profile).set("id_unit",idUnit)
 
@@ -183,8 +206,8 @@ export class LaborsPage implements OnInit {
     )
   }
 
+  // Update labor operation
   updateLabor(param: any) {
-    console.log(param)
     let url = this.apiUrlBase + "user/update"
     let user = JSON.parse(localStorage.getItem("sessionData") as string)
 
@@ -196,20 +219,20 @@ export class LaborsPage implements OnInit {
         this.chargeData()
       },
       async (error) => {
-        console.log(error)
         this.notification.showToast(await lastValueFrom(this.translate.get('labors.updErr')), "error", "medium")
       }
     )
   }
+
+  // Update status operation
   updateStatus(param: any) {
-    console.log(param)
     let user = JSON.parse(localStorage.getItem("sessionData") as string)
     param.checked = !param.checked
     let checked = 0
     if(param.checked) {
       checked = 1
     }
-    // Actualizo el estado del usuario
+    // Update status
     let url = this.apiUrlBase + "user/change-status"
     const params = new HttpParams().set("id_check", user.profile).set("id_user",param.row.idUser).set("new_status",checked)
     this.apiSvc.put(url,params,null,this.apiHeaders).subscribe(
@@ -222,8 +245,8 @@ export class LaborsPage implements OnInit {
     )
   }
 
+  // Delete alert
   async promptDelete(param: any) {
-    console.log(param.data)
     let user = JSON.parse(localStorage.getItem("sessionData") as string)
 
     const alert = await this.alert.create({
@@ -250,7 +273,6 @@ export class LaborsPage implements OnInit {
                 this.chargeData();
               },
               async (error) => {
-                console.log(error)
                 this.notification.showToast(await lastValueFrom(this.translate.get('labors.delErr')), "error", "medium")
               }
             )
@@ -263,15 +285,17 @@ export class LaborsPage implements OnInit {
     await alert.present();
   }
 
+  // Show edit modal
   promptEdit(event: any) {
-    console.log(event.data);
     this.getAllUnits(event.data)
   }
+
+  // Create a new password
   getNewPassword() {
-    const randomBytes = new Uint8Array(2); // Crea un array de bytes de longitud 2
-    window.crypto.getRandomValues(randomBytes); // Rellena el array con valores aleatorios
+    const randomBytes = new Uint8Array(2); // Create a array of 2 bytes
+    window.crypto.getRandomValues(randomBytes); // Fill the array with random values
   
-    // Convierte los bytes en una cadena hexadecimal
+    // Turn the array
     let password = '';
     for (let i = 0; i < randomBytes.length; i++) {
       password += randomBytes[i].toString(16).padStart(2, '0');
@@ -281,7 +305,12 @@ export class LaborsPage implements OnInit {
   }
 
   profileNavigate(param: any) {
-    console.log(param)
     this.route.navigate(["profile"])
+  }
+
+   // Change the idiom of the entire app (event from child component)
+   changeIdiom(param: any) {
+    this.translate.setDefaultLang(param)
+    this.locale.registerCulture(param)
   }
 }

@@ -11,31 +11,37 @@ import { TranslateService } from "@ngx-translate/core";
 })
 export class HolidayAdminComponent {
 
+  // Variables
   dateValues: any[] | undefined = [];
   
   @Output() onUpdate = new EventEmitter();
 
   constructor(private translate: TranslateService,private modalCtrl: ModalController,@Inject("apiUrlBase") public apiUrlBase?: any) {}
 
+  // Add a date to the list
   newDate(event: any,element: IonDatetime) {
     this.dateValues = event.detail.value;
   }
 
+  // Reset the date and change the readonly of the calendar
   resetDate(element: IonDatetime) {
     element.reset()
     element.readonly = false
   }
   
+  // Cancel a date
   cancelDate(element: IonDatetime) {
     element.cancel()
     this.resetDate(element)
   }
 
+  // open a modal when a button is clicked
   confirmDate(element: IonDatetime) {
     this.openModal();
     
   }
 
+  // Confirm modal
   async openModal() {
     let msg = await lastValueFrom(this.translate.get("settings.holidayModalTitle"))
     this.dateValues?.unshift(msg)
@@ -63,6 +69,8 @@ export class HolidayAdminComponent {
             
             break;
           case "submit":
+
+            // Prepare and emit data to the father
             let url = this.apiUrlBase+"scholar-year/holidays"
             let user = JSON.parse(localStorage.getItem("sessionData") as string)
   

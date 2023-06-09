@@ -18,7 +18,8 @@ export class EmptyPopoverComponent {
   selectOption(option: any) {
     //console.log(option);
     if(option.value == "out") {
-      console.log("enlace de out")
+      localStorage.removeItem("sessionData")
+      window.location.reload()
     } else if(option.value == "profile") {
       console.log("enlace de profile")
     }

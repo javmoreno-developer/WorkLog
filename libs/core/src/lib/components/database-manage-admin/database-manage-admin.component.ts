@@ -9,6 +9,8 @@ import { lastValueFrom } from "rxjs";
   styleUrls: ["./database-manage-admin.component.scss"],
 })
 export class DatabaseManageAdminComponent {
+
+  // Variables
   selectedFile: File | null = null;
 
   @Output() onDownload = new EventEmitter();
@@ -16,10 +18,12 @@ export class DatabaseManageAdminComponent {
 
   constructor(private translate: TranslateService,private alertCtrl: AlertController,@Inject("apiUrlBase") public apiUrlBase?: any) {}
 
+
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
   }
 
+  // Prompt delete database
   async deleteDatabase() {
     const alert = await this.alertCtrl.create({
       header: await lastValueFrom(this.translate.get("general.warning")),
@@ -35,6 +39,7 @@ export class DatabaseManageAdminComponent {
         {
           text: await lastValueFrom(this.translate.get("general.accept")),
           handler: () => {
+            // Delete the database
             let url = this.apiUrlBase+"db/drop"
             let user = JSON.parse(localStorage.getItem("sessionData") as string)
             this.onDelete.emit({url: url,id_check: user.profile});
@@ -47,6 +52,8 @@ export class DatabaseManageAdminComponent {
     await alert.present();
     
   }
+
+  // event that is trigger by the download button
   downloadDatabase() {
     let url = this.apiUrlBase+"db/backup"
     let user = JSON.parse(localStorage.getItem("sessionData") as string)

@@ -41,8 +41,9 @@ swiper {
     .first-row {
         display: flex;
         justify-content: flex-end;
-        width: 98%;
+        width: 96%;
         height: 10%;
+        align-items: center;
         ion-icon {
             font-size: 40px;
             cursor: pointer;
@@ -56,6 +57,14 @@ swiper {
         height: 100%;
         width: 100%;
         align-items: center;
+        div {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            height: 100%;
+            width: 100%;
+            align-items: center;
+        }
 
         .item-interactive {
             --highlight-height: calc(100% - 2px);

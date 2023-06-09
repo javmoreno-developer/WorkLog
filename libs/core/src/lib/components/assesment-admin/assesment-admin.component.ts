@@ -9,8 +9,13 @@ import { lastValueFrom } from "rxjs";
   styleUrls: ["./assesment-admin.component.scss"],
 })
 export class AssesmentAdminComponent {
+
+  // Variables
   myform: FormGroup;
   errorMsg: string = "";
+
+  @Output() onSubmit = new EventEmitter();
+  @Output() onErrorSubmit = new EventEmitter();
 
   constructor(private translate: TranslateService,private fb: FormBuilder, @Inject("apiUrlBase") public apiUrlBase?: any ) {
     this.myform = this.fb.group({
@@ -19,13 +24,13 @@ export class AssesmentAdminComponent {
     });
   }
 
-  @Output() onSubmit = new EventEmitter();
-  @Output() onErrorSubmit = new EventEmitter();
+
+
 
   async submit(param: any) {
-    // Comprobamos si los porcentajes son correctos
+    // Check if the percent is valid
     if(await this.checkPercent(param)) {
-      // Se realiza la llamada al padre
+      // Emit data to the father
       let url = this.apiUrlBase+"scholar-year/ponderation"
       let user = JSON.parse(localStorage.getItem("sessionData") as string)
 
@@ -38,17 +43,13 @@ export class AssesmentAdminComponent {
 
       this.onSubmit.emit(uploadParam)
     } else {
-      // Se manda notificacion
+      // Error event
       this.onErrorSubmit.emit(this.errorMsg)
     }
 
     
   }
 
-  onInputFocus(event: any) {
-    const ionItem = event.target.closest('ion-item');
-    ionItem.classList.add('input-focus');
-  }
 
   async checkPercent(param: any) {
     let status: boolean = true;
@@ -59,6 +60,13 @@ export class AssesmentAdminComponent {
     return status
   }
 
+  // These two function will be in every component that has input
+  // I will use it in order to appear and dissapear a border
+  onInputFocus(event: any) {
+    const ionItem = event.target.closest('ion-item');
+    ionItem.classList.add('input-focus');
+  }
+  
   onInputBlur(event: any,field: string) {
     if(this.myform.controls[field].valid) {
       const ionItem = event.target.closest('ion-item');

@@ -5,6 +5,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { ApiService, NotificationService } from "@worklog-fe/core";
 import { EmptyModalComponent } from "libs/core/src/lib/components/empty-modal/empty-modal.component";
 import { EmptySwiperComponent } from "libs/core/src/lib/components/empty-swiper/empty-swiper.component";
+import { LocaleService } from "libs/core/src/lib/services/locale.service";
 import { resolve } from "path";
 import { BehaviorSubject, Observable, lastValueFrom } from "rxjs";
 
@@ -14,7 +15,7 @@ import { BehaviorSubject, Observable, lastValueFrom } from "rxjs";
   styleUrls: ["./agreements.page.scss"],
 })
 export class AgreementsPage implements OnInit {
-  
+
   toolbarOptions: any;
   tableStyle = "general"
 
@@ -30,13 +31,33 @@ export class AgreementsPage implements OnInit {
   companyList = []
   studentsList = []
 
-  constructor(private alertCtrl: AlertController,private modalCtrl:ModalController,private notification:NotificationService,private apiSvc: ApiService,private translate: TranslateService,private menuCtrl: MenuController,@Inject("apiUrlBase") private apiUrlBase ?: any,@Inject("apiHeaders") private apiHeaders ?: any) {}
+
+  defaultLang: any = "";
+  languages: any;
+
+
+  constructor(private locale: LocaleService, private alertCtrl: AlertController, private modalCtrl: ModalController, private notification: NotificationService, private apiSvc: ApiService, private translate: TranslateService, private menuCtrl: MenuController, @Inject("apiUrlBase") private apiUrlBase?: any, @Inject("apiHeaders") private apiHeaders?: any) { }
 
   async ngOnInit() {
+
+    // Set default language
+    this.defaultLang = this.locale.locale
+
+    // Set all toolbar options
+    this.toolbarOptions = [
+      { name: await lastValueFrom(this.translate.get("toolbar.profile")), value: 'profile' },
+      { name: await lastValueFrom(this.translate.get("toolbar.signOut")), value: 'out' }
+    ]
+    // Set all idioms
+    this.languages = [
+      { name: await lastValueFrom(this.translate.get("languages.english")), value: "en-en" },
+      { name: await lastValueFrom(this.translate.get("languages.spanish")), value: "es-es" }
+    ]
+
     // toolbar options
     this.toolbarOptions = [
-      {name: await lastValueFrom(this.translate.get("toolbar.profile")), value: 'profile'},
-      {name: await lastValueFrom(this.translate.get("toolbar.signOut")), value: 'out'}
+      { name: await lastValueFrom(this.translate.get("toolbar.profile")), value: 'profile' },
+      { name: await lastValueFrom(this.translate.get("toolbar.signOut")), value: 'out' }
     ]
 
     // data
@@ -51,35 +72,34 @@ export class AgreementsPage implements OnInit {
     let url = this.apiUrlBase + "agreement/get/all"
     let user = JSON.parse(localStorage.getItem("sessionData") as string)
 
-    const params = new HttpParams().set("id_check", user.profile).set("complete",true)
+    const params = new HttpParams().set("id_check", user.profile).set("complete", true)
 
     //this.getAllLabors()
 
-    this.apiSvc.get(url,params,this.apiHeaders).subscribe(
+    this.apiSvc.get(url, params, this.apiHeaders).subscribe(
       (resolve: any) => {
         let preparedRows: any = []
         // preparamos el array
-        resolve.forEach( (element: any) => {
-            console.log(element)
-            if(element.fctStartAt != null) {
-              preparedRows.push({id: element.idAgreement,dualStartAt: element.dualStartAt,dualEndAt: element.dualEndAt,fctEndAt: element.fctEndAt, fctStartAt: element.fctStartAt,agreementType: element.agreementType,idLabor: element.idLabor,idCompany:element.idCompany,idTeacher: element.idTeacher,labor: element.data[1],teacher: element.data[2],company: element.data[0],idStudent: element.data[3][0], student: element.data[3][1]})
-            } else {
-              preparedRows.push({id: element.idAgreement,dualEndAt: element.dualEndAt, dualStartAt: element.dualStartAt,agreementType: element.agreementType,fctEndAt: element.fctEndAt, fctStartAt: element.fctStartAt,idLabor: element.idLabor,idCompany:element.idCompany,idTeacher: element.idTeacher,labor: element.data[1],teacher: element.data[2],company: element.data[0],idStudent: element.data[3][0], student: element.data[3][1]})
-            }
+        resolve.forEach((element: any) => {
+          if (element.fctStartAt != null) {
+            preparedRows.push({ id: element.idAgreement, dualStartAt: element.dualStartAt, dualEndAt: element.dualEndAt, fctEndAt: element.fctEndAt, fctStartAt: element.fctStartAt, agreementType: element.agreementType, idLabor: element.idLabor, idCompany: element.idCompany, idTeacher: element.idTeacher, labor: element.data[1], teacher: element.data[2], company: element.data[0], idStudent: element.data[3][0], student: element.data[3][1] })
+          } else {
+            preparedRows.push({ id: element.idAgreement, dualEndAt: element.dualEndAt, dualStartAt: element.dualStartAt, agreementType: element.agreementType, fctEndAt: element.fctEndAt, fctStartAt: element.fctStartAt, idLabor: element.idLabor, idCompany: element.idCompany, idTeacher: element.idTeacher, labor: element.data[1], teacher: element.data[2], company: element.data[0], idStudent: element.data[3][0], student: element.data[3][1] })
+          }
         });
         // obtenemos las filas
         this.rows.next(preparedRows)
-        
+
         // obtenemos las columnas
         let groupColumns = [
-          {prop: 'student', name: 'student',toggle:false, checked: false},
-          {prop: 'teacher', name: 'teacher',toggle:false, checked: false},
-          {prop: 'labor', name: 'labor',toggle:false, checked: false},
+          { prop: 'student', name: 'student', toggle: false, checked: false },
+          { prop: 'teacher', name: 'teacher', toggle: false, checked: false },
+          { prop: 'labor', name: 'labor', toggle: false, checked: false },
         ]
         this.columns.next(groupColumns)
       },
       async (error) => {
-        this.notification.showToast(await lastValueFrom(this.translate.get("general.chargeErr")),"error","medium")
+        this.notification.showToast(await lastValueFrom(this.translate.get("general.chargeErr")), "error", "medium")
       }
     )
   }
@@ -88,9 +108,8 @@ export class AgreementsPage implements OnInit {
     this.menuCtrl.close();
   }
 
-  async presentModal(cellUpd: Object | null,event: any | null,type: string) {
-    console.log(event)
-    
+  async presentModal(cellUpd: Object | null, event: any | null, type: string) {
+
     // cambio el boton de act o añadir
     let buttonSection: any = []
 
@@ -98,30 +117,30 @@ export class AgreementsPage implements OnInit {
     let selectSection: any = [];
     let textSection: any = []
 
-    if(type == "info") {
-      let agreementType = await lastValueFrom(this.translate.get("agreements.type", {type: event.agreementType}))
-      let company = await lastValueFrom(this.translate.get("agreements.company", {company: event.company}))
+    if (type == "info") {
+      let agreementType = await lastValueFrom(this.translate.get("agreements.type", { type: event.agreementType }))
+      let company = await lastValueFrom(this.translate.get("agreements.company", { company: event.company }))
 
-      let fctEnd = await lastValueFrom(this.translate.get("agreements.fctEnd", {fctEnd: event.fctEndAt}))
-      let fctStart = await lastValueFrom(this.translate.get("agreements.fctStart", {fctStart: event.fctStartAt}))
-      let dualEnd = await lastValueFrom(this.translate.get("agreements.dualEnd", {dualEnd: event.dualEndAt}))
-      let dualStart = await lastValueFrom(this.translate.get("agreements.dualStart", {dualStart: event.dualStartAt}))
+      let fctEnd = await lastValueFrom(this.translate.get("agreements.fctEnd", { fctEnd: event.fctEndAt }))
+      let fctStart = await lastValueFrom(this.translate.get("agreements.fctStart", { fctStart: event.fctStartAt }))
+      let dualEnd = await lastValueFrom(this.translate.get("agreements.dualEnd", { dualEnd: event.dualEndAt }))
+      let dualStart = await lastValueFrom(this.translate.get("agreements.dualStart", { dualStart: event.dualStartAt }))
 
-      let labor = await lastValueFrom(this.translate.get("agreements.labor", {labor: event.labor}))
-      let teacher = await lastValueFrom(this.translate.get("agreements.teacher", {teacher: event.teacher}))
-      let student = await lastValueFrom(this.translate.get("agreements.student", {student: event.student}))
+      let labor = await lastValueFrom(this.translate.get("agreements.labor", { labor: event.labor }))
+      let teacher = await lastValueFrom(this.translate.get("agreements.teacher", { teacher: event.teacher }))
+      let student = await lastValueFrom(this.translate.get("agreements.student", { student: event.student }))
 
-      if(event.agreementType == "fct") {
-        textSection = [await lastValueFrom(this.translate.get("agreements.infoTitleModal")),agreementType,company,fctStart,fctEnd,labor,teacher,student]
-      } else if(event.agreementType == "dual") {
-        textSection = [await lastValueFrom(this.translate.get("agreements.infoTitleModal")),agreementType,company,dualStart,dualEnd,labor,teacher,student]
+      if (event.agreementType == "fct") {
+        textSection = [await lastValueFrom(this.translate.get("agreements.infoTitleModal")), agreementType, company, fctStart, fctEnd, labor, teacher, student]
+      } else if (event.agreementType == "dual") {
+        textSection = [await lastValueFrom(this.translate.get("agreements.infoTitleModal")), agreementType, company, dualStart, dualEnd, labor, teacher, student]
       } else {
-        textSection = [await lastValueFrom(this.translate.get("agreements.infoTitleModal")),agreementType,company,dualStart,dualEnd,fctStart,fctEnd,labor,teacher,student]
+        textSection = [await lastValueFrom(this.translate.get("agreements.infoTitleModal")), agreementType, company, dualStart, dualEnd, fctStart, fctEnd, labor, teacher, student]
       }
-     
+
     }
 
-    
+
     const modal = await this.modalCtrl.create({
       component: EmptyModalComponent,
       componentProps: {
@@ -154,13 +173,12 @@ export class AgreementsPage implements OnInit {
   }
 
   addAgreement(body: any) {
-    console.log(body)
 
     // add resting fields
-    if(body.dualStartAt != undefined && body.fctStartAt == undefined) {
+    if (body.dualStartAt != undefined && body.fctStartAt == undefined) {
       body.fctStartAt = null;
       body.fctEndAt = null;
-    } else if(body.dualStartAt == undefined && body.fctStartAt != undefined) {
+    } else if (body.dualStartAt == undefined && body.fctStartAt != undefined) {
       body.dualStartAt = null;
       body.dualEndAt = null;
     }
@@ -168,15 +186,14 @@ export class AgreementsPage implements OnInit {
     let url = this.apiUrlBase + "agreement/add"
     let user = JSON.parse(localStorage.getItem("sessionData") as string)
 
-    const params = new HttpParams().set("id_check", user.profile).set("id_student",body.idStudent)
+    const params = new HttpParams().set("id_check", user.profile).set("id_student", body.idStudent)
 
-    this.apiSvc.post(url,params,body,this.apiHeaders).subscribe(
+    this.apiSvc.post(url, params, body, this.apiHeaders).subscribe(
       async (resolve) => {
         this.notification.showToast(await lastValueFrom(this.translate.get('agreements.addMsg')), "success", "medium")
         this.chargeData();
       },
-      async (error) =>{
-        console.log(error)
+      async (error) => {
         this.notification.showToast(await lastValueFrom(this.translate.get('agreements.addErr')), "error", "medium")
       }
     )
@@ -189,18 +206,18 @@ export class AgreementsPage implements OnInit {
 
     const params = new HttpParams().set("id_check", user.profile)
 
-    this.apiSvc.get(url,params,this.apiHeaders).subscribe(
+    this.apiSvc.get(url, params, this.apiHeaders).subscribe(
       (resolve: any) => {
         let result = resolve.map((obj: any) => ({
-          name: obj.surname + " " +obj.name,
+          name: obj.surname + " " + obj.name,
           value: obj.idUser,
         }));
         this.laborList = result;
         //this.presentModal(null,null,'add')
         this.getAllTeachers(actParam)
       },
-      (error) => {
-        console.log(error)
+      async (error) => {
+        this.notification.showToast(await lastValueFrom(this.translate.get("general.chargeErr")), "error", "medium")
       }
     )
 
@@ -212,18 +229,18 @@ export class AgreementsPage implements OnInit {
 
     const params = new HttpParams().set("id_check", user.profile)
 
-    this.apiSvc.get(url,params,this.apiHeaders).subscribe(
+    this.apiSvc.get(url, params, this.apiHeaders).subscribe(
       (resolve: any) => {
         let result = resolve.map((obj: any) => ({
-          name: obj.surname + ", " +obj.name,
+          name: obj.surname + ", " + obj.name,
           value: obj.idUser,
         }));
         this.teacherList = result;
         this.getAllCompanies(actParam);
         //this.presentModal(null,null,'add')
       },
-      (error) => {
-        console.log(error)
+      async (error) => {
+        this.notification.showToast(await lastValueFrom(this.translate.get("general.chargeErr")), "error", "medium")
       }
     )
   }
@@ -233,7 +250,7 @@ export class AgreementsPage implements OnInit {
     let user = JSON.parse(localStorage.getItem("sessionData") as string)
     const params = new HttpParams().set("id_check", user.profile)
 
-    this.apiSvc.get(url,params,this.apiHeaders).subscribe(
+    this.apiSvc.get(url, params, this.apiHeaders).subscribe(
       (resolve: any) => {
         let result = resolve.map((obj: any) => ({
           name: obj.name,
@@ -242,8 +259,8 @@ export class AgreementsPage implements OnInit {
         this.companyList = result;
         this.getAllUsers(actParam)
       },
-      (error) => {
-        console.log(error)
+      async (error) => {
+        this.notification.showToast(await lastValueFrom(this.translate.get("general.chargeErr")), "error", "medium")
       }
     )
   }
@@ -253,10 +270,10 @@ export class AgreementsPage implements OnInit {
     let user = JSON.parse(localStorage.getItem("sessionData") as string)
     const params = new HttpParams().set("id_check", user.profile)
 
-    this.apiSvc.get(url,params,this.apiHeaders).subscribe(
+    this.apiSvc.get(url, params, this.apiHeaders).subscribe(
       (resolve: any) => {
         let result = resolve.map((obj: any) => ({
-          name: obj.surname + " " +obj.name,
+          name: obj.surname + " " + obj.name,
           value: obj.idUser,
         }));
         //console.log(result)
@@ -271,7 +288,9 @@ export class AgreementsPage implements OnInit {
 
   async presentSwiper(cellUpd: any | null) {
     let act = false
-    
+
+    console.log(cellUpd)
+
     // placeholder msg
     let typePlaceholder = await lastValueFrom(this.translate.get("agreements.typeForm"))
     let laborPlaceholder = await lastValueFrom(this.translate.get("agreements.laborForm"))
@@ -283,28 +302,43 @@ export class AgreementsPage implements OnInit {
     let dualEndPlaceholder = await lastValueFrom(this.translate.get("agreements.dualEndForm"))
     let fctEndPlaceholder = await lastValueFrom(this.translate.get("agreements.fctEndForm"))
 
-    let mappedList = [{name: "fct",value: "fct"},{name: "dual",value: "dual"},{name: "fct+dual",value: "fct+dual"}]
+    let mappedList = [{ name: "fct", value: "fct" }, { name: "dual", value: "dual" }, { name: "fct+dual", value: "fct+dual" }]
 
     // select and input
     //console.log(this.laborList)
-    let alumnSelect: any = {formName: "idStudent", placeholder: studentPlaceholder, options: this.studentsList}
-    let agreementSelect: any = {formName: "agreementType", placeholder: typePlaceholder, options: mappedList, changeFun: "changeType"}
-    let laborSelect: any = {formName: "idLabor", placeholder: laborPlaceholder, options: this.laborList}
-    let teacherSelect: any = {formName: "idTeacher", placeholder: teacherPlaceholder, options: this.teacherList}
-    let companySelect: any = {formName: "idCompany", placeholder: companyPlaceholder, options: this.companyList}
+    let alumnSelect: any = { formName: "idStudent", placeholder: studentPlaceholder, options: this.studentsList }
+    let agreementSelect: any = { formName: "agreementType", placeholder: typePlaceholder, options: mappedList, changeFun: "changeType" }
+    let laborSelect: any = { formName: "idLabor", placeholder: laborPlaceholder, options: this.laborList }
+    let teacherSelect: any = { formName: "idTeacher", placeholder: teacherPlaceholder, options: this.teacherList }
+    let companySelect: any = { formName: "idCompany", placeholder: companyPlaceholder, options: this.companyList }
 
-    let fctStartInput: any = { formName: "fctStartAt", type: "fctStartAt", mandatory: true, placeholder: fctStartPlaceholder}
-    let fctEndInput: any = { formName: "fctEndAt", type: "fctEndAt", mandatory: true, placeholder: fctEndPlaceholder }
-    let dualStartInput: any = { formName: "dualStartAt", type: "dualStartAt", mandatory: true, placeholder: dualStartPlaceholder }
-    let dualEndInput: any = { formName: "dualEndAt", type: "dualEndAt", mandatory: true, placeholder: dualEndPlaceholder }
+    let fctStartInput= { formName: "fctStartAt", type: "", mandatory: true, placeholder: fctStartPlaceholder }
+    let fctEndInput = { formName: "fctEndAt", type: "", mandatory: true, placeholder: fctEndPlaceholder }
+    let dualStartInput = { formName: "dualStartAt", type: "", mandatory: true, placeholder: dualStartPlaceholder }
+    let dualEndInput = { formName: "dualEndAt", type: "", mandatory: true, placeholder: dualEndPlaceholder }
 
+    if(!cellUpd) {
+      fctStartInput= { formName: "fctStartAt", type: "fctStartAt", mandatory: true, placeholder: fctStartPlaceholder }
+      fctEndInput = { formName: "fctEndAt", type: "fctEndAt", mandatory: true, placeholder: fctEndPlaceholder }
+      dualStartInput = { formName: "dualStartAt", type: "dualStartAt", mandatory: true, placeholder: dualStartPlaceholder }
+      dualEndInput = { formName: "dualEndAt", type: "dualEndAt", mandatory: true, placeholder: dualEndPlaceholder }
+    } else {
+      if(cellUpd.dualEndAt != null) {
+        dualStartInput = { formName: "dualStartAt", type: "dualStartAt", mandatory: true, placeholder: dualStartPlaceholder }
+        dualEndInput = { formName: "dualEndAt", type: "dualEndAt", mandatory: true, placeholder: dualEndPlaceholder }
+      }
+      if(cellUpd.fctEndAt != null) {
+        fctStartInput= { formName: "fctStartAt", type: "fctStartAt", mandatory: true, placeholder: fctStartPlaceholder }
+        fctEndInput = { formName: "fctEndAt", type: "fctEndAt", mandatory: true, placeholder: fctEndPlaceholder }
+      }
+    }
     // create modal
     const modal = await this.modalCtrl.create({
       component: EmptySwiperComponent,
       componentProps: {
-        first_slide: [alumnSelect,agreementSelect,laborSelect,teacherSelect,companySelect],
-        second_slide_fct: [fctStartInput,fctEndInput],
-        second_slide_dual: [dualStartInput,dualEndInput],
+        first_slide: [alumnSelect, agreementSelect, laborSelect, teacherSelect, companySelect],
+        second_slide_fct: [fctStartInput, fctEndInput],
+        second_slide_dual: [dualStartInput, dualEndInput],
         cellUpd: cellUpd
       },
       cssClass: 'general-modal'
@@ -312,7 +346,7 @@ export class AgreementsPage implements OnInit {
 
     modal.present();
 
-    modal.onDidDismiss().then(result => {
+    modal.onDidDismiss().then(async result => {
       //console.log(result)
       if (result.data) {
         switch (result.role) {
@@ -324,30 +358,33 @@ export class AgreementsPage implements OnInit {
           case "edit":
             this.editAgreement(result.data);
             break;
+          case "dateError":
+            this.notification.showToast(await lastValueFrom(this.translate.get('agreements.badForm')), "error", "medium")
+            break;
         }
       }
     });
   }
 
   editAgreement(param: any) {
-   
+
     let user = JSON.parse(localStorage.getItem("sessionData") as string)
     let url = this.apiUrlBase + "agreement/update"
-    let params = new HttpParams().set("id_check", user.profile).set("id_agreement",param.idAgreement).set("id_student",param.data.idStudent)
+    let params = new HttpParams().set("id_check", user.profile).set("id_agreement", param.idAgreement).set("id_student", param.data.idStudent)
 
     delete param.data.idStudent
 
-   
-    if(param.data.agreementType == "fct") {
+
+    if (param.data.agreementType == "fct") {
       param.data.dualEndAt = null;
       param.data.dualStartAt = null;
-    } else if(param.data.agreementType == "dual") {
+    } else if (param.data.agreementType == "dual") {
       param.data.fctEndAt = null;
       param.data.fctStartAt = null;
     }
 
     console.log(param)
-    this.apiSvc.put(url,params,param.data,this.apiHeaders).subscribe(
+    this.apiSvc.put(url, params, param.data, this.apiHeaders).subscribe(
       (resolve) => {
         console.log("done bro")
       },
@@ -399,8 +436,13 @@ export class AgreementsPage implements OnInit {
   }
 
   promptUpdate(event: any) {
-    console.log(event.data)
 
     this.getAllLabors(event.data);
+  }
+
+  // Change the idiom of the entire app (event from child component)
+  changeIdiom(param: any) {
+    this.translate.setDefaultLang(param)
+    this.locale.registerCulture(param)
   }
 }

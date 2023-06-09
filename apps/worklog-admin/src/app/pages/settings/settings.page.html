@@ -1,5 +1,5 @@
 <ion-content>
-  <worklog-fe-toolbar></worklog-fe-toolbar>
+  <worklog-fe-toolbar [options]="toolbarOptions"></worklog-fe-toolbar>
   <worklog-fe-sidebar (onCloseMenu)="closeMenu($event)"></worklog-fe-sidebar>
 
   <!-- Segment -->
@@ -30,5 +30,5 @@
     
    
   </div>
-  <worklog-fe-footer class="footer"></worklog-fe-footer>
+  <worklog-fe-footer class="footer" [languages]="languages" [defaultLang]="defaultLang" (onChangeIdiom)="changeIdiom($event)"></worklog-fe-footer>
 </ion-content>

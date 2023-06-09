@@ -13,12 +13,12 @@ import { lastValueFrom } from "rxjs";
 })
 export class DashboardPage implements OnInit {
   
-  // first chart
+  // First chart
   dualData: number = 0
   fctData: number = 0
   fctDualData: number = 0
 
-  // second chart
+  // Second chart
   studentData: number = 0
   teacherData: number = 0
   laborData: number = 0
@@ -28,7 +28,7 @@ export class DashboardPage implements OnInit {
   constructor(private notification: NotificationService,private translate: TranslateService,private apiSvc: ApiService,private menuCtrl: MenuController, @Inject("apiUrlBase") private apiUrlBase ?:any,@Inject("apiHeaders") private apiHeaders ?: any) {}
 
   async ngOnInit() {
-     // toolbar options
+     // Toolbar options
      this.toolbarOptions = [
       {name: await lastValueFrom(this.translate.get("toolbar.profile")), value: 'profile'},
       {name: await lastValueFrom(this.translate.get("toolbar.signOut")), value: 'out'}
@@ -74,6 +74,7 @@ export class DashboardPage implements OnInit {
     )
   }
  
+  // Create first chart
   createAgreementChart() {
     const ctx = document.getElementById('agreementChart') as HTMLCanvasElement;
     const myChart = new Chart(ctx, {
@@ -123,6 +124,7 @@ export class DashboardPage implements OnInit {
     });
   }
   
+  // Create second chart
   createStudentChart() {
     const ctx = document.getElementById('studentChart') as HTMLCanvasElement;
     const myChart = new Chart(ctx, {
@@ -172,6 +174,7 @@ export class DashboardPage implements OnInit {
     });
   }
 
+  // Close sidebar menu
   closeMenu(param: any) {
     this.menuCtrl.close();
   }

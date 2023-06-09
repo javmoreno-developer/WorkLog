@@ -14,6 +14,7 @@ import { BehaviorSubject, lastValueFrom } from "rxjs";
   styleUrls: ["./students.page.scss"],
 })
 export class StudentsPage implements OnInit {
+  // Variables
   rows = new BehaviorSubject<Object>([]);
   columns = new BehaviorSubject<Object>([]);
   mappedList = []
@@ -29,6 +30,7 @@ export class StudentsPage implements OnInit {
     this.chargeData();
   }
 
+  // Charge initial data
   chargeData() {
     let url = this.apiUrlBase + "user/get/students"
     let user = JSON.parse(localStorage.getItem("sessionData") as string)
@@ -36,10 +38,11 @@ export class StudentsPage implements OnInit {
     const params = new HttpParams().set("id_check", user.profile)
     this.apiSvc.get(url, params, this.apiHeaders).subscribe(
       (resolve: any) => {
-        // obtenemos las filas de datos 
+        console.log(resolve)
+        // Get rows
         let studentData = this.getStudentData(resolve);
 
-        // obtenemos las columnas
+        // Get columns
         let groupColumns = [
           {prop: 'active', name: 'active',toggle:true, checked: false},
           {prop: 'name', name: 'name',toggle:false, checked: false},
@@ -49,12 +52,14 @@ export class StudentsPage implements OnInit {
         this.columns.next(groupColumns)
       },
       async (error) => {
+        console.log(error)
         this.notification.showToast(await lastValueFrom(this.translate.get("general.chargeErr")),"error","medium")
       }
     )
 
   }
 
+  // Get all data for an user
   getStudentData(param: User[]) {
     let url = this.apiUrlBase + "user/get/row"
     let user = JSON.parse(localStorage.getItem("sessionData") as string)
@@ -62,7 +67,7 @@ export class StudentsPage implements OnInit {
     const params = new HttpParams().set("id_check", user.profile)
     this.apiSvc.post(url, params, param, this.apiHeaders).subscribe(
       (resolve : any) => {
-        // obtenemos la fila de nombres y emitimos el resultado total
+        // Get name rows and emit the result
         const result = param.map(({ name, surname,idUser,isActive }) => ({ active: isActive,id: idUser,name: `${surname}, ${name}` }));
 
         const mergedArray = result.map((obj, index) => Object.assign({}, obj, resolve[index]));
@@ -82,6 +87,7 @@ export class StudentsPage implements OnInit {
 
   ngOnInit() { }
 
+  // Close sidebar menu
   closeMenu(param: any) {
     this.menuCtrl.close();
   }
@@ -89,10 +95,11 @@ export class StudentsPage implements OnInit {
   
 
   addModal() {
-    // obtengo las option del select
+    // Get options of select
     this.getAllUnits(null,false)
   }
 
+  // Get and map all the units
   async getAllUnits(cellUpd: Object | null,isFile: boolean) {
     let url = this.apiUrlBase + "unit/get/all"
     let user = JSON.parse(localStorage.getItem("sessionData") as string)
@@ -111,6 +118,7 @@ export class StudentsPage implements OnInit {
     )
   }
 
+  // Map units and present modal
   mapAllUnits(param: any, cellUpd: Object | null,isFile: boolean) {
     this.mappedList = param.map((obj: any) => ({
       name: obj.level + " " +obj.initials,
@@ -125,8 +133,9 @@ export class StudentsPage implements OnInit {
 
   }
 
+  // General modal
   async presentModal(cellUpd: Object | null,isFile: boolean, reset: boolean, ...extras: any) {
-    // cambio el boton de act o añadir
+
     let buttonSection = [{ text: await lastValueFrom(this.translate.get("general.update")), type: "info", fun: "onEdit" }]
 
     let unitPlaceholder = await lastValueFrom(this.translate.get("modules.unitForm"))
@@ -194,6 +203,7 @@ export class StudentsPage implements OnInit {
     this.getAllUnits(null,true)
   }
 
+  // Upload a whole xml 
   massiveUpload(param: any) {
 
     let url = this.apiUrlBase + "user/add-students-set"
@@ -211,6 +221,7 @@ export class StudentsPage implements OnInit {
     )
   }
 
+  // Add just one student
   addStudent(param: any) { 
     const { idUnit, ...body } = param;
    
@@ -234,6 +245,7 @@ export class StudentsPage implements OnInit {
     )
   }
 
+  // General alert
   async promptAction(param: any, type: string) {
    
     let message = await lastValueFrom(this.translate.get("students.activeTitle"))
@@ -266,7 +278,7 @@ export class StudentsPage implements OnInit {
     await alert.present();
   }
 
-
+  // Update user status operation
   updateStatus(param: any) {
     let user = JSON.parse(localStorage.getItem("sessionData") as string)
     param.checked = !param.checked
@@ -274,7 +286,7 @@ export class StudentsPage implements OnInit {
     if(param.checked) {
       checked = 1
     }
-    // Actualizo el estado del usuario
+    // Update user status
     let url = this.apiUrlBase + "user/change-status"
     const params = new HttpParams().set("id_check", user.profile).set("id_user",param.row.id).set("new_status",checked)
     this.apiSvc.put(url,params,null,this.apiHeaders).subscribe(
@@ -287,6 +299,7 @@ export class StudentsPage implements OnInit {
     )
   }
 
+  // Delete user operation
   deleteUser(param: any) {
     let user = JSON.parse(localStorage.getItem("sessionData") as string)
     let url = this.apiUrlBase + "user/delete"
@@ -302,10 +315,12 @@ export class StudentsPage implements OnInit {
     )
   }
 
+  // Reset password modal
   resetModal(param: any) {
     this.presentModal(null,false,true,param.data.id);
   }
 
+  // Reset pass operation
   resetPass(param: any,id: any) {
     let user = JSON.parse(localStorage.getItem("sessionData") as string)
 
@@ -324,6 +339,7 @@ export class StudentsPage implements OnInit {
       }
     )
   }
+
   seeInforms(param: any) {
     //console.log(param);
     this.sharedSvc.setData(param)

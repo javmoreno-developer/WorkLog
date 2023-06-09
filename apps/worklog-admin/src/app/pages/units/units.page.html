@@ -1,5 +1,5 @@
 <ion-content>
-  <worklog-fe-toolbar></worklog-fe-toolbar>
+  <worklog-fe-toolbar [options]="toolbarOptions"></worklog-fe-toolbar>
   <worklog-fe-sidebar (onCloseMenu)="closeMenu($event)"></worklog-fe-sidebar>
 
   <div class="body-content">
@@ -8,11 +8,18 @@
         <h4>{{"units.title" | translate}}</h4>
       </div>
       <div class="icons-first-row">
-        <span class="material-symbols-rounded" id="copy-icon" (click)="presentModal(null,null,'add')">assignment_add</span>
-   
+        <span class="material-symbols-rounded" id="copy-icon"
+          (click)="presentModal(null,null,'add')">assignment_add</span>
+
       </div>
     </div>
     <worklog-fe-table class="table-component" [rows]="rows" [columns]="columns" [tableStyle]="tableStyle"
-      [tableButtons]="tableButtons" (editEvent)="promptUpdate($event)" (deleteEvent)="promptDelete($event)" (infoEvent)="presentModal(null,$event,'info')" ></worklog-fe-table>
-   </div>
+      [tableButtons]="tableButtons" (editEvent)="promptUpdate($event)" (deleteEvent)="promptDelete($event)"
+      (infoEvent)="presentModal(null,$event,'info')"></worklog-fe-table>
+
+    <worklog-fe-footer class="footer" [languages]="languages" [defaultLang]="defaultLang"
+      (onChangeIdiom)="changeIdiom($event)"></worklog-fe-footer>
+
+  </div>
+
 </ion-content>

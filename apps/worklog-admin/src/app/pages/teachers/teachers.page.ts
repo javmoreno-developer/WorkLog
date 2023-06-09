@@ -5,6 +5,7 @@ import { AlertController, MenuController, ModalController } from "@ionic/angular
 import { TranslateService } from "@ngx-translate/core";
 import { ApiService, NotificationService, SharedService } from "@worklog-fe/core";
 import { EmptyModalComponent } from "libs/core/src/lib/components/empty-modal/empty-modal.component";
+import { LocaleService } from "libs/core/src/lib/services/locale.service";
 import { BehaviorSubject, lastValueFrom } from "rxjs";
 
 @Component({
@@ -13,6 +14,8 @@ import { BehaviorSubject, lastValueFrom } from "rxjs";
   styleUrls: ["./teachers.page.scss"],
 })
 export class TeachersPage implements OnInit {
+
+  // Variables
   rows = new BehaviorSubject<Object>([]);
   columns = new BehaviorSubject<Object>([]);
 
@@ -27,16 +30,35 @@ export class TeachersPage implements OnInit {
   mappedList: any = []
   units = {}
 
-  constructor(private route:Router,private sharedSvc: SharedService,private modalCtrl: ModalController,private translate: TranslateService,private notification:NotificationService,private alert: AlertController,private apiSvc: ApiService, private menuCtrl: MenuController, @Inject("apiUrlBase") public apiUrlBase?: any, @Inject("apiHeaders") public apiHeaders?: any) {
+  defaultLang: any = "";
+  languages: any;
+  toolbarOptions: any;
+
+  constructor(private locale: LocaleService,private route:Router,private sharedSvc: SharedService,private modalCtrl: ModalController,private translate: TranslateService,private notification:NotificationService,private alert: AlertController,private apiSvc: ApiService, private menuCtrl: MenuController, @Inject("apiUrlBase") public apiUrlBase?: any, @Inject("apiHeaders") public apiHeaders?: any) {
     this.chargeData();
   }
 
-  ngOnInit() {}
+  async ngOnInit() {
+    this.defaultLang = this.locale.locale
 
+    // Set all toolbar options
+    this.toolbarOptions = [
+      { name: await lastValueFrom(this.translate.get("toolbar.profile")), value: 'profile' },
+      { name: await lastValueFrom(this.translate.get("toolbar.signOut")), value: 'out' }
+    ]
+    // Set all idioms
+    this.languages = [
+      { name: await lastValueFrom(this.translate.get("languages.english")), value: "en-en" },
+      { name: await lastValueFrom(this.translate.get("languages.spanish")), value: "es-es" }
+    ]
+  }
+
+  // Close sidebar menu
   closeMenu(param: any) {
     this.menuCtrl.close();
   }
 
+  // Charge initial data
   chargeData() {
     let url = this.apiUrlBase + "user/get/teachers"
     let user = JSON.parse(localStorage.getItem("sessionData") as string)
@@ -57,16 +79,18 @@ export class TeachersPage implements OnInit {
         ]
         this.columns.next(groupColumns)
       },
-      (error) => {
-        console.log(error)
+      async (error) => {
+        this.notification.showToast(await lastValueFrom(this.translate.get('teachers.readErr')), "error", "medium")
       }
     )
   }
 
+  // Add modal
   addModal() {
     this.getAllUnits(null)
   }
 
+  // Get all units
   async getAllUnits(cellUpd: Object | null) {
     let url = this.apiUrlBase + "unit/get/all"
     let user = JSON.parse(localStorage.getItem("sessionData") as string)
@@ -85,6 +109,7 @@ export class TeachersPage implements OnInit {
     )
   }
 
+  // Map all units 
   mapAllUnits(param: any, cellUpd: Object | null) {
     this.mappedList = param.map((obj: any) => ({
       name: obj.level + " " +obj.initials,
@@ -96,11 +121,9 @@ export class TeachersPage implements OnInit {
     } else {
       this.presentModal(null,null,'add')
     }
-
-   
-
   }
 
+  // Show general modal
   async presentModal(cellUpd: Object | null, event: any, type: string) {
     let buttonSection: any = []
     let textSection: any = []
@@ -120,8 +143,6 @@ export class TeachersPage implements OnInit {
     if(type == "edit") {
       buttonSection = [{ text: await lastValueFrom(this.translate.get("general.update")), type: "info", fun: "onEditTeacher" }]
     }
-   
-    console.log()
 
 
     const modal = await this.modalCtrl.create({
@@ -144,7 +165,6 @@ export class TeachersPage implements OnInit {
           case "cancel":
             break;
           case "submit":
-            console.log(result.data)
             this.addTeacher(result.data)
             break;
           case "edit":
@@ -156,6 +176,7 @@ export class TeachersPage implements OnInit {
     });
   }
 
+  // Add teacher operation
   addTeacher(param: any) {
     let url = this.apiUrlBase + "user/add-teacher"
     let user = JSON.parse(localStorage.getItem("sessionData") as string)
@@ -167,9 +188,6 @@ export class TeachersPage implements OnInit {
     body["twitter"] = ""
     body["profile"] = "3"
     body["password"] = this.getNewPassword()
-
-    console.log(body)
-    console.log(idUnit)
     
     const params = new HttpParams().set("id_check", user.profile).set("id_unit",idUnit)
 
@@ -187,8 +205,8 @@ export class TeachersPage implements OnInit {
     )
   }
 
+  // update teacher operation
   updateTeacher(param: any) {
-    console.log(param)
     let url = this.apiUrlBase + "user/update"
     let user = JSON.parse(localStorage.getItem("sessionData") as string)
 
@@ -200,20 +218,20 @@ export class TeachersPage implements OnInit {
         this.chargeData()
       },
       async (error) => {
-        console.log(error)
         this.notification.showToast(await lastValueFrom(this.translate.get('teachers.updErr')), "error", "medium")
       }
     )
   }
+
+  // update status operation
   updateStatus(param: any) {
-    console.log(param)
     let user = JSON.parse(localStorage.getItem("sessionData") as string)
     param.checked = !param.checked
     let checked = 0
     if(param.checked) {
       checked = 1
     }
-    // Actualizo el estado del usuario
+    // Update status
     let url = this.apiUrlBase + "user/change-status"
     const params = new HttpParams().set("id_check", user.profile).set("id_user",param.row.idUser).set("new_status",checked)
     this.apiSvc.put(url,params,null,this.apiHeaders).subscribe(
@@ -226,8 +244,8 @@ export class TeachersPage implements OnInit {
     )
   }
 
+  // Prompt delete 
   async promptDelete(param: any) {
-    console.log(param.data)
     let user = JSON.parse(localStorage.getItem("sessionData") as string)
 
     const alert = await this.alert.create({
@@ -254,7 +272,6 @@ export class TeachersPage implements OnInit {
                 this.chargeData();
               },
               async (error) => {
-                console.log(error)
                 this.notification.showToast(await lastValueFrom(this.translate.get('teachers.delErr')), "error", "medium")
               }
             )
@@ -268,14 +285,15 @@ export class TeachersPage implements OnInit {
   }
 
   promptEdit(event: any) {
-    console.log(event.data);
     this.getAllUnits(event.data)
   }
+
+  // Create a new password
   getNewPassword() {
-    const randomBytes = new Uint8Array(2); // Crea un array de bytes de longitud 2
-    window.crypto.getRandomValues(randomBytes); // Rellena el array con valores aleatorios
+    const randomBytes = new Uint8Array(2); // Create a array of 2 bytes
+    window.crypto.getRandomValues(randomBytes); // Fill the array with random values
   
-    // Convierte los bytes en una cadena hexadecimal
+    // Turn the array
     let password = '';
     for (let i = 0; i < randomBytes.length; i++) {
       password += randomBytes[i].toString(16).padStart(2, '0');
@@ -285,7 +303,12 @@ export class TeachersPage implements OnInit {
   }
 
   profileNavigate(param: any) {
-    console.log(param)
     this.route.navigate(["profile"])
+  }
+
+   // Change the idiom of the entire app (event from child component)
+   changeIdiom(param: any) {
+    this.translate.setDefaultLang(param)
+    this.locale.registerCulture(param)
   }
 }

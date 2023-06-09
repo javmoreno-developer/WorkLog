@@ -1,8 +1,21 @@
 <div class="footer-container">
-    <span class="material-symbols-rounded" id="copy_icon">copyright</span>
-    <p>
-        <a href="https://github.com/SeryiDev">{{"footer.author1" | translate}}</a>
-        &
-        <a href="https://github.com/javmoreno-developer">{{"footer.author2" | translate}}</a>
-    </p>
+    <div class="text-container">
+        <span class="material-symbols-rounded" id="copy_icon">copyright</span>
+        <p>
+            <a href="https://github.com/SeryiDev">{{"footer.author1" | translate}}</a>
+            &
+            <a href="https://github.com/javmoreno-developer">{{"footer.author2" | translate}}</a>
+        </p>
+    </div>
+
+    <div class="selector-container">
+        <form [formGroup]="myform">
+            <ion-select (ionChange)="changeIdiom(langSelect)" #langSelect [formControlName]="'idiom'">
+                <ion-select-option *ngFor="let item of languages" [value]="item.value">{{item.name}}</ion-select-option>
+            </ion-select>
+        </form>
+        
+          
+          
+    </div>
 </div>

@@ -3,11 +3,15 @@
     <form [formGroup]="myform" (ngSubmit)="submit(myform.value)">
         <div class="input-wrapper">
             <ion-item>
-                <ion-input label="Password input" type="number" formControlName="subject" placeholder="{{'settings.subjectPlaceholder' | translate}}" (ionFocus)="onInputFocus($event)" (ionBlur)="onInputBlur($event,'subject')"></ion-input>
+                <ion-input label="Password input" type="number" formControlName="subject"
+                    placeholder="{{'settings.subjectPlaceholder' | translate}}" (ionFocus)="onInputFocus($event)"
+                    (ionBlur)="onInputBlur($event,'subject')"></ion-input>
             </ion-item>
-    
+
             <ion-item>
-                <ion-input label="Password input" type="number" formControlName="skill" placeholder="{{'settings.skillPlaceholder' | translate}}" (ionFocus)="onInputFocus($event)" (ionBlur)="onInputBlur($event,'skill')"></ion-input>
+                <ion-input label="Password input" type="number" formControlName="skill"
+                    placeholder="{{'settings.skillPlaceholder' | translate}}" (ionFocus)="onInputFocus($event)"
+                    (ionBlur)="onInputBlur($event,'skill')"></ion-input>
             </ion-item>
         </div>
         <ion-button type="submit" [disabled]="!myform.valid">{{'general.update' | translate}}</ion-button>

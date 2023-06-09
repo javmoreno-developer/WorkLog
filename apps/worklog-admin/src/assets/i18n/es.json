@@ -27,7 +27,7 @@
         "durationLocalError": "La fecha de inicio no puede ser mayor o menor que la de fin",
         "databaseTitle": "Operaciones con la base de datos",
         "databaseBackUp": "Ultima copia de seguridad:",
-        "databaseApi": "Version de la api:",
+        "databaseApi": "Version de la api: 1.0",
         "databaseModalSubtitle": "¿Deseas vaciar la base de datos?"
         
     },
@@ -53,6 +53,7 @@
     },
     "modules": {
         "modalTitle": "Añadir un módulo",
+        "updTitle": "Actualizar un módulo",
         "addModuleMsg": "Se ha añadido un modulo",
         "addModuleErr": "Ha habido un error al añadir un modulo",
         "deleteTitle": "¿Seguro que quieres borrar el modulo {{name}}?",
@@ -117,7 +118,8 @@
         "deleteMsg": "Se ha borrado el convenio",
         "deleteErr": "Ha habido un error al borrar el convenio",
         "addMsg": "Se ha añadido el convenio",
-        "addErr": "Ha habido un error al insertar el convenio"
+        "addErr": "Ha habido un error al insertar el convenio",
+        "badForm": "Ha habido un error al insertar las fechas"
     },
 
     "companies": {
@@ -167,6 +169,7 @@
         "updErr": "Ha habido un error al actualizar un profesor",
         "deleteTitle": "¿Seguro que quieres borrar al profesor {{name}}?",
         "addMsg": "Has añadido un profesor",
+        
         "addErr": "Ha habido un error al insertar el profesor",
         "delMsg": "Has borrado un profesor",
         "delErr": "Ha habido un error al borrar el profesor",
@@ -186,7 +189,17 @@
     },
     "dashboard": {
         "readErr": "Ha habido un error al leer las graficas"
-    }
+    },
     
+    "languages": {
+        "english": "English",
+        "spanish": "Spanish"
+    },
+
+    "tableColumns": {
+        "name": "nombre",
+        "address": "dirección",
+        "phone": "teléfono"
+    }
     
  }

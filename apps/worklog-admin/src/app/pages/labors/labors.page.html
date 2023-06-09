@@ -1,5 +1,5 @@
 <ion-content>
-  <worklog-fe-toolbar></worklog-fe-toolbar>
+  <worklog-fe-toolbar [options]="toolbarOptions"></worklog-fe-toolbar>
   <worklog-fe-sidebar (onCloseMenu)="closeMenu($event)"></worklog-fe-sidebar>
 
   <div class="body-content">
@@ -12,6 +12,11 @@
       </div>
     </div>
     <worklog-fe-table class="table-component" [rows]="rows" [columns]="columns" [tableStyle]="tableStyle"
-      [tableButtons]="tableButtons" (profileEvent)="profileNavigate($event)" (deleteEvent)="promptDelete($event)" (editEvent)="promptEdit($event)" (activeEvent)="updateStatus($event)"></worklog-fe-table>
+      [tableButtons]="tableButtons" (profileEvent)="profileNavigate($event)" (deleteEvent)="promptDelete($event)"
+      (editEvent)="promptEdit($event)" (activeEvent)="updateStatus($event)"></worklog-fe-table>
+
+    <worklog-fe-footer class="footer" [languages]="languages" [defaultLang]="defaultLang"
+      (onChangeIdiom)="changeIdiom($event)"></worklog-fe-footer>
+      
   </div>
 </ion-content>
