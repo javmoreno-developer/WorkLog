@@ -1,0 +1,7 @@
+{
+  "name": "worklog-teacher",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

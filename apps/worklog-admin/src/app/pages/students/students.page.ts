@@ -5,6 +5,7 @@ import { AlertController, MenuController, ModalController } from "@ionic/angular
 import { TranslateService } from "@ngx-translate/core";
 import { ApiService, NotificationService, SharedService, User } from "@worklog-fe/core";
 import { EmptyModalComponent } from "libs/core/src/lib/components/empty-modal/empty-modal.component";
+import { LocaleService } from "libs/core/src/lib/services/locale.service";
 import { resolve } from "path";
 import { BehaviorSubject, lastValueFrom } from "rxjs";
 
@@ -20,14 +21,20 @@ export class StudentsPage implements OnInit {
   mappedList = []
   units = {}
   tableStyle = "general"
+  defaultLang: any = "";
+  languages: any;
+  toolbarOptions: any;
 
   tableButtons = [
     {icon: "eye", text: "Entradas", fun: "onRoute", cssClass: "see_entries_btn", popover: false, route: "student/entries"},
     {icon: "ellipsis-vertical", text: "", fun: "onClick", cssClass: "popover_icon", popover: true, popOptions: [{name: "Eliminar", value: "delete"}, {name: "Restablecer contraseña", value: "reset"}]},
   ]
 
-  constructor(private route:Router,private sharedSvc: SharedService,private modalCtrl: ModalController,private translate: TranslateService,private notification:NotificationService,private alert: AlertController,private apiSvc: ApiService, private menuCtrl: MenuController, @Inject("apiUrlBase") public apiUrlBase?: any, @Inject("apiHeaders") public apiHeaders?: any) {
+
+  constructor(private locale: LocaleService,private route:Router,private sharedSvc: SharedService,private modalCtrl: ModalController,private translate: TranslateService,private notification:NotificationService,private alert: AlertController,private apiSvc: ApiService, private menuCtrl: MenuController, @Inject("apiUrlBase") public apiUrlBase?: any, @Inject("apiHeaders") public apiHeaders?: any) {
     this.chargeData();
+
+    
   }
 
   // Charge initial data
@@ -85,7 +92,20 @@ export class StudentsPage implements OnInit {
   }
 
 
-  ngOnInit() { }
+  async ngOnInit() {
+    this.defaultLang = this.locale.locale
+    
+    // Set all toolbar options
+    this.toolbarOptions = [
+      { name: await lastValueFrom(this.translate.get("toolbar.profile")), value: 'profile' },
+      { name: await lastValueFrom(this.translate.get("toolbar.signOut")), value: 'out' }
+    ]
+    // Set all idioms
+    this.languages = [
+      { name: await lastValueFrom(this.translate.get("languages.english")), value: "en-en" },
+      { name: await lastValueFrom(this.translate.get("languages.spanish")), value: "es-es" }
+    ]
+   }
 
   // Close sidebar menu
   closeMenu(param: any) {
@@ -344,5 +364,11 @@ export class StudentsPage implements OnInit {
     //console.log(param);
     this.sharedSvc.setData(param)
     this.route.navigate([param.url])
+  }
+
+   // Change the idiom of the entire app (event from child component)
+   changeIdiom(param: any) {
+    this.translate.setDefaultLang(param)
+    this.locale.registerCulture(param)
   }
 }

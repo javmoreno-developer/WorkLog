@@ -1,0 +1,150 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import "~@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+@import '~swiper/swiper-bundle.css';
+
+body {
+    --ion-font-family: Overpass-medium !important;
+    width: 100vw; height: 100vh;
+}
+
+ion-toast {
+  --padding-top: 1rem;
+  --padding-bottom: 1rem;
+  --padding-start: 1.5rem;
+  --padding-end: 1.5rem;
+  --border-radius: 0.5rem;
+}
+
+ion-toast::part(icon) {
+  font-size: 2.4em; // this sets actual icon size
+}
+
+.toast-icon {
+  font-size: 2.4em;
+}
+.error-toast {
+    --background: var(--ion-color-danger);
+    --color: #fff;
+   
+  }
+
+  .warning-toast {
+    --background: var(--ion-color-warning);
+    --color: var(--ion-color-dark);
+    --ion-color-step-100: var(--ion-color-dark);
+  }
+
+  .success-toast {
+    --background: var(--ion-color-success-tint);
+    --color: var(--ion-color-dark);
+    --ion-color-step-100: var(--ion-color-dark);
+  }
+
+  .info-toast {
+    --background: var(--ion-color-primary);
+    --color: #fff;
+    
+  }
+
+  /*.datatable-pager {
+    display: flex;
+    justify-content: center;
+    ul {
+      width: 100%;
+      justify-content: center !important;
+      display: flex !important;
+      gap: 2% !important;
+      align-items: center;
+      text-decoration: none;
+      .active {
+        background-color: var(--ion-color-primary);
+        padding: 5px !important;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+        border-radius: 5px;
+        a {
+          color: var(--ion-color-light);
+        }
+      }
+      li {
+        a{
+          text-decoration: none;
+          color: var(--ion-color-dark);
+        }
+      }
+    }
+  }*/
+  .datatable-pager {
+    ul {
+      .active {
+        a {
+          background-color: var(--ion-color-primary) !important;
+          color: var(--ion-color-light) !important;
+        }
+      }
+    }
+  }
+
+  .datatable-body-row {
+    margin-bottom: 5px !important;
+    background-color: white;
+  }
+
+  /* Cambia el color del body de página de la tabla */
+  .datatable-body {
+    background: var(--ion-color-light-shade); 
+  }
+
+  .table-inform {
+    outline: none !important;
+    border:none !important;
+    box-shadow: none !important;
+   
+    & > div {
+      background: var(--ion-color-light-shade); 
+    }
+    .datatable-header {
+      margin-bottom: 20px !important;
+    }
+    .datatable-footer {
+      background-color: white !important;
+    }
+    .datatable-body-row {
+      margin-bottom: 20px !important;
+      background-color: white !important;
+      border-radius: 10px;
+    } 
+  }
+
+  .general-modal {
+    --border-radius: 20px;
+  }
+  .danger-option {
+    color: var(--ion-color-danger) !important;
+}

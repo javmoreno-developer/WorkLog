@@ -1,0 +1,208 @@
+{
+    "settings": {
+        "title": "Elija la opción a configurar",
+        "deliberation": "ponderacion",
+        "holidays": "Vacaciones",
+        "duration": "Duracion curso",
+        "database": "Base de datos",
+        "backUpDownload": "La base de datos se ha descargado",
+        "backUpError": "Error en el servidor al importar la base de datos",
+        "holidaysUpdated":"Se ha actualizado el periodo vacacional",
+        "holidaysError": "Error en el servidor al actualizar las vacaciones",
+        "deliberationUpdated":"Se ha actualizado la ponderacion",
+        "deliberationError": "Error en el servidor al actualizar la ponderacion",
+        "deliberationLocalError":"La suma de aptitudes y asignaturas debe ser 100",
+        "durationUpdated": "La duracion ha sido actualizada",
+        "durationError": "Error en el servidor al actualizar la duracion",
+        "databaseDeleted":"Se ha borrado la base de datos",
+        "databaseError":"Error en el servidor al borrar la base de datos",
+        "subjectPlaceholder": "Porcentaje asignaturas (sin %)",
+        "skillPlaceholder":"Aptitudes (sin %)",
+        "deliberationTitle": "Cambio de porcentaje en la ponderación vigente",
+        "holidaySubtitle": "Definicion de periodos vacacionales",
+        "holidayThirdtitle": "Numero de dias: ",
+        "durationSubtitle": "Inicio / Fin curso",
+        "holidayModalTitle": "¿Son estos los días?",
+        "durationModalTitle": "¿Deseas actualizar la duracion del curso?",
+        "durationLocalError": "La fecha de inicio no puede ser mayor o menor que la de fin",
+        "databaseTitle": "Operaciones con la base de datos",
+        "databaseBackUp": "Ultima copia de seguridad:",
+        "databaseApi": "Version de la api: 1.0",
+        "databaseModalSubtitle": "¿Deseas vaciar la base de datos?"
+        
+    },
+    "footer": {
+        "author1": "SGG",
+        "author2": "JMA"
+    },
+    "general": {
+        "update": "Actualizar",
+        "reset": "Resetear",
+        "delete": "Borrar",
+        "accept": "Aceptar",
+        "yes": "Si",
+        "no": "No",
+        "next": "Siguiente",
+        "previous": "Anterior",
+        "cancel": "Cancelar",
+        "warning": "Atencion",
+        "download": "Descargar",
+        "added": "Añadir",
+        "chargeErr": "Ha habido un error de carga en los datos"
+        
+    },
+    "modules": {
+        "modalTitle": "Añadir un módulo",
+        "updTitle": "Actualizar un módulo",
+        "addModuleMsg": "Se ha añadido un modulo",
+        "addModuleErr": "Ha habido un error al añadir un modulo",
+        "deleteTitle": "¿Seguro que quieres borrar el modulo {{name}}?",
+        "deleteMsg": "Se ha eliminado un modulo",
+        "deleteErr": "Ha habido un error al eliminar un modulo",
+        "updMsg": "Se ha actualizado un modulo",
+        "updErr": "Ha habido un error al actualizar un modulo",
+        "unitForm": "Elige unidad"
+    },
+    "students": {
+        "title": "Listado de alumnos",
+        "activeTitle": "¿Quieres actualizar el estado de este alumno?",
+        "deleteTitle": "¿Quieres borrar a este alumno?",
+        "addTitle": "Añadir un alumno",
+        "resetPass": "Resetear contraseña",
+        "massiveErr": "Ha habido un error subiendo los estudiantes, mira la consola para mas info",
+        "massiveSucc": "Se han subido los estudiantes",
+        "insertSucc": "Se ha insertado el estudiante",
+        "insertErr": "Ha habido un error al insertar el estudiante",
+        "updSucc": "Se ha actualizado el estudiante",
+        "updErr": "Ha habido un error al actualizar un alumno",
+        "deleteSucc": "Se ha borrado un alumno",
+        "deleteErr": "Ha habido un error al eliminar un alumno",
+        "resetSucc": "Se ha reseteado la contraseña del usuario",
+        "resetErr": "Ha habido un error al intentar resetear la contraseña"
+    },
+    "entries": {
+        "title": "Informes de ",
+        "deleteMsg": "¿Seguro que quieres borrar la entrada?"
+    },
+    "toolbar": {
+        "profile": "Ver perfil",
+        "signOut": "Salir"
+    },
+    "comments": {
+        "title": "Comentarios del ",
+        "timeMsg": "{{hours}} horas {{min}} min"
+    },
+    "agreements": {
+        "title": "Listado de convenios",
+        "infoTitleModal": "Informacion del convenio",
+        "type": "Tipo de convenio: {{type}}",
+        "company": "Empresa: {{company}}",
+        "fctEnd": "Fin de fct: {{fctEnd}}",
+        "fctStart": "Inicio de fct: {{fctStart}}",
+        "dualEnd": "Fin de dual: {{dualEnd}}",
+        "dualStart": "Inicio de dual: {{dualStart}}",
+        "labor": "Tutor laboral: {{labor}}",
+        "teacher": "Tutor docente: {{teacher}}",
+        "student": "Estudiante: {{student}}",
+        "addTitleModal": "Añadir un convenio",
+        "updTitleModal": "Actualizar un convenio",
+        "laborForm": "Elige tutor laboral",
+        "teacherForm": "Elige profesor docente",
+        "companyForm": "Elige empresa",
+        "typeForm": "Elige tipo",
+        "studentForm": "Elige estudiante",
+        "fctStartForm": "Escribe el inicio de la fct (dd-mm-aaaa)",
+        "fctEndForm": "Escribe el fin de la fct (dd-mm-aaaa)",
+        "dualEndForm": "Escribe el fin de la dual (dd-mm-aaaa)",
+        "dualStartForm": "Escribe el inicio de la dual (dd-mm-aaaa)",
+        "deleteTitle": "¿Seguro que quieres borrar el convenio?",
+        "deleteMsg": "Se ha borrado el convenio",
+        "deleteErr": "Ha habido un error al borrar el convenio",
+        "addMsg": "Se ha añadido el convenio",
+        "addErr": "Ha habido un error al insertar el convenio",
+        "badForm": "Ha habido un error al insertar las fechas",
+        "updMsg": "Se ha actualizado un convenio",
+        "updErr": "Ha habido un error al actualizar el convenio"
+    },
+
+    "companies": {
+        "title": "Listado de empresas",
+        "infoModalTitle": "Informacion sobre la empresa",
+        "addModalTitle": "Añadir empresa",
+        "nameText": "Nombre: {{name}}",
+        "addressText": "Direccion: {{address}}",
+        "latitudeText": "Latitud: {{latitude}}",
+        "longitudeText": "Longitud: {{longitude}}",
+        "phoneText": "Teléfono: {{phone}}",
+        "deleteTitle": "¿Seguro que quieres borrar la empresa {{name}}?",
+        "addCompanyMsg": "Has añadido una empresa",
+        "addCompanyErr": "Ha habido un error al insertar la empresa",
+        "updCompanyMsg": "Has actualizado una empresa",
+        "updCompanyErr": "Ha habido un error al actualizar la empresa",
+        "delCompanyMsg": "Has borrado una empresa",
+        "delCompanyErr": "Ha habido un error al borrar la empresa",
+        "readCompanyErr": "Ha habido un error al leer las empresas"
+
+    },
+
+    "units": {
+        "title": "Listado de cursos",
+        "infoModalTitle": "Informacion sobre el curso",
+        "addModalTitle": "Añadir curso",
+        "nameText": "Nombre: {{name}}",
+        "initialsText": "Iniciales: {{initials}}",
+        "unitTypeText": "Turno: {{unitType}}",
+        "charUnitText": "CharUnit: {{charUnit}}",
+        "levelText": "Curso: {{level}}",
+        "deleteTitle": "¿Seguro que quieres borrar el curso {{name}}?",
+        "addMsg": "Has añadido un curso",
+        "addErr": "Ha habido un error al insertar el curso",
+        "updMsg": "Has actualizado un curso",
+        "updErr": "Ha habido un error al actualizar el curso",
+        "delMsg": "Has borrado un curso",
+        "delErr": "Ha habido un error al borrar el curso",
+        "readErr": "Ha habido un error al leer los cursos",
+        "unitPlaceholder": "Elige turno"
+        
+    },
+    "teachers": {
+        "title": "Listado de docentes",
+        "addModalTitle": "Añadir docente",
+        "updMsg": "Se han actualizado los datos de un profesor",
+        "updErr": "Ha habido un error al actualizar un profesor",
+        "deleteTitle": "¿Seguro que quieres borrar al profesor {{name}}?",
+        "addMsg": "Has añadido un profesor",
+        
+        "addErr": "Ha habido un error al insertar el profesor",
+        "delMsg": "Has borrado un profesor",
+        "delErr": "Ha habido un error al borrar el profesor",
+        "readErr": "Ha habido un error al leer los profesores"
+    },
+    "labors": {
+        "title": "Listado de tutores laborales",
+        "addModalTitle": "Añadir tutor laboral",
+        "updMsg": "Se han actualizado los datos de un tutor laboral",
+        "updErr": "Ha habido un error al actualizar un tutor laboral",
+        "deleteTitle": "¿Seguro que quieres borrar al tutor laboral {{name}}?",
+        "addMsg": "Has añadido un tutor laboral",
+        "addErr": "Ha habido un error al insertar el tutor laboral",
+        "delMsg": "Has borrado un tutor laboral",
+        "delErr": "Ha habido un error al borrar el tutor laboral",
+        "readErr": "Ha habido un error al leer los tutores laborales"
+    },
+    "dashboard": {
+        "readErr": "Ha habido un error al leer las graficas"
+    },
+    
+    "languages": {
+        "english": "English",
+        "spanish": "Spanish"
+    },
+
+    "tableColumns": {
+        "name": "nombre",
+        "address": "dirección",
+        "phone": "teléfono"
+    }
+    
+ }
