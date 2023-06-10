@@ -105,6 +105,7 @@
         "teacher": "Tutor docente: {{teacher}}",
         "student": "Estudiante: {{student}}",
         "addTitleModal": "Añadir un convenio",
+        "updTitleModal": "Actualizar un convenio",
         "laborForm": "Elige tutor laboral",
         "teacherForm": "Elige profesor docente",
         "companyForm": "Elige empresa",
@@ -119,7 +120,9 @@
         "deleteErr": "Ha habido un error al borrar el convenio",
         "addMsg": "Se ha añadido el convenio",
         "addErr": "Ha habido un error al insertar el convenio",
-        "badForm": "Ha habido un error al insertar las fechas"
+        "badForm": "Ha habido un error al insertar las fechas",
+        "updMsg": "Se ha actualizado un convenio",
+        "updErr": "Ha habido un error al actualizar el convenio"
     },
 
     "companies": {

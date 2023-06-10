@@ -15,7 +15,7 @@ import { BehaviorSubject, Observable, lastValueFrom } from "rxjs";
   styleUrls: ["./agreements.page.scss"],
 })
 export class AgreementsPage implements OnInit {
-
+  // Variables
   toolbarOptions: any;
   tableStyle = "general"
 
@@ -68,6 +68,7 @@ export class AgreementsPage implements OnInit {
     this.getAllLabors(null);
   }
 
+  // Get initial data
   chargeData() {
     let url = this.apiUrlBase + "agreement/get/all"
     let user = JSON.parse(localStorage.getItem("sessionData") as string)
@@ -104,10 +105,12 @@ export class AgreementsPage implements OnInit {
     )
   }
 
+  // Close sidebar menu
   closeMenu(param: any) {
     this.menuCtrl.close();
   }
 
+  // Show general modal
   async presentModal(cellUpd: Object | null, event: any | null, type: string) {
 
     // cambio el boton de act o añadir
@@ -172,6 +175,7 @@ export class AgreementsPage implements OnInit {
     });
   }
 
+  // Add agreement operation
   addAgreement(body: any) {
 
     // add resting fields
@@ -276,18 +280,18 @@ export class AgreementsPage implements OnInit {
           name: obj.surname + " " + obj.name,
           value: obj.idUser,
         }));
-        //console.log(result)
+      
         this.studentsList = result;
         this.presentSwiper(actParam)
       },
-      (error) => {
-        console.log(error)
+      async (error) => {
+        this.notification.showToast(await lastValueFrom(this.translate.get("general.chargeErr")), "error", "medium")
       }
     )
   }
 
+  // Show general swiper
   async presentSwiper(cellUpd: any | null) {
-    console.log(cellUpd)
 
     // placeholder msg
     let typePlaceholder = await lastValueFrom(this.translate.get("agreements.typeForm"))
@@ -302,7 +306,7 @@ export class AgreementsPage implements OnInit {
 
     let mappedList = [{ name: "fct", value: "fct" }, { name: "dual", value: "dual" }, { name: "fct+dual", value: "fct+dual" }]
 
-    /// select and input
+    /// Select and input
 
     // first slide
     let alumnSelect: any = { formName: "idStudent", placeholder: studentPlaceholder, options: this.studentsList }
@@ -319,11 +323,11 @@ export class AgreementsPage implements OnInit {
 
 
    
-    // create modal
+    // Create modal
     const modal = await this.modalCtrl.create({
       component: EmptySwiperComponent,
       componentProps: {
-        first_slide: [alumnSelect, agreementSelect, laborSelect, teacherSelect, companySelect],
+        first_slide: [agreementSelect,alumnSelect, laborSelect, teacherSelect, companySelect],
         second_slide_fct: [fctStartInput, fctEndInput],
         second_slide_dual: [dualStartInput, dualEndInput],
         cellUpd: cellUpd
@@ -334,7 +338,6 @@ export class AgreementsPage implements OnInit {
     modal.present();
 
     modal.onDidDismiss().then(async result => {
-      //console.log(result)
       if (result.data) {
         switch (result.role) {
           case "cancel":
@@ -353,8 +356,8 @@ export class AgreementsPage implements OnInit {
     });
   }
 
+  // Edit agreement operation
   editAgreement(param: any) {
-    console.log(param)
     let user = JSON.parse(localStorage.getItem("sessionData") as string)
     let url = this.apiUrlBase + "agreement/update"
     let params = new HttpParams().set("id_check", user.profile).set("id_agreement", param.idAgreement).set("id_student", param.data.idStudent)
@@ -370,19 +373,19 @@ export class AgreementsPage implements OnInit {
       param.data.fctStartAt = null;
     }
 
-    console.log(param)
+    
     this.apiSvc.put(url, params, param.data, this.apiHeaders).subscribe(
-      (resolve) => {
-        console.log("done bro")
+      async (resolve) => {
+        this.notification.showToast(await lastValueFrom(this.translate.get("agreements.updMsg")), "success", "medium")
       },
-      (error) => {
-        console.log(error)
+      async (error) => {
+        this.notification.showToast(await lastValueFrom(this.translate.get("agreements.updErr")), "error", "medium")
       }
     )
   }
 
+  // Show general alert
   async promptDelete(param: any) {
-    console.log(param.data)
     let user = JSON.parse(localStorage.getItem("sessionData") as string)
 
     const alert = await this.alertCtrl.create({
@@ -422,6 +425,7 @@ export class AgreementsPage implements OnInit {
     await alert.present();
   }
 
+  // Show update alert
   promptUpdate(event: any) {
 
     this.getAllLabors(event.data);

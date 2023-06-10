@@ -5,7 +5,8 @@
             <div class="first-row">
                 <ion-icon name="close-outline" (click)="closeModal()"></ion-icon>
             </div>
-            <h1>Añadir convenios</h1>
+            <h1 *ngIf="!cellUpd">{{'agreements.addTitleModal' | translate}}</h1>
+            <h1 *ngIf="cellUpd">{{'agreements.updTitleModal' | translate}}</h1>
 
             <form [formGroup]="myform" class="form-second-row">
                 <ion-item class="input-container" *ngFor="let select of first_slide">
@@ -19,7 +20,7 @@
 
             <div class="action-row">
                 <ion-button class="button-info" (click)="buttonClicked('onNext',swiper)">
-                    Next
+                    {{'general.next' | translate}}
                 </ion-button>
             </div>
 
@@ -71,14 +72,14 @@
             </form>
             <div class="action-row">
                 <ion-button class="button-info" (click)="buttonClicked('onPrevious',swiper)">
-                    Previous
+                    {{'general.previous' | translate}}
                 </ion-button>
                 <ion-button *ngIf="!cellUpd" [disabled]="!myform.valid" class="button-success" (click)="buttonClicked('onAdd',swiper)">
-                    Añadir
+                    {{'general.added' | translate}}
                 </ion-button>
                 <ion-button *ngIf="cellUpd" [disabled]="!myform.valid" class="button-success"
                     (click)="buttonClicked('onEdit',swiper)">
-                    Actualizar
+                    {{'general.update' | translate}}
                 </ion-button>
 
             </div>

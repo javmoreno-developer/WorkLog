@@ -9,7 +9,7 @@ import { SwiperComponent } from "swiper/angular";
   styleUrls: ["./empty-swiper.component.scss"],
 })
 export class EmptySwiperComponent {
-
+  // Variables
   isFct = false;
   isMulti = true;
   isDual = false;
@@ -21,6 +21,7 @@ export class EmptySwiperComponent {
 
   oldStudentId: any;
 
+  // swiper variable
   options = {
     slidesPerView: 1,
     spaceBetween: 20,
@@ -34,6 +35,7 @@ export class EmptySwiperComponent {
     },
   };
 
+  // Slides inputs
   first_slide: any;
   second_slide_fct: any;
   second_slide_dual: any;
@@ -90,15 +92,14 @@ export class EmptySwiperComponent {
 
 
   ngOnInit() {
-    // creamos el formulario
+    // Create form
     this.createForm()
-    //console.log(this.myform.controls)
-
 
   }
 
+  // Get update form
   getActForm() {
-    // preparamos formulario
+    // Prepare form by agreement type
     if (this.cellUpd.agreementType == "dual") {
       this.myform = this.dualForm
       this.isMulti = false;
@@ -111,12 +112,11 @@ export class EmptySwiperComponent {
       this.isDual = false;
     }
 
-    // seteamos valores
+    // Set default values
     const { labor, teacher, company, student, ...copy } = this.cellUpd;
 
     this.oldStudentId = copy.idStudent
-    console.log(copy)
-    console.log(this.myform)
+
     for (let [key, value] of Object.entries(copy)) {
 
 
@@ -135,17 +135,18 @@ export class EmptySwiperComponent {
   }
 
 
-
+  // Change agreement type and prepare form
   changeType(param: any) {
-    console.log(param)
+
     let formGroupConfig: any = []
+
     if (param == "dual") {
       // variables
       this.isDual = true;
       this.isFct = false;
       this.isMulti = false;
 
-      // formulario
+      // form
       if (this.myform.get("dualStartAt") == null) {
         const validators: ValidatorFn[] = [];
         validators.push(Validators.required, Validators.pattern(/^\d{2}[-]\d{2}[-]\d{4}$/));
@@ -163,7 +164,7 @@ export class EmptySwiperComponent {
       this.isFct = true;
       this.isMulti = false;
 
-      // formulario
+      // form
       if (this.myform.get("fctStartAt") == null) {
         const validators: ValidatorFn[] = [];
         validators.push(Validators.required, Validators.pattern(/^\d{2}[-]\d{2}[-]\d{4}$/));
@@ -180,7 +181,7 @@ export class EmptySwiperComponent {
       this.isFct = false;
       this.isMulti = true;
 
-      // formulario
+      // form
       if (this.myform.get("fctStartAt") == null) {
         const validators: ValidatorFn[] = [];
         validators.push(Validators.required, Validators.pattern(/^\d{2}[-]\d{2}[-]\d{4}$/));
@@ -199,10 +200,10 @@ export class EmptySwiperComponent {
       }
     }
 
-    // seteamos valores
+    // set values
     if(this.cellUpd) {
       let { labor, teacher, company,agreementType, ...copy } = this.cellUpd;
-      console.log(copy)
+
       for (let [key, value] of Object.entries(copy)) {
   
   
@@ -216,20 +217,21 @@ export class EmptySwiperComponent {
         }
   
       }
-  
+      
       this.turnDates()
     }
     
   }
 
+  // Put the dates backwards
   turnDates() {
-    // get and change value
+    // Get and change value
     let fctStartTurned = this.myform.get("fctStartAt")?.value.split('-').reverse().join('-');
     let fctEndTurned = this.myform.get("fctEndAt")?.value.split('-').reverse().join('-');
     let dualStartTurned = this.myform.get("dualStartAt")?.value.split('-').reverse().join('-');
     let dualEndTurned = this.myform.get("dualEndAt")?.value.split('-').reverse().join('-');
 
-    // set value
+    // Set value
     this.myform.get("fctStartAt")?.setValue(fctStartTurned)
     this.myform.get("fctEndAt")?.setValue(fctEndTurned)
     this.myform.get("dualStartAt")?.setValue(dualStartTurned)
@@ -237,17 +239,16 @@ export class EmptySwiperComponent {
   }
 
   createForm() {
-    // creamos la primera parte
     const formGroupConfig: { [key: string]: any } = {};
 
-    // first slide
+    // First slide
     this.first_slide.forEach((element: any) => {
       const validators: ValidatorFn[] = [];
       validators.push(Validators.required);
       formGroupConfig[element.formName] = ['', validators];
     });
 
-    // second slide dual
+    // Second slide dual
     this.second_slide_dual.forEach((element: any) => {
 
       const validators: ValidatorFn[] = [];
@@ -258,7 +259,7 @@ export class EmptySwiperComponent {
 
     });
 
-    // second slide fct
+    // Second slide fct
     this.second_slide_fct.forEach((element: any) => {
 
       const validators: ValidatorFn[] = [];
@@ -271,13 +272,14 @@ export class EmptySwiperComponent {
 
     this.myform = this.fb.group(formGroupConfig)
 
-    // asignamos datos de cellUpd
+    // Set data if it is necessary
     if (this.cellUpd) {
       this.getActForm()
     }
 
   }
 
+  // Check if dates in form are correct
   checkDates(): boolean {
     if (this.isMulti) {
       let fctStartDate = new Date(this.myform.get("fctStartAt")?.value)
@@ -300,6 +302,7 @@ export class EmptySwiperComponent {
     }
   }
 
+  // Add trigger
   onAdd() {
     let dates = this.turnDates();
 
@@ -311,6 +314,7 @@ export class EmptySwiperComponent {
 
   }
 
+  // Edit trigger
   onEdit() {
     let dates = this.turnDates()
     if (this.checkDates()) {
@@ -320,7 +324,7 @@ export class EmptySwiperComponent {
     }
   }
 
-  // Funciones inocuas
+  // Next slide
   onNext(swiper: SwiperComponent) {
     if (swiper) {
       swiper.swiperRef.slideNext()
@@ -328,16 +332,15 @@ export class EmptySwiperComponent {
   }
 
 
-
+  // Previous slide
   onPrevious(swiper: SwiperComponent) {
-
     if (swiper) {
       swiper.swiperRef.slidePrev()
     }
   }
 
   selectInvokeFun(param: any, element: any) {
-    console.log("change in select")
+
     if (param.changeFun != undefined) {
       //eval(`this.${param.changeFun}(this.myform.value.agreementType)`);
       eval(`this.${param.changeFun}(element.value)`);
@@ -365,6 +368,7 @@ export class EmptySwiperComponent {
     }
   }
 
+  // Close sidebar menu
   closeModal() {
     this.modalCtr.dismiss({ type: "cancel" })
   }
