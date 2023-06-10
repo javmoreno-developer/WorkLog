@@ -9,15 +9,16 @@ import { SwiperComponent } from "swiper/angular";
   styleUrls: ["./empty-swiper.component.scss"],
 })
 export class EmptySwiperComponent {
-  slides: any = []
-  isFct = true;
+
+  isFct = false;
+  isMulti = true;
+  isDual = false;
+
   myform: FormGroup;
-  myformCopy: FormGroup;
-  first_slide: any;
-  second_slide_fct: any;
-  second_slide_dual: any;
-  isMulti = false;
-  cellUpd: any;
+  fctForm: FormGroup;
+  dualForm: FormGroup;
+  multiForm: FormGroup
+
   oldStudentId: any;
 
   options = {
@@ -32,6 +33,11 @@ export class EmptySwiperComponent {
       clickable: true,
     },
   };
+
+  first_slide: any;
+  second_slide_fct: any;
+  second_slide_dual: any;
+  cellUpd: any;
 
   @Input("first_slide") set _first_slide(n: any) {
     this.first_slide = n;
@@ -49,6 +55,27 @@ export class EmptySwiperComponent {
 
   constructor(private fb: FormBuilder, private modalCtr: ModalController) {
     this.myform = this.fb.group({
+      username: [""]
+    });
+    this.fctForm = this.fb.group({
+      agreementType: ['', Validators.required],
+      fctEndAt: ['', Validators.required],
+      fctStartAt: ['', Validators.required],
+      idLabor: ['', Validators.required],
+      idCompany: ['', Validators.required],
+      idTeacher: ['', Validators.required],
+      idStudent: ['', Validators.required],
+    });
+    this.dualForm = this.fb.group({
+      agreementType: ['', Validators.required],
+      dualEndAt: ['', Validators.required],
+      dualStartAt: ['', Validators.required],
+      idLabor: ['', Validators.required],
+      idCompany: ['', Validators.required],
+      idTeacher: ['', Validators.required],
+      idStudent: ['', Validators.required],
+    });
+    this.multiForm = this.fb.group({
       agreementType: ['', Validators.required],
       fctEndAt: ['', Validators.required],
       fctStartAt: ['', Validators.required],
@@ -59,40 +86,196 @@ export class EmptySwiperComponent {
       idTeacher: ['', Validators.required],
       idStudent: ['', Validators.required],
     });
-    this.myformCopy = this.myform
   }
 
-  onNext(swiper: SwiperComponent) {
-    if (swiper) {
-      swiper.swiperRef.slideNext()
+
+  ngOnInit() {
+    // creamos el formulario
+    this.createForm()
+    //console.log(this.myform.controls)
+
+
+  }
+
+  getActForm() {
+    // preparamos formulario
+    if (this.cellUpd.agreementType == "dual") {
+      this.myform = this.dualForm
+      this.isMulti = false;
+      this.isFct = false;
+      this.isDual = true;
+    } else if (this.cellUpd.agreementType == "fct") {
+      this.myform = this.fctForm
+      this.isMulti = false;
+      this.isFct = true;
+      this.isDual = false;
     }
-  }
 
-  onAdd() {
-    let dates = this.turnDates();
+    // seteamos valores
+    const { labor, teacher, company, student, ...copy } = this.cellUpd;
 
-    if (this.checkDates()) {
-      this.modalCtr.dismiss(this.myform.value, "submit")
-    } else {
-      this.modalCtr.dismiss({}, "dateError")
-    }
-
-  }
-
-  onEdit() {
-    let dates = this.turnDates()
-    if (this.checkDates()) {
-      this.modalCtr.dismiss({ data: this.myform.value, oldStudentId: this.oldStudentId, idAgreement: this.cellUpd.id }, "edit")
-    } else {
-      this.modalCtr.dismiss({}, "dateError")
-    }
-  }
-
-  onPrevious(swiper: SwiperComponent) {
+    this.oldStudentId = copy.idStudent
+    console.log(copy)
     console.log(this.myform)
-    if (swiper) {
-      swiper.swiperRef.slidePrev()
+    for (let [key, value] of Object.entries(copy)) {
+
+
+      if (copy[key] != null) {
+        const control = this.myform.get(key);
+        if (control instanceof FormControl) {
+
+          control.setValue(value)
+        }
+
+      }
+
     }
+
+    this.turnDates()
+  }
+
+
+
+  changeType(param: any) {
+    console.log(param)
+    let formGroupConfig: any = []
+    if (param == "dual") {
+      // variables
+      this.isDual = true;
+      this.isFct = false;
+      this.isMulti = false;
+
+      // formulario
+      if (this.myform.get("dualStartAt") == null) {
+        const validators: ValidatorFn[] = [];
+        validators.push(Validators.required, Validators.pattern(/^\d{2}[-]\d{2}[-]\d{4}$/));
+
+
+        this.myform.addControl('dualStartAt', this.fb.control('', validators));
+        this.myform.addControl('dualEndAt', this.fb.control('', validators));
+      }
+      this.myform.removeControl("fctStartAt")
+      this.myform.removeControl("fctEndAt")
+
+    } else if (param == "fct") {
+      // variables
+      this.isDual = false;
+      this.isFct = true;
+      this.isMulti = false;
+
+      // formulario
+      if (this.myform.get("fctStartAt") == null) {
+        const validators: ValidatorFn[] = [];
+        validators.push(Validators.required, Validators.pattern(/^\d{2}[-]\d{2}[-]\d{4}$/));
+
+
+        this.myform.addControl('fctStartAt', this.fb.control('', validators));
+        this.myform.addControl('fctEndAt', this.fb.control('', validators));
+      }
+      this.myform.removeControl("dualStartAt")
+      this.myform.removeControl("dualEndAt")
+    } else {
+      // variables
+      this.isDual = false;
+      this.isFct = false;
+      this.isMulti = true;
+
+      // formulario
+      if (this.myform.get("fctStartAt") == null) {
+        const validators: ValidatorFn[] = [];
+        validators.push(Validators.required, Validators.pattern(/^\d{2}[-]\d{2}[-]\d{4}$/));
+
+
+        this.myform.addControl('fctStartAt', this.fb.control('', validators));
+        this.myform.addControl('fctEndAt', this.fb.control('', validators));
+      }
+      if (this.myform.get("dualStartAt") == null) {
+        const validators: ValidatorFn[] = [];
+        validators.push(Validators.required, Validators.pattern(/^\d{2}[-]\d{2}[-]\d{4}$/));
+
+
+        this.myform.addControl('dualStartAt', this.fb.control('', validators));
+        this.myform.addControl('dualEndAt', this.fb.control('', validators));
+      }
+    }
+
+    // seteamos valores
+    if(this.cellUpd) {
+      let { labor, teacher, company,agreementType, ...copy } = this.cellUpd;
+      console.log(copy)
+      for (let [key, value] of Object.entries(copy)) {
+  
+  
+        if (copy[key] != null) {
+          const control = this.myform.get(key);
+          if (control instanceof FormControl) {
+  
+            control.setValue(value)
+          }
+  
+        }
+  
+      }
+  
+      this.turnDates()
+    }
+    
+  }
+
+  turnDates() {
+    // get and change value
+    let fctStartTurned = this.myform.get("fctStartAt")?.value.split('-').reverse().join('-');
+    let fctEndTurned = this.myform.get("fctEndAt")?.value.split('-').reverse().join('-');
+    let dualStartTurned = this.myform.get("dualStartAt")?.value.split('-').reverse().join('-');
+    let dualEndTurned = this.myform.get("dualEndAt")?.value.split('-').reverse().join('-');
+
+    // set value
+    this.myform.get("fctStartAt")?.setValue(fctStartTurned)
+    this.myform.get("fctEndAt")?.setValue(fctEndTurned)
+    this.myform.get("dualStartAt")?.setValue(dualStartTurned)
+    this.myform.get("dualEndAt")?.setValue(dualEndTurned)
+  }
+
+  createForm() {
+    // creamos la primera parte
+    const formGroupConfig: { [key: string]: any } = {};
+
+    // first slide
+    this.first_slide.forEach((element: any) => {
+      const validators: ValidatorFn[] = [];
+      validators.push(Validators.required);
+      formGroupConfig[element.formName] = ['', validators];
+    });
+
+    // second slide dual
+    this.second_slide_dual.forEach((element: any) => {
+
+      const validators: ValidatorFn[] = [];
+      validators.push(Validators.required, Validators.pattern(/^\d{2}[-]\d{2}[-]\d{4}$/));
+      formGroupConfig[element.formName] = ['', validators];
+
+
+
+    });
+
+    // second slide fct
+    this.second_slide_fct.forEach((element: any) => {
+
+      const validators: ValidatorFn[] = [];
+      validators.push(Validators.required, Validators.pattern(/^\d{2}[-]\d{2}[-]\d{4}$/));
+      formGroupConfig[element.formName] = ['', validators];
+
+
+    });
+
+
+    this.myform = this.fb.group(formGroupConfig)
+
+    // asignamos datos de cellUpd
+    if (this.cellUpd) {
+      this.getActForm()
+    }
+
   }
 
   checkDates(): boolean {
@@ -117,172 +300,49 @@ export class EmptySwiperComponent {
     }
   }
 
+  onAdd() {
+    let dates = this.turnDates();
 
-  turnDates() {
-    // get and change value
-    let fctStartTurned = this.myform.get("fctStartAt")?.value.split('-').reverse().join('-');
-    let fctEndTurned = this.myform.get("fctEndAt")?.value.split('-').reverse().join('-');
-    let dualStartTurned = this.myform.get("dualStartAt")?.value.split('-').reverse().join('-');
-    let dualEndTurned = this.myform.get("dualEndAt")?.value.split('-').reverse().join('-');
+    if (this.checkDates()) {
+      this.modalCtr.dismiss(this.myform.value, "submit")
+    } else {
+      this.modalCtr.dismiss({}, "dateError")
+    }
 
-    // set value
-    this.myform.get("fctStartAt")?.setValue(fctStartTurned)
-    this.myform.get("fctEndAt")?.setValue(fctEndTurned)
-    this.myform.get("dualStartAt")?.setValue(dualStartTurned)
-    this.myform.get("dualEndAt")?.setValue(dualEndTurned)
   }
 
-  assignType(type: any) {
-    console.log(type)
-    if (type == "dual") {
-      this.isFct = false;
-      this.isMulti = false;
-      this.myform = this.myformCopy;
-    } else if (type == "fct") {
-      this.isFct = true;
-      this.isMulti = false;
-
-      this.myform = this.myformCopy;
+  onEdit() {
+    let dates = this.turnDates()
+    if (this.checkDates()) {
+      this.modalCtr.dismiss({ data: this.myform.value, oldStudentId: this.oldStudentId, idAgreement: this.cellUpd.id }, "edit")
     } else {
-     
-      console.log(this.myform)
-      this.myform = this.myformCopy;
-      this.isMulti = true;
+      this.modalCtr.dismiss({}, "dateError")
     }
   }
 
-  changeType(type: any) {
-    if (type == "dual") {
-      this.isFct = false;
-      this.isMulti = false;
-      this.myform = this.myformCopy;
-
-      // elimino los campos de fct del form actual
-      if (this.myform.get("fctStartAt")) {
-        this.myform.get("fctStartAt")?.setValue("")
-        this.myform.get("fctEndAt")?.setValue("")
-
-        this.myform.removeControl("fctStartAt")
-        this.myform.removeControl("fctEndAt")
-      }
-
-    } else if (type == "fct") {
-      this.isFct = true;
-      this.isMulti = false;
-
-      this.myform = this.myformCopy;
-
-      // elimino los campos de dual del form actual
-      if (this.myform.get("dualStartAt")) {
-        this.myform.get("dualStartAt")?.setValue("")
-        this.myform.get("dualEndAt")?.setValue("")
-
-        this.myform.removeControl("dualStartAt")
-        this.myform.removeControl("dualEndAt")
-      }
-
-
-    } else {
-      this.isMulti = true;
-      this.myform = this.myformCopy;
-      console.log(this.myform)
+  // Funciones inocuas
+  onNext(swiper: SwiperComponent) {
+    if (swiper) {
+      swiper.swiperRef.slideNext()
     }
   }
 
-  selectInvokeFun(param: any,element: any) {
-    console.log(element.value)
-    console.log(param.changeFun)
+
+
+  onPrevious(swiper: SwiperComponent) {
+
+    if (swiper) {
+      swiper.swiperRef.slidePrev()
+    }
+  }
+
+  selectInvokeFun(param: any, element: any) {
+    console.log("change in select")
     if (param.changeFun != undefined) {
       //eval(`this.${param.changeFun}(this.myform.value.agreementType)`);
       eval(`this.${param.changeFun}(element.value)`);
     }
   }
-
-  ngOnInit() {
-    this.myform = this.fb.group(this.createFormGroupConfig());
-    //this.myformCopy = this.myform;
-
-    console.log(this.isMulti)
-    console.log(this.isFct)
-    if (this.cellUpd) {
-      this.getActForm()
-      //this.changeType(this.myform.get("agreementType")?.value);
-    }
-
-
-
-  }
-
-  getActForm() {
-
-    console.log(this.cellUpd)
-    console.log(this.myform)
-    const { labor, teacher, company, student, ...copy } = this.cellUpd;
-
-
-    this.oldStudentId = copy.idStudent
-
-    for (let [key, value] of Object.entries(copy)) {
-
-
-      if (copy[key] != null) {
-        console.log(copy[key])
-        const control = this.myform.get(key);
-        if (control instanceof FormControl) {
-
-          control.setValue(value)
-        }
-
-      }
-
-    }
-    this.assignType(copy.agreementType)
-    this.turnDates()
-
-
-  }
-
-  createFormGroupConfig() {
-    const formGroupConfig: { [key: string]: any } = {};
-
-    // first slide
-    this.first_slide.forEach((element: any) => {
-      const validators: ValidatorFn[] = [];
-      validators.push(Validators.required);
-      formGroupConfig[element.formName] = ['', validators];
-    });
-
-
-    console.log(this.second_slide_dual)
-    console.log(this.second_slide_fct)
-    // second slide dual
-    this.second_slide_dual.forEach((element: any) => {
-     
-      if (element.type != "") {
-        console.log(element)
-        const validators: ValidatorFn[] = [];
-        validators.push(Validators.required, Validators.pattern(/^\d{2}[-]\d{2}[-]\d{4}$/));
-        formGroupConfig[element.formName] = ['', validators];
-      }
-
-
-    });
-
-    // second slide fct
-    this.second_slide_fct.forEach((element: any) => {
-      
-
-      if (element.type != "") {
-        console.log(element)
-        const validators: ValidatorFn[] = [];
-        validators.push(Validators.required, Validators.pattern(/^\d{2}[-]\d{2}[-]\d{4}$/));
-        formGroupConfig[element.formName] = ['', validators];
-      } 
-
-    });
-    return formGroupConfig
-  }
-
 
   buttonClicked(fun: any, swiper: SwiperComponent) {
     if (fun == "onNext" || fun == "onPrevious") {
@@ -309,8 +369,6 @@ export class EmptySwiperComponent {
     this.modalCtr.dismiss({ type: "cancel" })
   }
 
-  onInputChange(event: any, input: any) {
 
-  }
 
 }

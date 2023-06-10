@@ -287,8 +287,6 @@ export class AgreementsPage implements OnInit {
   }
 
   async presentSwiper(cellUpd: any | null) {
-    let act = false
-
     console.log(cellUpd)
 
     // placeholder msg
@@ -304,34 +302,23 @@ export class AgreementsPage implements OnInit {
 
     let mappedList = [{ name: "fct", value: "fct" }, { name: "dual", value: "dual" }, { name: "fct+dual", value: "fct+dual" }]
 
-    // select and input
-    //console.log(this.laborList)
+    /// select and input
+
+    // first slide
     let alumnSelect: any = { formName: "idStudent", placeholder: studentPlaceholder, options: this.studentsList }
     let agreementSelect: any = { formName: "agreementType", placeholder: typePlaceholder, options: mappedList, changeFun: "changeType" }
     let laborSelect: any = { formName: "idLabor", placeholder: laborPlaceholder, options: this.laborList }
     let teacherSelect: any = { formName: "idTeacher", placeholder: teacherPlaceholder, options: this.teacherList }
     let companySelect: any = { formName: "idCompany", placeholder: companyPlaceholder, options: this.companyList }
 
-    let fctStartInput= { formName: "fctStartAt", type: "", mandatory: true, placeholder: fctStartPlaceholder }
-    let fctEndInput = { formName: "fctEndAt", type: "", mandatory: true, placeholder: fctEndPlaceholder }
-    let dualStartInput = { formName: "dualStartAt", type: "", mandatory: true, placeholder: dualStartPlaceholder }
-    let dualEndInput = { formName: "dualEndAt", type: "", mandatory: true, placeholder: dualEndPlaceholder }
+    // second slide
+    let fctStartInput= { formName: "fctStartAt", type: "fctStartAt", mandatory: true, placeholder: fctStartPlaceholder }
+    let fctEndInput = { formName: "fctEndAt", type: "fctEndAt", mandatory: true, placeholder: fctEndPlaceholder }
+    let dualStartInput = { formName: "dualStartAt", type: "dualStartAt", mandatory: true, placeholder: dualStartPlaceholder }
+    let dualEndInput = { formName: "dualEndAt", type: "dualEndAt", mandatory: true, placeholder: dualEndPlaceholder }
 
-    if(!cellUpd) {
-      fctStartInput= { formName: "fctStartAt", type: "fctStartAt", mandatory: true, placeholder: fctStartPlaceholder }
-      fctEndInput = { formName: "fctEndAt", type: "fctEndAt", mandatory: true, placeholder: fctEndPlaceholder }
-      dualStartInput = { formName: "dualStartAt", type: "dualStartAt", mandatory: true, placeholder: dualStartPlaceholder }
-      dualEndInput = { formName: "dualEndAt", type: "dualEndAt", mandatory: true, placeholder: dualEndPlaceholder }
-    } else {
-      if(cellUpd.dualEndAt != null) {
-        dualStartInput = { formName: "dualStartAt", type: "dualStartAt", mandatory: true, placeholder: dualStartPlaceholder }
-        dualEndInput = { formName: "dualEndAt", type: "dualEndAt", mandatory: true, placeholder: dualEndPlaceholder }
-      }
-      if(cellUpd.fctEndAt != null) {
-        fctStartInput= { formName: "fctStartAt", type: "fctStartAt", mandatory: true, placeholder: fctStartPlaceholder }
-        fctEndInput = { formName: "fctEndAt", type: "fctEndAt", mandatory: true, placeholder: fctEndPlaceholder }
-      }
-    }
+
+   
     // create modal
     const modal = await this.modalCtrl.create({
       component: EmptySwiperComponent,
@@ -367,7 +354,7 @@ export class AgreementsPage implements OnInit {
   }
 
   editAgreement(param: any) {
-
+    console.log(param)
     let user = JSON.parse(localStorage.getItem("sessionData") as string)
     let url = this.apiUrlBase + "agreement/update"
     let params = new HttpParams().set("id_check", user.profile).set("id_agreement", param.idAgreement).set("id_student", param.data.idStudent)

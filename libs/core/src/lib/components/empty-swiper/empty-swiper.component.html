@@ -33,9 +33,8 @@
                 <div *ngIf="isFct && !isMulti">
                     <ion-item class="input-container" *ngFor="let input of second_slide_fct">
 
-                        <ion-input class="input-row" #input (ionInput)="onInputChange($event,input)"
-                            [placeholder]="input.placeholder" [formControlName]="input.formName" [type]="input.type"
-                            (ionFocus)="onInputFocus($event)"
+                        <ion-input class="input-row" #input [placeholder]="input.placeholder"
+                            [formControlName]="input.formName" [type]="input.type" (ionFocus)="onInputFocus($event)"
                             (ionBlur)="onInputBlur($event,input.formName)"></ion-input>
 
                     </ion-item>
@@ -44,9 +43,8 @@
                 <div *ngIf="!isFct && !isMulti">
                     <ion-item class="input-container" *ngFor="let input of second_slide_dual">
 
-                        <ion-input class="input-row" #input (ionInput)="onInputChange($event,input)"
-                            [placeholder]="input.placeholder" [formControlName]="input.formName" [type]="input.type"
-                            (ionFocus)="onInputFocus($event)"
+                        <ion-input class="input-row" #input [placeholder]="input.placeholder"
+                            [formControlName]="input.formName" [type]="input.type" (ionFocus)="onInputFocus($event)"
                             (ionBlur)="onInputBlur($event,input.formName)"></ion-input>
 
 
@@ -56,36 +54,33 @@
                 <div *ngIf="isMulti">
                     <ion-item class="input-container" *ngFor="let input of second_slide_fct">
 
-                        <ion-input class="input-row" #input (ionInput)="onInputChange($event,input)"
-                            [placeholder]="input.placeholder" [formControlName]="input.formName" [type]="input.type"
-                            (ionFocus)="onInputFocus($event)"
+                        <ion-input class="input-row" #input [placeholder]="input.placeholder"
+                            [formControlName]="input.formName" [type]="input.type" (ionFocus)="onInputFocus($event)"
                             (ionBlur)="onInputBlur($event,input.formName)"></ion-input>
 
                     </ion-item>
                     <ion-item class="input-container" *ngFor="let input of second_slide_dual">
 
-                        <ion-input class="input-row" #input (ionInput)="onInputChange($event,input)"
-                            [placeholder]="input.placeholder" [formControlName]="input.formName" [type]="input.type"
-                            (ionFocus)="onInputFocus($event)"
+                        <ion-input class="input-row" #input [placeholder]="input.placeholder"
+                            [formControlName]="input.formName" [type]="input.type" (ionFocus)="onInputFocus($event)"
                             (ionBlur)="onInputBlur($event,input.formName)"></ion-input>
 
 
                     </ion-item>
                 </div>
             </form>
-
             <div class="action-row">
                 <ion-button class="button-info" (click)="buttonClicked('onPrevious',swiper)">
                     Previous
                 </ion-button>
-                <ion-button *ngIf="!cellUpd" [disabled]="!myform.valid" class="button-success"
-                    (click)="buttonClicked('onAdd',swiper)">
+                <ion-button *ngIf="!cellUpd" [disabled]="!myform.valid" class="button-success" (click)="buttonClicked('onAdd',swiper)">
                     Añadir
                 </ion-button>
                 <ion-button *ngIf="cellUpd" [disabled]="!myform.valid" class="button-success"
                     (click)="buttonClicked('onEdit',swiper)">
                     Actualizar
                 </ion-button>
+
             </div>
         </div>
     </ng-template>
