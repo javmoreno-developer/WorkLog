@@ -9,7 +9,7 @@
 ## 🎥 Vídeo explicativo
 <a alt="Link to the video" href="" target="_blank" rel="noreferrer">Link al vídeo</a>
 
-## 📈 Presentacion del proyecto
+## 📈 Presentación del proyecto
 <a alt="Link to the video" href="https://view.genial.ly/648cbf40af5ef000138b29e6/presentation-worklog" target="_blank" rel="noreferrer">Link a la presentación</a>
 
 ## Funcionalidad
