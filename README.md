@@ -9,6 +9,9 @@
 ## 🎥 Vídeo explicativo
 <a alt="Link to the video" href="" target="_blank" rel="noreferrer">Link al vídeo</a>
 
+## 📈 Presentacion del proyecto
+<a alt="Link to the video" href="https://view.genial.ly/648cbf40af5ef000138b29e6/presentation-worklog" target="_blank" rel="noreferrer">Link al vídeo</a>
+
 ## Funcionalidad
 En WorkLog **web**, nos encontramos con que hay **cuatro tipos diferentes** de perfiles posibles en la aplicación, los cuales tendrán de menos a más permisos y funcionalidades dentro de la aplicación, estos son: `alumno`, `tutor laboral`, `tutor docente` y `administrador`.
 
