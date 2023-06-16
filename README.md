@@ -1,7 +1,10 @@
-# 📱 WorkLog
+# 💻 WorkLog
 `WorkLog` es una aplicación destinada principalmente a gestionar alumnos en su periodo dual y/o FCT.
 
 ![Imagen de WhatsApp 2023-06-16 a las 12 50 25](https://github.com/SeryiDev/recipio/assets/71399424/2036d1bd-d822-409a-a80e-9b9746101ee2)
+
+## 📱 WorkLog nativo
+[WorkLog nativo](https://github.com/SeryiDev/WorkLog-Native)
 
 ## 🎥 Vídeo explicativo
 <a alt="Link to the video" href="" target="_blank" rel="noreferrer">Link al vídeo</a>
@@ -51,7 +54,6 @@ Podrá hacer todo lo que hace un tutor docente, además de:
 - [RxJS](https://rxjs.dev/) `7.5.0`
 - [ChartJS](https://www.chartjs.org/) `4.3.0`
 - [SwiperJS](https://swiperjs.com/) `8.1.4`
-
-## Autores
+## © Autores
 - Javier Moreno Aguilera - 
 - Sergio García Gómez - 
