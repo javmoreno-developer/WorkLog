@@ -1,7 +1,7 @@
-# 💻 WorkLog
-`WorkLog` es una aplicación destinada principalmente a gestionar alumnos en su periodo dual y/o FCT.
+# 💻 WorkLog web
+`WorkLog` es una aplicación web destinada principalmente a gestionar alumnos en su periodo dual y/o FCT.
 
-![Imagen de WhatsApp 2023-06-16 a las 12 50 25](https://github.com/SeryiDev/recipio/assets/71399424/2036d1bd-d822-409a-a80e-9b9746101ee2)
+![worklog](https://github.com/javmoreno-developer/WorkLog/assets/71399424/ad60a704-ca17-4d5f-8d2d-adec3ef886b7)
 
 ## 📱 WorkLog nativo
 [WorkLog nativo](https://github.com/SeryiDev/WorkLog-Native)
@@ -10,7 +10,7 @@
 <a alt="Link to the video" href="" target="_blank" rel="noreferrer">Link al vídeo</a>
 
 ## Funcionalidad
-En WorkLog, nos encontramos con que hay **cuatro tipos diferentes** de perfiles posibles en la aplicación, los cuales tendrán de menos a más permisos y funcionalidades dentro de la aplicación, estos son: `alumno`, `tutor laboral`, `tutor docente` y `administrador`.
+En WorkLog **web**, nos encontramos con que hay **cuatro tipos diferentes** de perfiles posibles en la aplicación, los cuales tendrán de menos a más permisos y funcionalidades dentro de la aplicación, estos son: `alumno`, `tutor laboral`, `tutor docente` y `administrador`.
 
 ### Perfil de `alumno`
 Podrá:
