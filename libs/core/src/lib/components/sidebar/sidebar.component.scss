@@ -21,6 +21,15 @@
     align-items: center;
     justify-content: space-around;
 }
+.side-row-container-short {
+    display: flex;
+    margin-top: 15%;
+    height: 35%;
+    margin-bottom: 20%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
 .side-row {
     display: flex;
     align-items: center;
@@ -38,6 +47,7 @@
     width: 95%;
     display: flex;
     justify-content: end;
+    font-size: 25px;
     cursor: pointer;
 }
 .trigger_menu {

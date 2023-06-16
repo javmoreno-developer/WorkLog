@@ -16,20 +16,19 @@ export class SidebarComponent {
   constructor(private menu:MenuController,private router: Router) {
      // obtengo las filas necesarias para el sidebar
      let user = JSON.parse(localStorage.getItem("sessionData") as string)
-     let role = this.ROLES[user.profile]
+     let role = this.ROLES[user.profile-1]
 
      // obtengo la url actual
      const currentUrl = this.router.url.split("/")[1];
-     //console.log(currentUrl)
-
 
      // asigno datos
      if(role == "teacher") {
       this.sidebar_rows = [
-        {name: "Alumnos", url:"", active: false, icon: "person"},
-        {name: "Convenios", url:"", active: false, icon: "contact_page"},
-        {name: "Empresas", url:"", active: false, icon: "apartment"},
-        {name: "Laborales", url:"", active: false, icon: "location_home"},
+        {name: "Alumnos", url:"students", active: false, icon: "person"},
+        {name: "Convenios", url:"agreements", active: false, icon: "contact_page"},
+        {name: "Empresas", url:"companies", active: false, icon: "apartment"},
+        {name: "Laborales", url:"labors", active: false, icon: "location_home"},
+        {name: "Docentes", url:"teachers", active: false, icon: "school"},
       ]
      } else if(role == "admin") {
       this.sidebar_rows = [

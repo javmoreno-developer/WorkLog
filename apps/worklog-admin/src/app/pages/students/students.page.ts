@@ -25,10 +25,7 @@ export class StudentsPage implements OnInit {
   languages: any;
   toolbarOptions: any;
 
-  tableButtons = [
-    {icon: "eye", text: "Entradas", fun: "onRoute", cssClass: "see_entries_btn", popover: false, route: "student/entries"},
-    {icon: "ellipsis-vertical", text: "", fun: "onClick", cssClass: "popover_icon", popover: true, popOptions: [{name: "Eliminar", value: "delete"}, {name: "Restablecer contraseña", value: "reset"}]},
-  ]
+  tableButtons: any = []
 
 
   constructor(private locale: LocaleService,private route:Router,private sharedSvc: SharedService,private modalCtrl: ModalController,private translate: TranslateService,private notification:NotificationService,private alert: AlertController,private apiSvc: ApiService, private menuCtrl: MenuController, @Inject("apiUrlBase") public apiUrlBase?: any, @Inject("apiHeaders") public apiHeaders?: any) {
@@ -45,7 +42,6 @@ export class StudentsPage implements OnInit {
     const params = new HttpParams().set("id_check", user.profile)
     this.apiSvc.get(url, params, this.apiHeaders).subscribe(
       (resolve: any) => {
-        console.log(resolve)
         // Get rows
         let studentData = this.getStudentData(resolve);
 
@@ -59,7 +55,6 @@ export class StudentsPage implements OnInit {
         this.columns.next(groupColumns)
       },
       async (error) => {
-        console.log(error)
         this.notification.showToast(await lastValueFrom(this.translate.get("general.chargeErr")),"error","medium")
       }
     )
@@ -93,6 +88,11 @@ export class StudentsPage implements OnInit {
 
 
   async ngOnInit() {
+    this.tableButtons =  [
+      { icon: "eye", text: "Entradas", fun: "onRoute", cssClass: "see_entries_btn", popover: false, route: "student/entries" },
+      { icon: "ellipsis-vertical", text: "", fun: "onClick", cssClass: "popover_icon", popover: true, popOptions: [{ name: await lastValueFrom(this.translate.get("general.delete")), value: "delete" }, { name: await lastValueFrom(this.translate.get("general.resetPass")), value: "reset" }] },
+     ]
+     
     this.defaultLang = this.locale.locale
     
     // Set all toolbar options
@@ -181,7 +181,6 @@ export class StudentsPage implements OnInit {
       textSection = ["subir archivo"]
     }
 
-    console.log(inputSection)
 
     const modal = await this.modalCtrl.create({
       component: EmptyModalComponent,

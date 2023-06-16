@@ -23,7 +23,7 @@ import { FooterComponent } from "./components/footer/footer.component";
 import { SwiperModule } from "swiper/angular";
 import { EmptySwiperComponent } from "./components/empty-swiper/empty-swiper.component";
 import { ProfileComponent } from "./components/profile/profile.component";
-
+import { FilterComponent } from "./filter/filter.component";
 
 export class LocaleId extends String {
   constructor(private localeService: LocaleService) {
@@ -53,7 +53,9 @@ export class LocaleId extends String {
     HolidayAdminComponent,
     FooterComponent,
     EmptySwiperComponent,
+    FilterComponent,
     ProfileComponent,
+    FilterComponent,
   ],
   imports: [
     CommonModule,
@@ -87,7 +89,8 @@ export class LocaleId extends String {
     DatabaseManageAdminComponent,
     HolidayAdminComponent,
     FooterComponent,
-    ProfileComponent
+    FilterComponent,
+    ProfileComponent,
   ],
   providers: [
     {

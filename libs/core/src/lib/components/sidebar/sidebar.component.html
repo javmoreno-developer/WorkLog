@@ -1,6 +1,6 @@
 <ion-menu contentId="main-content">
   <div class="ion-padding" class="side-content">
-    <ion-menu-toggle class="side-row-container">
+    <ion-menu-toggle [ngClass]="sidebar_rows.length > 5 ? 'side-row-container': 'side-row-container-short'">
       <div *ngFor="let row of sidebar_rows" class="side-row" [class]="row.active ? 'active' : ''">
         <span class="material-symbols-rounded">{{row.icon}}</span>
         <a href="{{row.url}}" class="sidebar_link">{{row.name}}</a>

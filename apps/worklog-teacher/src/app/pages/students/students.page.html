@@ -4,13 +4,15 @@
 
   <div class="body-content">
     <div class="first-row">
-      <div class="text-first-row">
-        <h4>{{"students.title" | translate}}</h4>
-      </div>
+      <worklog-fe-filter class="filter-container" [units]="filterUnits" [types]="filterTypes" (onFilterUnit)="filterByUnit($event)" (onFilterType)="filterByType($event)" (onFilterChecked)="filterByCheck($event)"></worklog-fe-filter>
       <div class="icons-first-row">
         <span class="material-symbols-rounded" id="copy-icon" (click)="addModal()">person_add</span>
         <span class="material-symbols-rounded" id="xml-icon" (click)="addMultiModal()">add_notes</span>
       </div>
+    </div>
+
+    <div class="text-row">
+      <h4>{{"students.title" | translate}}</h4>
     </div>
     <worklog-fe-table class="table-component" [rows]="rows" [columns]="columns" [tableStyle]="tableStyle"
       [tableButtons]="tableButtons" (routeEvent)="seeInforms($event)" (resetEvent)="resetModal($event)"

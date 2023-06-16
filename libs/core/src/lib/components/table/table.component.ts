@@ -74,6 +74,12 @@ export class TableComponent {
     this.routeEvent.emit({id: data.id,name: data.name,url: r[0].route})
   }
 
+  onReset(row: any) {
+    console.log("pulse")
+    //this.openPopover("", row)
+    this.resetEvent.emit({data: row})
+  }
+
   onSubRoute(data: any) {
     console.log(data)
     let r = this.buttons.filter((button: { fun: string; }) => button.fun == "onSubRoute")

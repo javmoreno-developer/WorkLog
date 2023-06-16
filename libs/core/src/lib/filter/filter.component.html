@@ -1,0 +1,23 @@
+<div class="filter-container-row">
+    <div class="filter-cell">
+        <ion-icon name="close-circle-outline" *ngIf="selectedUnit" (click)="emptyUnit(selector)"></ion-icon>
+        <ion-select placeholder="unidad" #selector class="select-element" (ionChange)="changeUnit(selector)">
+            <ion-select-option *ngFor="let option of units | async"
+                [value]="option.value">{{option.name}}</ion-select-option>
+        </ion-select>
+    </div>
+    <div class="filter-cell">
+        <ion-icon name="close-circle-outline" *ngIf="selectedType" (click)="emptyType(selectorType)"></ion-icon>
+        <ion-select placeholder="tipo" #selectorType class="select-element" (ionChange)="changeType(selectorType)">
+            <ion-select-option *ngFor="let option of types" [value]="option.value">{{option.name}}</ion-select-option>
+        </ion-select>
+    </div>
+
+
+    <div class="check-container">
+        <ion-checkbox #check (click)="changeCheck(check)"></ion-checkbox>
+        <label>Tutoriza</label>
+    </div>
+
+
+</div>
